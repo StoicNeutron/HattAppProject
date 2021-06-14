@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "955969780294",
+    "project_id": "hatt-app",
+    "storage_bucket": "hatt-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:955969780294:android:d115f07d0bc0ee6e442847",
+        "android_client_info": {
+          "package_name": "com.samnangthorn.hatt_app10"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "955969780294-knksr256v2fsihotsieo59vu6ak2878e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdBBn5FRDgCWMuslKokBtI9NT6FceiPbo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "955969780294-knksr256v2fsihotsieo59vu6ak2878e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

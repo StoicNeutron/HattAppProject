@@ -6,6 +6,108 @@
     android:layout_height="match_parent"
     tools:context=".Setup">
 
+    <Button
+        android:id="@+id/b1"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/view_bg_blue"
+        android:rotation="-15"
+        app:layout_constraintHorizontal_bias="0.40"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/logoView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/b2"
+        android:layout_width="73dp"
+        android:layout_height="73dp"
+        android:background="@drawable/view_bg_blue"
+        android:rotation="18"
+        app:layout_constraintVertical_bias="0.55"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/logoView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/b4"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:background="@drawable/view_bg_black"
+        android:rotation="4"
+        app:layout_constraintVertical_bias="0.40"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/logoView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/b5"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:background="@drawable/view_bg_black"
+        android:rotation="-9"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/logoView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.65"
+        app:layout_constraintHorizontal_bias="0.69"/>
+
+    <Button
+        android:id="@+id/b3"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:background="@drawable/view_bg_black"
+        android:rotation="14"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/logoView"
+        app:layout_constraintHorizontal_bias="0.80"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.22" />
+
+    <Button
+        android:id="@+id/b6"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:background="@drawable/view_bg_blue"
+        android:rotation="-14"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/logoView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.09" />
+
+    <Button
+        android:id="@+id/b7"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:background="@drawable/view_bg_blue"
+        android:rotation="9"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/logoView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.16" />
+
+    <Button
+        android:id="@+id/b8"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/view_bg_blue"
+        android:rotation="30"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintEnd_toEndOf="@+id/logoView"
+        app:layout_constraintHorizontal_bias="0.80"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.48" />
+
+
     <ImageView
         android:id="@+id/logoView"
         android:layout_width="70dp"

@@ -8,10 +8,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+
 public class SignUp extends AppCompatActivity {
 
     Button btt_logIn, btt_signUp;
     ImageButton btt_back;
+    TextInputLayout userName, email, password1, password2;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +26,11 @@ public class SignUp extends AppCompatActivity {
         btt_logIn = (Button)findViewById(R.id.btt_logIn);
         btt_signUp = (Button)findViewById(R.id.btt_createAnAccount);
         btt_back = (ImageButton) findViewById(R.id.btt_back);
+        userName = findViewById(R.id.edt_userName);
+        email = findViewById(R.id.edt_email);
+        password1 = findViewById(R.id.edt_createPassword);
+        password2 = findViewById(R.id.edt_confirmPassword);
+        mAuth = FirebaseAuth.getInstance();
 
 
         btt_logIn.setOnClickListener(new View.OnClickListener() {
@@ -33,7 +43,7 @@ public class SignUp extends AppCompatActivity {
         btt_signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signUp();
+                signUp(email, password1);
             }
         });
 
@@ -57,7 +67,9 @@ public class SignUp extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void signUp() {
-        //later
+    public void signUp(TextInputLayout email, TextInputLayout password1) {
+        String Email = email.getEditText().toString();
+        String Password = password1.getEditText().toString();
     }
+
 }
