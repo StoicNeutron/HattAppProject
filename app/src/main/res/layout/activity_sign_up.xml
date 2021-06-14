@@ -44,6 +44,7 @@
                 app:srcCompat="@drawable/hattapp_logo" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edt_userName"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -51,49 +52,48 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/logoView"
+            app:counterEnabled="true"
+            app:helperText="*Must be less than 15 Characters"
+            app:counterMaxLength="14"
+            app:errorEnabled="true"
             android:layout_weight="1">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_userName"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:fontFamily="@font/roboto"
-                android:hint="USERNAME" />
+                android:hint="USERNAME"
+                android:inputType="textPersonName"/>
         </com.google.android.material.textfield.TextInputLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="*Must be less than 15 Characters"
-                android:layout_gravity="start"/>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edt_email"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            app:helperText="*This Email will be use as your future login"
+            app:errorEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/logoView"
             android:layout_weight="1">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_email"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:fontFamily="@font/roboto"
-                android:hint="EMAIL" />
+                android:hint="EMAIL"
+                android:inputType="textEmailAddress"/>
         </com.google.android.material.textfield.TextInputLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="*This Email will be use as your future login"
-                android:layout_gravity="start"/>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edt_createPassword"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            app:helperText="*Must include at least 1 number and 12 characters long"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/logoView"
@@ -101,24 +101,20 @@
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_createPassword"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:fontFamily="@font/roboto"
                 android:hint="CREATE PASSWORD"
                 android:inputType="textPassword"/>
         </com.google.android.material.textfield.TextInputLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="*Must include at least 1 number and 12 characters long"
-                android:layout_gravity="start"/>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edt_confirmPassword"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            app:helperText="Re-enter your new password"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/logoView"
@@ -126,18 +122,12 @@
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_confirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:fontFamily="@font/roboto"
                 android:hint="CONFIRM PASSWORD"
                 android:inputType="textPassword"/>
         </com.google.android.material.textfield.TextInputLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="*Re-enter your new password"
-                android:layout_gravity="start"/>
 
         <Button
             android:id="@+id/btt_createAnAccount"
