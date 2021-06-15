@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
 public class SignUp extends AppCompatActivity {
 
@@ -33,15 +34,14 @@ public class SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        btt_logIn = (Button)findViewById(R.id.btt_logIn);
-        btt_signUp = (Button)findViewById(R.id.btt_createAnAccount);
-        btt_back = (ImageButton) findViewById(R.id.btt_back);
+        btt_logIn = findViewById(R.id.btt_logIn);
+        btt_signUp = findViewById(R.id.btt_createAnAccount);
+        btt_back = findViewById(R.id.btt_back);
         userName = findViewById(R.id.edt_userName);
         email = findViewById(R.id.edt_email);
         password1 = findViewById(R.id.edt_createPassword);
         password2 = findViewById(R.id.edt_confirmPassword);
         mAuth = FirebaseAuth.getInstance();
-
 
         btt_logIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,9 +104,15 @@ public class SignUp extends AppCompatActivity {
                         mAuth.createUserWithEmailAndPassword(Email, Password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                Toast.makeText(SignUp.this, "Sign Up Successful!", Toast.LENGTH_SHORT).show();
-                                open_homeLayout();
-                                finish();
+                                if(task.isSuccessful()){
+                                    Toast.makeText(SignUp.this, "Sign Up Successful!", Toast.LENGTH_SHORT).show();
+                                    open_homeLayout();
+                                    finish();
+                                }else if(task.getException() instanceof FirebaseAuthUserCollisionException){
+                                    Toast.makeText(SignUp.this, "Account Already Exist!", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    Toast.makeText(SignUp.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
