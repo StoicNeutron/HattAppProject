@@ -109,15 +109,10 @@ public class SignUp extends AppCompatActivity {
                                     open_homeLayout();
                                     finish();
                                 }else if(task.getException() instanceof FirebaseAuthUserCollisionException){
-                                    Toast.makeText(SignUp.this, "Account Already Exist!", Toast.LENGTH_SHORT).show();
+                                    email.setError("Account associated to this Email is already exist!");
                                 }else{
                                     Toast.makeText(SignUp.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(SignUp.this, "Sign Up Failed!", Toast.LENGTH_SHORT).show();
                             }
                         });
                     } else {
