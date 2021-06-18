@@ -7,14 +7,34 @@
     android:background="@color/gray_light"
     tools:context=".Home">
 
+
     <View
-        android:id="@+id/view2"
+        android:id="@+id/view_top"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/btt_setting"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/setting_gray" />
+
+    <View
+        android:id="@+id/view_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <ImageView
         android:id="@+id/logoView"
@@ -26,30 +46,55 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/hattapp_logo" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/buttonNavigationView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/white"
-        app:itemIconSize="40dp"
-        app:labelVisibilityMode="unlabeled"
+    <ImageView
+        android:id="@+id/btt_home"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/item_menu"
-        app:itemBackground="@color/white">
+        app:srcCompat="@drawable/home_black" />
 
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Home Layout"
-        app:layout_constraintBottom_toTopOf="@+id/buttonNavigationView"
-        app:layout_constraintEnd_toEndOf="parent"
+    <ImageView
+        android:id="@+id/btt_report"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view2" />
+        app:srcCompat="@drawable/report_gray" />
+
+    <ImageView
+        android:id="@+id/btt_timer"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/timer_gray" />
+
+    <ImageView
+        android:id="@+id/btt_exercise"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btt_home"
+        app:layout_constraintStart_toEndOf="@+id/btt_report"
+        app:srcCompat="@drawable/dummbell_gray" />
+
+    <ImageView
+        android:id="@+id/btt_schedule"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btt_timer"
+        app:layout_constraintStart_toEndOf="@+id/btt_home"
+        app:srcCompat="@drawable/schedule_gray" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

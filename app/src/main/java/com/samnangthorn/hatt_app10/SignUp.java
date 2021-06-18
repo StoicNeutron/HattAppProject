@@ -21,19 +21,25 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignUp extends AppCompatActivity {
 
     Button btt_logIn, btt_signUp;
     ImageButton btt_back;
     TextInputLayout userName, email, password1, password2;
+    String UID;
     private FirebaseAuth mAuth;
+    private FirebaseFirestore firebase_database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
         btt_logIn = findViewById(R.id.btt_logIn);
         btt_signUp = findViewById(R.id.btt_createAnAccount);
         btt_back = findViewById(R.id.btt_back);
@@ -42,6 +48,7 @@ public class SignUp extends AppCompatActivity {
         password1 = findViewById(R.id.edt_createPassword);
         password2 = findViewById(R.id.edt_confirmPassword);
         mAuth = FirebaseAuth.getInstance();
+        firebase_database = FirebaseFirestore.getInstance();
 
         btt_logIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +113,11 @@ public class SignUp extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()){
                                     Toast.makeText(SignUp.this, "Sign Up Successful!", Toast.LENGTH_SHORT).show();
+                                    UID = mAuth.getCurrentUser().getUid();
+                                    DocumentReference documentReference = firebase_database.collection("User").document(UID);
+                                    Map<String, Object> User_data = new HashMap<>();
+                                    User_data.put("user_name", Username);
+                                    documentReference.set(User_data);
                                     open_homeLayout();
                                     finish();
                                 }else if(task.getException() instanceof FirebaseAuthUserCollisionException){
