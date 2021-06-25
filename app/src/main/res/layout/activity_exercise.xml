@@ -26,6 +26,85 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/setting_gray" />
 
+
+    <ImageView
+        android:id="@+id/logoView"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/hattapp_logo" />
+
+    <SearchView
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/outline_black"
+        android:queryHint="SEARCH EXERCISE"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_top"
+        android:iconifiedByDefault="false"/>
+
+    <TextView
+        android:id="@+id/txt_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:text="SORT BY:"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_bar" />
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text=" A - Z "
+        android:textColor="@color/blue"
+        android:gravity="center"
+        android:background="@drawable/outline_gray_dark"
+        app:layout_constraintStart_toEndOf="@+id/txt_view"
+        app:layout_constraintTop_toBottomOf="@+id/search_bar"/>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="198dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="78dp"
+        android:background="@drawable/outline_gray_dark"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="200dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="80dp"
+        android:background="@drawable/view_layout_white"/>
+
+    <ImageView
+        android:id="@+id/btt_addExercise"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/ic_add"
+        android:padding="20dp"
+        android:background="@drawable/outline_gray_dark"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="@+id/view"/>
+
     <View
         android:id="@+id/view_bottom"
         android:layout_width="match_parent"
@@ -34,16 +113,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
-
-    <ImageView
-        android:id="@+id/logoView"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="15dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/hattapp_logo" />
 
     <ImageView
         android:id="@+id/btt_home"
@@ -94,5 +163,6 @@
         app:layout_constraintEnd_toStartOf="@id/btt_timer"
         app:layout_constraintStart_toEndOf="@+id/btt_home"
         app:srcCompat="@drawable/schedule_gray" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,23 +8,58 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.timepicker.TimeFormat;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 public class Home extends AppCompatActivity {
 
     ImageView btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting;
+    TextView txt_day, txt_date, txt_time, txt_timeZone;
+    private Calendar realTime_data;
+    private TimeZone tz;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+
+
         btt_report = findViewById(R.id.btt_report);
         btt_exercise = findViewById(R.id.btt_exercise);
         btt_schedule = findViewById(R.id.btt_schedule);
         btt_timer = findViewById(R.id.btt_timer);
         btt_setting = findViewById(R.id.btt_setting);
+        txt_day = findViewById(R.id.txt_day);
+        txt_date = findViewById(R.id.txt_date);
+        txt_time = findViewById(R.id.txt_time);
+        txt_timeZone = findViewById(R.id.txt_timeZone);
+
+        tz = TimeZone.getDefault();
+        realTime_data = Calendar.getInstance();
+        String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(realTime_data.getTime());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
+        String time = simpleDateFormat.format(realTime_data.getTime());
+        int n = 0;
+        for(int x = 0; x < currentDate.length(); x++){
+            if(currentDate.charAt(x) == 44){
+                n = x;
+                break;
+            }
+        }
+        String nameofDay = currentDate.substring(0, n);
+        String subDate = currentDate.substring(n+1, currentDate.length());
+        txt_day.setText(nameofDay);
+        txt_date.setText(subDate);
+        txt_time.setText(time);
+        txt_timeZone.setText(tz.getID());
 
         btt_setting.setOnClickListener(new View.OnClickListener() {
             @Override

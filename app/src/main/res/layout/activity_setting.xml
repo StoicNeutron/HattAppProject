@@ -130,8 +130,7 @@
                     android:text="USER@EMAIL.COM"
                     android:textColor="@color/black"
                     android:fontFamily="@font/roboto"
-                    android:layout_marginTop="10dp"
-                    android:textAllCaps="true" />
+                    android:layout_marginTop="10dp" />
 
             </LinearLayout>
 
@@ -211,11 +210,13 @@
                     android:orientation="horizontal">
 
                     <RadioButton
+                        android:id="@+id/kg_unit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="METER - KG"/>
 
                     <RadioButton
+                        android:id="@+id/lb_unit"
                         android:layout_marginStart="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

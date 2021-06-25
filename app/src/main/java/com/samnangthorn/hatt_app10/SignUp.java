@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.MotionEvent;
@@ -35,6 +36,8 @@ public class SignUp extends AppCompatActivity {
     String UID;
     private FirebaseAuth mAuth;
     private FirebaseFirestore firebase_database;
+    private SharedPreferences getData;
+    private SharedPreferences.Editor editData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +120,13 @@ public class SignUp extends AppCompatActivity {
                                     DocumentReference documentReference = firebase_database.collection("User").document(UID);
                                     Map<String, Object> User_data = new HashMap<>();
                                     User_data.put("user_name", Username);
+                                    User_data.put("email_address", Email);
+                                    User_data.put("unit", "NonUS");
                                     documentReference.set(User_data);
+                                    editData.putString("user_name", Username);
+                                    editData.putString("email_address", Email);
+                                    editData.putString("unit", "NonUS");
+                                    editData.apply();
                                     open_homeLayout();
                                     finish();
                                 }else if(task.getException() instanceof FirebaseAuthUserCollisionException){

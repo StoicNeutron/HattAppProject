@@ -1,32 +1,30 @@
 package com.samnangthorn.hatt_app10;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 
-public class Exercise extends AppCompatActivity {
+public class AddExercise extends AppCompatActivity {
 
-    ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_addExercise;
-    RecyclerView recyclerView;
-    dataBaseHelper myDB;
-    ArrayList<String> exerciseName, mainTarget, subTarget, dis;
+    ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_back, btt_addNewExercise;
+    TextInputLayout dt_mainTarget, dt_subTarget, edt_exerciseName, edt_description;
+    AutoCompleteTextView autoTxt_1, autoTxt_2;
+    String[] muscleGroup_list = {"Bicep", "Triceps", "Shoulder", "Chest", "Traps", "Abs", "Forearm", "Quads", "Calves", "Hamstrings", "Lower back", "Middle back", "Lats" };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_exercise);
+        setContentView(R.layout.activity_add_exercise);
 
         btt_home = findViewById(R.id.btt_home);
         btt_report = findViewById(R.id.btt_report);
@@ -34,21 +32,26 @@ public class Exercise extends AppCompatActivity {
         btt_schedule = findViewById(R.id.btt_schedule);
         btt_timer = findViewById(R.id.btt_timer);
         btt_setting = findViewById(R.id.btt_setting);
-        recyclerView = findViewById(R.id.recycleView);
-        btt_addExercise = findViewById(R.id.btt_addExercise);
+        dt_mainTarget = findViewById(R.id.edt_mainTarget);
+        dt_subTarget = findViewById(R.id.edt_subTarget);
+        autoTxt_1 = findViewById(R.id.autoTxt_1);
+        autoTxt_2 = findViewById(R.id.autoTxt_2);
+        btt_back = findViewById(R.id.btt_back);
+        btt_addNewExercise = findViewById(R.id.btt_addNewExercise);
+        edt_exerciseName = findViewById(R.id.edt_exerciseName);
+        edt_description = findViewById(R.id.edt_description);
 
-        myDB = new dataBaseHelper(Exercise.this);
-        exerciseName = new ArrayList<String>();
-        mainTarget = new ArrayList<String>();
-        subTarget = new ArrayList<String>();
-        dis = new ArrayList<String>();
+        ArrayList<String> arrayList = new ArrayList<String>();
+        for (int x = 0; x< muscleGroup_list.length; x++){
+            arrayList.add(muscleGroup_list[x]);
+        }
 
-        transferToArrayList();
+        ArrayAdapter arrayAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, arrayList);
+        autoTxt_1.setAdapter(arrayAdapter);
+        autoTxt_2.setAdapter(arrayAdapter);
 
-        RVAdapter rvAdapter = new RVAdapter(this, exerciseName);
-        recyclerView.setAdapter(rvAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        
 
         btt_home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,13 +92,28 @@ public class Exercise extends AppCompatActivity {
             }
         });
 
-        btt_addExercise.setOnClickListener(new View.OnClickListener() {
+        btt_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                open_addExerciseLayout();
+                open_exerciseLayout();
             }
         });
 
+        btt_addNewExercise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dataBaseHelper myDB = new dataBaseHelper(AddExercise.this);
+                String exerciseName = edt_exerciseName.getEditText().getText().toString();
+                String mainTarget = dt_mainTarget.getEditText().getText().toString();
+                String subTarget = dt_subTarget.getEditText().getText().toString();
+                String dis = edt_description.getEditText().getText().toString();
+                if(myDB.addExercise(exerciseName, mainTarget, subTarget, dis)){
+                    Toast.makeText(AddExercise.this, "Successful!", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(AddExercise.this, "Fail!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     // methods
@@ -125,8 +143,8 @@ public class Exercise extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void open_addExerciseLayout() {
-        Intent intent = new Intent(this, AddExercise.class);
+    public void open_exerciseLayout() {
+        Intent intent = new Intent(this, Exercise.class);
         startActivity(intent);
     }
 
@@ -135,20 +153,6 @@ public class Exercise extends AppCompatActivity {
             overridePendingTransition(R.anim.sa_slide_in_right, R.anim.sa_slide_out_left);
         }else if(leftOrRight.equalsIgnoreCase("left")){
             overridePendingTransition(R.anim.sa_slide_in_left, R.anim.sa_slide_out_right);
-        }
-    }
-
-    public void transferToArrayList(){
-        Cursor cursor = myDB.readAllAtr();
-        if(cursor.getCount() == 0){
-            //None
-        }else{
-            while(cursor.moveToNext()){
-                exerciseName.add(cursor.getString(1));
-                mainTarget.add(cursor.getString(2));
-                subTarget.add(cursor.getString(3));
-                dis.add(cursor.getString(4));
-            }
         }
     }
 }

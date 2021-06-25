@@ -1,15 +1,18 @@
 package com.samnangthorn.hatt_app10;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,14 +24,24 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class LogIn extends AppCompatActivity {
 
     Button btt_logIn;
     TextView btt_signUp, btt_forgotPassword, notification_txt;
     ImageButton btt_back;
+    ProgressBar progressBar;
     TextInputLayout email, password;
+    String UID;
     FirebaseAuth mAuth;
+    SharedPreferences getData;
+    SharedPreferences.Editor editData;
+    private FirebaseFirestore firebase_database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +55,14 @@ public class LogIn extends AppCompatActivity {
         notification_txt = findViewById(R.id.notification_text);
         email = findViewById(R.id.edt_email);
         password = findViewById(R.id.edt_Password);
+        progressBar = findViewById(R.id.progressBar);
         mAuth = FirebaseAuth.getInstance();
+
+        //Account already exist condition
+        if(mAuth.getCurrentUser() != null){
+            open_homeLayout();
+            finish();
+        }
 
         btt_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +119,22 @@ public class LogIn extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
+                                progressBar.setVisibility(View.VISIBLE);
                                 Toast.makeText(LogIn.this, "LogIn Successful!", Toast.LENGTH_SHORT).show();
+                                firebase_database = FirebaseFirestore.getInstance();
+                                UID = mAuth.getCurrentUser().getUid();
+                                DocumentReference documentReference = firebase_database.collection("User").document(UID);
+                                getData = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
+                                editData = getData.edit();
+                                documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        editData.putString("user_name", documentSnapshot.getString("user_name"));
+                                        editData.putString("email_address", documentSnapshot.getString("email_address"));
+                                        editData.putString("unit", documentSnapshot.getString("unit"));
+                                        editData.apply();
+                                    }
+                                });
                                 open_homeLayout();
                                 finish();
                             }else{
