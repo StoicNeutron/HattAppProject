@@ -19,8 +19,7 @@ public class dataBaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_1 = "exercise_name";
     private static final String COLUMN_2 = "main_muscle_target";
     private static final String COLUMN_3 = "sub_muscle_target";
-    private static final String COLUMN_4 = "sub_muscle_target";
-    private static final String COLUMN_5 = "exercise_dis";
+    private static final String COLUMN_4 = "exercise_dis";
 
     public dataBaseHelper(@Nullable Context context) {
         super(context, DataBase_Name, null, DataBase_Version);

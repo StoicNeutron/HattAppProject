@@ -150,7 +150,6 @@
                     android:textColor="@color/black"/>
 
                 <TextView
-                    android:id="@+id/txt_userWeight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="USER WEIGHT"
@@ -177,7 +176,6 @@
                     android:textColor="@color/black"/>
 
                 <TextView
-                    android:id="@+id/txt_userHeight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="USER Height"
@@ -247,7 +245,6 @@
                 android:gravity="start">
 
                 <Button
-                    android:id="@+id/btt_about"
                     android:layout_width="70dp"
                     android:layout_height="30dp"
                     android:layout_marginTop="10dp"
@@ -299,7 +296,6 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/btt_save"
         android:layout_width="70dp"
         android:layout_height="30dp"
         android:layout_marginBottom="100dp"

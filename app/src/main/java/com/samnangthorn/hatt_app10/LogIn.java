@@ -158,7 +158,7 @@ public class LogIn extends AppCompatActivity {
     }
 
     public void open_homeLayout() {
-        Intent intent = new Intent(this, Home.class);
+        Intent intent = new Intent(this, NewUserSetUp.class);
         startActivity(intent);
     }
 
