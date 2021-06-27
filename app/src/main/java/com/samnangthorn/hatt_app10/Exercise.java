@@ -6,22 +6,30 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.resources.TextAppearanceConfig;
 
 import java.util.ArrayList;
 
 public class Exercise extends AppCompatActivity {
 
-    ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_addExercise;
+    ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_addExercise, btt_goLeft, btt_goRight;
+    TextView btt_MG, view_MG;
     RecyclerView recyclerView;
     dataBaseHelper myDB;
     ArrayList<String> exerciseName, mainTarget, subTarget, dis;
+    SearchView searchView;
+    SharedPreferences getData;
+    SharedPreferences.Editor editData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +44,11 @@ public class Exercise extends AppCompatActivity {
         btt_setting = findViewById(R.id.btt_setting);
         recyclerView = findViewById(R.id.recycleView);
         btt_addExercise = findViewById(R.id.btt_addExercise);
+        btt_MG = findViewById(R.id.btt_MG);
+        view_MG = findViewById(R.id.MG_view);
+        btt_goLeft = findViewById(R.id.btt_goLeft);
+        btt_goRight = findViewById(R.id.btt_goRight);
+        searchView = findViewById(R.id.search_bar);
 
         myDB = new dataBaseHelper(Exercise.this);
         exerciseName = new ArrayList<String>();
@@ -93,6 +106,51 @@ public class Exercise extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 open_addExerciseLayout();
+            }
+        });
+
+        btt_MG.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                getData = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
+                editData = getData.edit();
+
+                if(getData.getString("MG", "ERROR").equalsIgnoreCase("false")){
+                    view_MG.setVisibility(View.VISIBLE);
+                    btt_goLeft.setVisibility(View.VISIBLE);
+                    btt_goRight.setVisibility(View.VISIBLE);
+                    btt_MG.setTextColor(getResources().getColor(R.color.blue));
+                    editData.putString("MG", "true");
+                }else{
+                    view_MG.setVisibility(View.GONE);
+                    btt_goLeft.setVisibility(View.GONE);
+                    btt_goRight.setVisibility(View.GONE);
+                    btt_MG.setTextColor(getResources().getColor(R.color.black));
+                    editData.putString("MG", "false");
+                }
+                editData.apply();
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                ArrayList<String> tempArray = new ArrayList<String>();
+                for(int x = 0; x < exerciseName.size(); x++){
+                    if(exerciseName.get(x).toLowerCase().contains(newText.toLowerCase())){
+                        tempArray.add(exerciseName.get(x));
+                    }
+                }
+                RVAdapter rvAdapter = new RVAdapter(getApplicationContext(), tempArray);
+                recyclerView.setAdapter(rvAdapter);
+
+                return false;
             }
         });
 

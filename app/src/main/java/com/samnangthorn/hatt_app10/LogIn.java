@@ -132,10 +132,11 @@ public class LogIn extends AppCompatActivity {
                                         editData.putString("user_name", documentSnapshot.getString("user_name"));
                                         editData.putString("email_address", documentSnapshot.getString("email_address"));
                                         editData.putString("unit", documentSnapshot.getString("unit"));
+                                        editData.putString("MG", "false");
                                         editData.apply();
                                     }
                                 });
-                                open_homeLayout();
+                                open_newUserSetUpLayout();
                                 finish();
                             }else{
                                 if(task.getException().getMessage().equalsIgnoreCase("The password is invalid or the user does not have a password.")){
@@ -158,6 +159,11 @@ public class LogIn extends AppCompatActivity {
     }
 
     public void open_homeLayout() {
+        Intent intent = new Intent(this, Home.class);
+        startActivity(intent);
+    }
+
+    public void open_newUserSetUpLayout() {
         Intent intent = new Intent(this, NewUserSetUp.class);
         startActivity(intent);
     }
