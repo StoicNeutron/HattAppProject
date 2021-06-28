@@ -61,10 +61,10 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
 
         @Override
         public void onClick(View v) {
-            onExeClickListener.onExeClick(getAdapterPosition());
+            onExeClickListener.onExeClick(getAdapterPosition(), exerciseName);
         }
     }
     public interface onExeClickListener{
-        void onExeClick(int position);
+        void onExeClick(int position, ArrayList<String> nameList);
     }
 }

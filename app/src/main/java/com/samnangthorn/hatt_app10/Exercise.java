@@ -146,8 +146,6 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
                 for(int x = 0; x < exerciseName.size(); x++){
                     if(exerciseName.get(x).toLowerCase().contains(newText.toLowerCase())){
                         tempArray.add(exerciseName.get(x));
-                    }else{
-                        tempArray.add(null);
                     }
                 }
                 RVAdapter rvAdapter = new RVAdapter(getApplicationContext(), tempArray, Exercise.this::onExeClick);
@@ -242,10 +240,10 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
     }
 
     @Override
-    public void onExeClick(int position) {
+    public void onExeClick(int position, ArrayList<String> nameList) {
 
         Intent intent = new Intent(this, DetailExercise.class);
-        intent.putExtra("eName", exerciseName.get(position));
+        intent.putExtra("eName", nameList.get(position));
         intent.putExtra("mTarget", mainTarget.get(position));
         intent.putExtra("sTarget", subTarget.get(position));
         intent.putExtra("des", dis.get(position));
