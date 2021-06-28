@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Hatt_App10">
-        <activity android:name=".NewUserSetUp"></activity>
+        <activity android:name=".DetailExercise"></activity>
+        <activity android:name=".NewUserSetUp" />
         <activity android:name=".AddExercise" />
         <activity android:name=".Setting" />
         <activity android:name=".Timer" />

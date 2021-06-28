@@ -20,7 +20,7 @@ import com.google.android.material.resources.TextAppearanceConfig;
 
 import java.util.ArrayList;
 
-public class Exercise extends AppCompatActivity {
+public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickListener{
 
     ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_addExercise, btt_goLeft, btt_goRight;
     TextView btt_MG, view_MG;
@@ -58,7 +58,7 @@ public class Exercise extends AppCompatActivity {
 
         transferToArrayList();
 
-        RVAdapter rvAdapter = new RVAdapter(this, exerciseName);
+        RVAdapter rvAdapter = new RVAdapter(this, exerciseName, this);
         recyclerView.setAdapter(rvAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -147,7 +147,7 @@ public class Exercise extends AppCompatActivity {
                         tempArray.add(exerciseName.get(x));
                     }
                 }
-                RVAdapter rvAdapter = new RVAdapter(getApplicationContext(), tempArray);
+                RVAdapter rvAdapter = new RVAdapter(getApplicationContext(), tempArray, Exercise.this::onExeClick);
                 recyclerView.setAdapter(rvAdapter);
 
                 return false;
@@ -208,5 +208,17 @@ public class Exercise extends AppCompatActivity {
                 dis.add(cursor.getString(4));
             }
         }
+    }
+
+    @Override
+    public void onExeClick(int position) {
+
+        Intent intent = new Intent(this, DetailExercise.class);
+        intent.putExtra("eName", exerciseName.get(position));
+        intent.putExtra("mTarget", mainTarget.get(position));
+        intent.putExtra("sTarget", subTarget.get(position));
+        intent.putExtra("des", dis.get(position));
+
+        startActivity(intent);
     }
 }

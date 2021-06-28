@@ -20,10 +20,12 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
     ArrayList<String> exerciseName;
     Context context;
     Animation exerciseAnimation;
+    onExeClickListener onExeClickListener;
 
-    public RVAdapter (Context context, ArrayList<String> Name){
+    public RVAdapter (Context context, ArrayList<String> Name, onExeClickListener onExeClickListener){
         this.context = context;
         this.exerciseName = Name;
+        this.onExeClickListener = onExeClickListener;
     }
 
     @NonNull
@@ -32,7 +34,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.items_layout, parent, false);
 
-        return new MyViewHolder(view);
+        return new MyViewHolder(view, onExeClickListener);
     }
 
     @Override
@@ -45,14 +47,25 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
         return exerciseName.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView txt_1;
+        onExeClickListener onExeClickListener;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, onExeClickListener onExeClickListener) {
 
             super(itemView);
             txt_1 = itemView.findViewById(R.id.txt_exerciseName);
+            this.onExeClickListener = onExeClickListener;
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            onExeClickListener.onExeClick(getAdapterPosition());
+        }
+    }
+    public interface onExeClickListener{
+        void onExeClick(int position);
     }
 }
