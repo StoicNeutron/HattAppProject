@@ -1,4 +1,4 @@
-package com.samnangthorn.hatt_app10;
+                                                                                                                                                                                                                                                                                                                                                                                            package com.samnangthorn.hatt_app10;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,7 +16,7 @@ public class NewUserSetUp extends AppCompatActivity {
 
         dataBaseHelper myDB = new dataBaseHelper(NewUserSetUp.this);
         for(int x = 0; x < Helper.eName_List.length; x++){
-            myDB.addExercise(Helper.eName_List[x], "mainTarget", "subTarget", "dis");
+            myDB.addExercise(Helper.eName_List[x], "NOT FOUND", "NOT FOUND", "NOT FOUND");
         }
 
         Intent intent = new Intent(this, Home.class);

@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
-                android:text="Exercise Name"
+                android:text="EXERCISE NAME"
                 android:textColor="@color/gray_dark"/>
             <TextView
                 android:id="@+id/txt_eName"
@@ -103,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
-                android:text="Main Muscle Target"
+                android:text="MAIN MUSCLE TARGET"
                 android:textColor="@color/gray_dark"/>
             <TextView
                 android:id="@+id/txt_mTarget"
@@ -125,7 +125,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
-                android:text="Sub Muscle Target"
+                android:text="SUB MUSCLE TARGET"
                 android:textColor="@color/gray_dark"/>
             <TextView
                 android:id="@+id/txt_sTarget"
@@ -147,7 +147,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
-                android:text="Description"
+                android:text="DESCRIPTION"
                 android:textColor="@color/gray_dark"/>
             <TextView
                 android:id="@+id/txt_dis"

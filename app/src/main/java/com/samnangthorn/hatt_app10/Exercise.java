@@ -118,6 +118,7 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
 
                 if(getData.getString("MG", "ERROR").equalsIgnoreCase("false")){
                     view_MG.setVisibility(View.VISIBLE);
+                    view_MG.setText(Helper.muscleGroup_List[getData.getInt("MG_Index", 0)]);
                     btt_goLeft.setVisibility(View.VISIBLE);
                     btt_goRight.setVisibility(View.VISIBLE);
                     btt_MG.setTextColor(getResources().getColor(R.color.blue));
@@ -145,12 +146,42 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
                 for(int x = 0; x < exerciseName.size(); x++){
                     if(exerciseName.get(x).toLowerCase().contains(newText.toLowerCase())){
                         tempArray.add(exerciseName.get(x));
+                    }else{
+                        tempArray.add(null);
                     }
                 }
                 RVAdapter rvAdapter = new RVAdapter(getApplicationContext(), tempArray, Exercise.this::onExeClick);
                 recyclerView.setAdapter(rvAdapter);
 
                 return false;
+            }
+        });
+
+        btt_goRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int index = getData.getInt("MG_Index", 0);
+                index += 1;
+                if (index == (Helper.muscleGroup_List.length - 1)){
+                    index = 0;
+                }
+                view_MG.setText(Helper.muscleGroup_List[index]);
+                editData.putInt("MG_Index", index);
+                editData.apply();
+            }
+        });
+
+        btt_goLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int index = getData.getInt("MG_Index", 0);
+                index += 1;
+                if (index == 0){
+                    index = Helper.muscleGroup_List.length-1;
+                }
+                view_MG.setText(Helper.muscleGroup_List[index]);
+                editData.putInt("MG_Index", index);
+                editData.apply();
             }
         });
 

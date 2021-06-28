@@ -133,6 +133,7 @@ public class LogIn extends AppCompatActivity {
                                         editData.putString("email_address", documentSnapshot.getString("email_address"));
                                         editData.putString("unit", documentSnapshot.getString("unit"));
                                         editData.putString("MG", "false");
+                                        editData.putInt("MG_Index", 0);
                                         editData.apply();
                                     }
                                 });

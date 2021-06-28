@@ -19,7 +19,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
 
     ArrayList<String> exerciseName;
     Context context;
-    Animation exerciseAnimation;
     onExeClickListener onExeClickListener;
 
     public RVAdapter (Context context, ArrayList<String> Name, onExeClickListener onExeClickListener){
