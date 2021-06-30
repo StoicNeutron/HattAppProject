@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,10 +31,11 @@ import java.util.Map;
 
 public class SignUp extends AppCompatActivity {
 
-    Button btt_logIn, btt_signUp;
-    ImageButton btt_back;
-    TextInputLayout userName, email, password1, password2;
-    String UID;
+    private Button btt_logIn, btt_signUp;
+    private ImageButton btt_back;
+    private TextInputLayout userName, email, password1, password2;
+    private ProgressBar progressBar;
+    private String UID;
     private FirebaseAuth mAuth;
     private FirebaseFirestore firebase_database;
     private SharedPreferences getData;
@@ -43,6 +45,7 @@ public class SignUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
         btt_logIn = findViewById(R.id.btt_logIn);
         btt_signUp = findViewById(R.id.btt_createAnAccount);
         btt_back = findViewById(R.id.btt_back);
@@ -52,6 +55,7 @@ public class SignUp extends AppCompatActivity {
         password2 = findViewById(R.id.edt_confirmPassword);
         mAuth = FirebaseAuth.getInstance();
         firebase_database = FirebaseFirestore.getInstance();
+        progressBar = findViewById(R.id.progressBar);
 
         btt_logIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,17 +81,17 @@ public class SignUp extends AppCompatActivity {
 
     //Methods
 
-    public void open_logInLayout() {
+    private void open_logInLayout() {
         Intent intent = new Intent(this, LogIn.class);
         startActivity(intent);
     }
 
-    public void open_setUpLayout() {
+    private void open_setUpLayout() {
         Intent intent = new Intent(this, Setup.class);
         startActivity(intent);
     }
 
-    public void signUp(TextInputLayout email, TextInputLayout password1, TextInputLayout userName, TextInputLayout password2) {
+    private void signUp(TextInputLayout email, TextInputLayout password1, TextInputLayout userName, TextInputLayout password2) {
         String Email = email.getEditText().getText().toString();
         String Password = password1.getEditText().getText().toString();
         String confirmPassword = password2.getEditText().getText().toString();
@@ -115,19 +119,31 @@ public class SignUp extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()){
+                                    progressBar.setVisibility(View.VISIBLE);
                                     Toast.makeText(SignUp.this, "Sign Up Successful!", Toast.LENGTH_SHORT).show();
+                                    // Remote data
                                     UID = mAuth.getCurrentUser().getUid();
                                     DocumentReference documentReference = firebase_database.collection("User").document(UID);
                                     Map<String, Object> User_data = new HashMap<>();
                                     User_data.put("user_name", Username);
                                     User_data.put("email_address", Email);
+                                    User_data.put("weight", "0");
+                                    User_data.put("height", "0");
                                     User_data.put("unit", "NonUS");
                                     documentReference.set(User_data);
+                                    // local data
+                                    getData = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
+                                    editData = getData.edit();
                                     editData.putString("user_name", Username);
                                     editData.putString("email_address", Email);
                                     editData.putString("unit", "NonUS");
+                                    editData.putString("weight", "0");
+                                    editData.putString("height", "0");
+                                    editData.putString("MG", "false");
+                                    editData.putInt("MG_Index", 0);
+                                    editData.putString("UID", UID);
                                     editData.apply();
-                                    open_homeLayout();
+                                    open_NewUserSetUpLayout();
                                     finish();
                                 }else if(task.getException() instanceof FirebaseAuthUserCollisionException){
                                     email.setError("Account associated to this Email is already exist!");
@@ -152,8 +168,8 @@ public class SignUp extends AppCompatActivity {
         }
     }
 
-    public void open_homeLayout() {
-        Intent intent = new Intent(this, Home.class);
+    private void open_NewUserSetUpLayout() {
+        Intent intent = new Intent(this, NewUserSetUp.class);
         startActivity(intent);
     }
 

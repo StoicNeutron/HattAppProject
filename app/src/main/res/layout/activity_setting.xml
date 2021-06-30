@@ -7,6 +7,7 @@
     android:background="@color/gray_light"
     tools:context=".Setting">
 
+
     <View
         android:id="@+id/view_top"
         android:layout_width="match_parent"
@@ -60,6 +61,7 @@
         app:layout_constraintTop_toBottomOf="@id/view_top" />
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="20dp"
@@ -103,6 +105,7 @@
                     android:fontFamily="@font/roboto"
                     android:layout_marginLeft="20dp"
                     android:textAllCaps="true"
+                    android:layout_gravity="center_vertical"
                     android:inputType="textPersonName"/>
 
             </LinearLayout>
@@ -117,10 +120,11 @@
                 android:gravity="start">
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="80dp"
                     android:layout_marginTop="10dp"
                     android:layout_height="wrap_content"
                     android:text="EMAIL: "
+                    android:textSize="14dp"
                     android:textColor="@color/black"/>
 
                 <TextView
@@ -128,6 +132,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="USER@EMAIL.COM"
+                    android:textSize="14dp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/roboto"
                     android:layout_marginTop="10dp" />
@@ -143,20 +148,63 @@
                 android:gravity="start">
 
                 <TextView
-                    android:layout_width="70dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:text="WEIGHT: "
+                    android:textSize="14dp"
                     android:textColor="@color/black"/>
 
-                <TextView
+                <EditText
+                    android:id="@+id/edt_weight"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="USER WEIGHT"
+                    android:layout_height="40dp"
+                    android:text="65"
+                    android:textSize="14dp"
+                    android:inputType="numberDecimal"
                     android:textColor="@color/black"
                     android:fontFamily="@font/roboto"
-                    android:layout_marginTop="10dp"
                     android:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/txt_wUnit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" KG"
+                    android:textColor="@color/black"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="start">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="HEIGHT: "
+                    android:textSize="14dp"
+                    android:textColor="@color/black"/>
+
+                <EditText
+                    android:id="@+id/edt_height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="1.82"
+                    android:textSize="14dp"
+                    android:inputType="numberDecimal"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/roboto"
+                    android:textAllCaps="true" />
+                <TextView
+                    android:id="@+id/txt_hUnit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" M"
+                    android:textColor="@color/black"/>
 
             </LinearLayout>
 
@@ -170,35 +218,10 @@
 
                 <TextView
                     android:layout_width="70dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_height="wrap_content"
-                    android:text="HEIGHT: "
-                    android:textColor="@color/black"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="USER Height"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/roboto"
-                    android:layout_marginTop="10dp"
-                    android:textAllCaps="true" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:orientation="horizontal"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:gravity="start">
-
-                <TextView
-                    android:layout_width="60dp"
                     android:layout_marginTop="10dp"
                     android:layout_height="wrap_content"
                     android:text="UNIT: "
+                    android:textSize="14dp"
                     android:textColor="@color/black"/>
 
                 <RadioGroup
@@ -211,14 +234,16 @@
                         android:id="@+id/kg_unit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="METER - KG"/>
+                        android:text="METER - KG"
+                        android:textSize="14dp"/>
 
                     <RadioButton
                         android:id="@+id/lb_unit"
                         android:layout_marginStart="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="FEET - LB"/>
+                        android:text="FEET - LB"
+                        android:textSize="14dp"/>
 
                 </RadioGroup>
             </LinearLayout>
@@ -296,16 +321,17 @@
     </ScrollView>
 
     <Button
+        android:id="@+id/btt_save"
         android:layout_width="70dp"
         android:layout_height="30dp"
-        android:layout_marginBottom="100dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/button_bg_blue"
         android:fontFamily="@font/roboto"
         android:text="SAVE"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/scrollView"
+        app:layout_constraintEnd_toEndOf="@+id/scrollView" />
 
     <ImageView
         android:id="@+id/btt_home"

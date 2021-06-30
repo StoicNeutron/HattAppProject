@@ -12,17 +12,17 @@ import android.widget.ImageView;
 
 public class Setup extends AppCompatActivity {
 
-    Button signUp_btt, btt_logIn, b1, b2, b3, b4, b5, b6, b7, b8;
-    ImageView logo;
-    Animation logo_motion, motion2, motion3, motion4;
+    private Button signUp_btt, btt_logIn, b1, b2, b3, b4, b5, b6, b7, b8;
+    private ImageView logo;
+    private Animation logo_motion, motion2, motion3, motion4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup);
 
-        signUp_btt= (Button)findViewById(R.id.btt_signUp);
-        btt_logIn= (Button)findViewById(R.id.btt_logIn);
+        signUp_btt = findViewById(R.id.btt_signUp);
+        btt_logIn = findViewById(R.id.btt_logIn);
         logo = findViewById(R.id.logoView);
         b1 = findViewById(R.id.b1);
         b2 = findViewById(R.id.b2);
@@ -65,12 +65,12 @@ public class Setup extends AppCompatActivity {
 
     //Methods
 
-    public void open_signUpLayout() {
+    private void open_signUpLayout() {
         Intent intent = new Intent(this, SignUp.class);
         startActivity(intent);
     }
 
-    public void open_logInLayout() {
+    private void open_logInLayout() {
         Intent intent = new Intent(this, LogIn.class);
         startActivity(intent);
     }

@@ -17,4 +17,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/hattapp_logo" />
 
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,15 +32,15 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class LogIn extends AppCompatActivity {
 
-    Button btt_logIn;
-    TextView btt_signUp, btt_forgotPassword, notification_txt;
-    ImageButton btt_back;
-    ProgressBar progressBar;
-    TextInputLayout email, password;
-    String UID;
-    FirebaseAuth mAuth;
-    SharedPreferences getData;
-    SharedPreferences.Editor editData;
+    private Button btt_logIn;
+    private TextView btt_signUp, btt_forgotPassword, notification_txt;
+    private ImageButton btt_back;
+    private ProgressBar progressBar;
+    private TextInputLayout email, password;
+    private String UID;
+    private FirebaseAuth mAuth;
+    private SharedPreferences getData;
+    private SharedPreferences.Editor editData;
     private FirebaseFirestore firebase_database;
 
     @Override
@@ -97,17 +97,17 @@ public class LogIn extends AppCompatActivity {
 
     //Methods
 
-    public void open_setUpLayout() {
+    private void open_setUpLayout() {
         Intent intent = new Intent(this, Setup.class);
         startActivity(intent);
     }
 
-    public void open_signUpLayout() {
+    private void open_signUpLayout() {
         Intent intent = new Intent(this, SignUp.class);
         startActivity(intent);
     }
 
-    public void logIn(TextInputLayout email, TextInputLayout password) {
+    private void logIn(TextInputLayout email, TextInputLayout password) {
             String Email = email.getEditText().getText().toString();
             String Password = password.getEditText().getText().toString();
 
@@ -132,6 +132,8 @@ public class LogIn extends AppCompatActivity {
                                         editData.putString("user_name", documentSnapshot.getString("user_name"));
                                         editData.putString("email_address", documentSnapshot.getString("email_address"));
                                         editData.putString("unit", documentSnapshot.getString("unit"));
+                                        editData.putString("weight", documentSnapshot.getString("Weight"));
+                                        editData.putString("weight", documentSnapshot.getString("Height"));
                                         editData.putString("MG", "false");
                                         editData.putInt("MG_Index", 0);
                                         editData.apply();
@@ -159,17 +161,17 @@ public class LogIn extends AppCompatActivity {
             }
     }
 
-    public void open_homeLayout() {
+    private void open_homeLayout() {
         Intent intent = new Intent(this, Home.class);
         startActivity(intent);
     }
 
-    public void open_newUserSetUpLayout() {
+    private void open_newUserSetUpLayout() {
         Intent intent = new Intent(this, NewUserSetUp.class);
         startActivity(intent);
     }
 
-    public void forgot_password(String email, TextInputLayout email_box, TextInputLayout password_box, Button btt_logIn){
+    private void forgot_password(String email, TextInputLayout email_box, TextInputLayout password_box, Button btt_logIn){
         if(!email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override

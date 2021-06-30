@@ -123,12 +123,26 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
                     btt_goRight.setVisibility(View.VISIBLE);
                     btt_MG.setTextColor(getResources().getColor(R.color.blue));
                     editData.putString("MG", "true");
+
+                    //
+                    ArrayList<String> tempArray = new ArrayList<String>();
+                    for(int x = 0; x < exerciseName.size(); x++){
+                        if(exerciseName.get(x).toLowerCase().contains(Helper.muscleGroup_List[getData.getInt("MG_Index", 0)])){
+                            tempArray.add(exerciseName.get(x));
+                        }
+                    }
+                    RVAdapter rvAdapter = new RVAdapter(getApplicationContext(), tempArray, Exercise.this::onExeClick);
+                    recyclerView.setAdapter(rvAdapter);
+
                 }else{
                     view_MG.setVisibility(View.GONE);
                     btt_goLeft.setVisibility(View.GONE);
                     btt_goRight.setVisibility(View.GONE);
                     btt_MG.setTextColor(getResources().getColor(R.color.black));
                     editData.putString("MG", "false");
+
+                    RVAdapter rvAdapter = new RVAdapter(getApplicationContext(), exerciseName, Exercise.this::onExeClick);
+                    recyclerView.setAdapter(rvAdapter);
                 }
                 editData.apply();
             }
@@ -158,12 +172,24 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
         btt_goRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 int index = getData.getInt("MG_Index", 0);
                 index += 1;
-                if (index == (Helper.muscleGroup_List.length - 1)){
+                if (index >= (Helper.muscleGroup_List.length - 1)){
                     index = 0;
                 }
                 view_MG.setText(Helper.muscleGroup_List[index]);
+
+                //
+                ArrayList<String> tempArray = new ArrayList<String>();
+                for(int x = 0; x < exerciseName.size(); x++){
+                    if(exerciseName.get(x).toLowerCase().contains(Helper.muscleGroup_List[getData.getInt("MG_Index", 0)])){
+                        tempArray.add(exerciseName.get(x));
+                    }
+                }
+                RVAdapter rvAdapter = new RVAdapter(getApplicationContext(), tempArray, Exercise.this::onExeClick);
+                recyclerView.setAdapter(rvAdapter);
+
                 editData.putInt("MG_Index", index);
                 editData.apply();
             }
@@ -172,12 +198,24 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
         btt_goLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 int index = getData.getInt("MG_Index", 0);
-                index += 1;
+                index -= 1;
                 if (index == 0){
                     index = Helper.muscleGroup_List.length-1;
                 }
                 view_MG.setText(Helper.muscleGroup_List[index]);
+
+                //
+                ArrayList<String> tempArray = new ArrayList<String>();
+                for(int x = 0; x < exerciseName.size(); x++){
+                    if(exerciseName.get(x).toLowerCase().contains(Helper.muscleGroup_List[getData.getInt("MG_Index", 0)])){
+                        tempArray.add(exerciseName.get(x));
+                    }
+                }
+                RVAdapter rvAdapter = new RVAdapter(getApplicationContext(), tempArray, Exercise.this::onExeClick);
+                recyclerView.setAdapter(rvAdapter);
+
                 editData.putInt("MG_Index", index);
                 editData.apply();
             }
