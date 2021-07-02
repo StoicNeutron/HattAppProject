@@ -22,14 +22,14 @@ import java.util.ArrayList;
 
 public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickListener{
 
-    ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_addExercise, btt_goLeft, btt_goRight;
-    TextView btt_MG, view_MG;
-    RecyclerView recyclerView;
-    dataBaseHelper myDB;
-    ArrayList<String> exerciseName, mainTarget, subTarget, dis;
-    SearchView searchView;
-    SharedPreferences getData;
-    SharedPreferences.Editor editData;
+    private ImageView btt_home, btt_report, btt_schedule, btt_timer, btt_setting, btt_addExercise, btt_goLeft, btt_goRight;
+    private TextView btt_MG, btt_AZ, view_MG;
+    private RecyclerView recyclerView;
+    private dataBaseHelper myDB;
+    private ArrayList<String> exerciseName, mainTarget, subTarget, dis, sortedArray;
+    private SearchView searchView;
+    private SharedPreferences getData;
+    private SharedPreferences.Editor editData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,19 +38,21 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
 
         btt_home = findViewById(R.id.btt_home);
         btt_report = findViewById(R.id.btt_report);
-        btt_exercise = findViewById(R.id.btt_exercise);
         btt_schedule = findViewById(R.id.btt_schedule);
         btt_timer = findViewById(R.id.btt_timer);
         btt_setting = findViewById(R.id.btt_setting);
         recyclerView = findViewById(R.id.recycleView);
         btt_addExercise = findViewById(R.id.btt_addExercise);
         btt_MG = findViewById(R.id.btt_MG);
+        btt_AZ = findViewById(R.id.btt_AZ);
         view_MG = findViewById(R.id.MG_view);
         btt_goLeft = findViewById(R.id.btt_goLeft);
         btt_goRight = findViewById(R.id.btt_goRight);
         searchView = findViewById(R.id.search_bar);
 
         myDB = new dataBaseHelper(Exercise.this);
+        getData = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
+        editData = getData.edit();
         exerciseName = new ArrayList<String>();
         mainTarget = new ArrayList<String>();
         subTarget = new ArrayList<String>();
@@ -116,7 +118,12 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
                 getData = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
                 editData = getData.edit();
 
+                editData.putString("AZ", "false");
+                editData.apply();
+                btt_AZ.setTextColor(getResources().getColor(R.color.black));
+
                 if(getData.getString("MG", "ERROR").equalsIgnoreCase("false")){
+
                     view_MG.setVisibility(View.VISIBLE);
                     view_MG.setText(Helper.muscleGroup_List[getData.getInt("MG_Index", 0)]);
                     btt_goLeft.setVisibility(View.VISIBLE);
@@ -127,7 +134,7 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
                     //
                     ArrayList<String> tempArray = new ArrayList<String>();
                     for(int x = 0; x < exerciseName.size(); x++){
-                        if(exerciseName.get(x).toLowerCase().contains(Helper.muscleGroup_List[getData.getInt("MG_Index", 0)])){
+                        if(mainTarget.get(x).toLowerCase().contains(Helper.muscleGroup_List[getData.getInt("MG_Index", 0)])){
                             tempArray.add(exerciseName.get(x));
                         }
                     }
@@ -148,6 +155,56 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
             }
         });
 
+        btt_AZ.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getData = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
+                editData = getData.edit();
+                if(getData.getString("MG", "ERROR").equalsIgnoreCase("true")){
+                    view_MG.setVisibility(View.GONE);
+                    btt_goLeft.setVisibility(View.GONE);
+                    btt_goRight.setVisibility(View.GONE);
+                    btt_MG.setTextColor(getResources().getColor(R.color.black));
+                    editData.putString("MG", "false");
+                }
+                if(getData.getString("AZ", "ERROR").equalsIgnoreCase("false")){
+                    String[] eNameList = new String[exerciseName.size()];
+                    for(int x = 0; x < exerciseName.size(); x++){
+                        eNameList[x] = exerciseName.get(x);
+                    }
+                    // Bubble sort
+                    for(int x = 0; x < eNameList.length; x++){
+                        for(int y = 0; y < eNameList.length - 1; y++){
+                            if(eNameList[y].compareTo(eNameList[y+1]) > 0){
+                                //swap
+                                String temp = eNameList[y];
+                                eNameList[y] = eNameList[y+1];
+                                eNameList[y+1] = temp;
+                            }
+                        }
+                    }
+                    sortedArray = new ArrayList<String>();
+                    for(int x = 0; x < eNameList.length; x++){
+                        sortedArray.add(eNameList[x]);
+                    }
+                    RVAdapter rvAdapter = new RVAdapter(getApplicationContext(), sortedArray, Exercise.this::onExeClick);
+                    recyclerView.setAdapter(rvAdapter);
+
+                    editData.putString("AZ", "true");
+                    editData.apply();
+                    btt_AZ.setTextColor(getResources().getColor(R.color.blue));
+                }else if(getData.getString("AZ", "ERROR").equalsIgnoreCase("true")){
+                    RVAdapter rvAdapter = new RVAdapter(getApplicationContext(), exerciseName, Exercise.this::onExeClick);
+                    recyclerView.setAdapter(rvAdapter);
+
+                    editData.putString("AZ", "false");
+                    editData.apply();
+                    btt_AZ.setTextColor(getResources().getColor(R.color.black));
+                }
+
+            }
+        });
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -156,6 +213,20 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                // auto close MG view when search
+                view_MG.setVisibility(View.GONE);
+                btt_goLeft.setVisibility(View.GONE);
+                btt_goRight.setVisibility(View.GONE);
+                btt_MG.setTextColor(getResources().getColor(R.color.black));
+                editData.putString("MG", "false");
+                editData.apply();
+
+                // auto close AZ sort
+                editData.putString("AZ", "false");
+                editData.apply();
+                btt_AZ.setTextColor(getResources().getColor(R.color.black));
+
+                // query part
                 ArrayList<String> tempArray = new ArrayList<String>();
                 for(int x = 0; x < exerciseName.size(); x++){
                     if(exerciseName.get(x).toLowerCase().contains(newText.toLowerCase())){
@@ -182,8 +253,9 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
 
                 //
                 ArrayList<String> tempArray = new ArrayList<String>();
+                tempArray.clear();
                 for(int x = 0; x < exerciseName.size(); x++){
-                    if(exerciseName.get(x).toLowerCase().contains(Helper.muscleGroup_List[getData.getInt("MG_Index", 0)])){
+                    if(mainTarget.get(x).toLowerCase().equalsIgnoreCase(Helper.muscleGroup_List[index])){
                         tempArray.add(exerciseName.get(x));
                     }
                 }
@@ -201,7 +273,7 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
 
                 int index = getData.getInt("MG_Index", 0);
                 index -= 1;
-                if (index == 0){
+                if (index <= 0){
                     index = Helper.muscleGroup_List.length-1;
                 }
                 view_MG.setText(Helper.muscleGroup_List[index]);
@@ -209,7 +281,7 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
                 //
                 ArrayList<String> tempArray = new ArrayList<String>();
                 for(int x = 0; x < exerciseName.size(); x++){
-                    if(exerciseName.get(x).toLowerCase().contains(Helper.muscleGroup_List[getData.getInt("MG_Index", 0)])){
+                    if(mainTarget.get(x).toLowerCase().equalsIgnoreCase(Helper.muscleGroup_List[index])){
                         tempArray.add(exerciseName.get(x));
                     }
                 }
@@ -225,37 +297,37 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
 
     // methods
 
-    public void open_homeLayout() {
+    private void open_homeLayout() {
         Intent intent = new Intent(this, Home.class);
         startActivity(intent);
     }
 
-    public void open_settingLayout() {
+    private void open_settingLayout() {
         Intent intent = new Intent(this, Setting.class);
         startActivity(intent);
     }
 
-    public void open_reportLayout() {
+    private void open_reportLayout() {
         Intent intent = new Intent(this, Report.class);
         startActivity(intent);
     }
 
-    public void open_scheduleLayout() {
+    private void open_scheduleLayout() {
         Intent intent = new Intent(this, Schedule.class);
         startActivity(intent);
     }
 
-    public void open_timerLayout() {
+    private void open_timerLayout() {
         Intent intent = new Intent(this, Timer.class);
         startActivity(intent);
     }
 
-    public void open_addExerciseLayout() {
+    private void open_addExerciseLayout() {
         Intent intent = new Intent(this, AddExercise.class);
         startActivity(intent);
     }
 
-    public void transition_animation(String leftOrRight){
+    private void transition_animation(String leftOrRight){
         if(leftOrRight.equalsIgnoreCase("right")){
             overridePendingTransition(R.anim.sa_slide_in_right, R.anim.sa_slide_out_left);
         }else if(leftOrRight.equalsIgnoreCase("left")){
@@ -263,7 +335,7 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
         }
     }
 
-    public void transferToArrayList(){
+    private void transferToArrayList(){
         Cursor cursor = myDB.readAllAtr();
         if(cursor.getCount() == 0){
             //None
@@ -282,9 +354,9 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
 
         Intent intent = new Intent(this, DetailExercise.class);
         intent.putExtra("eName", nameList.get(position));
-        intent.putExtra("mTarget", mainTarget.get(position));
-        intent.putExtra("sTarget", subTarget.get(position));
-        intent.putExtra("des", dis.get(position));
+        intent.putExtra("mTarget", mainTarget.get(exerciseName.indexOf(nameList.get(position))));
+        intent.putExtra("sTarget", subTarget.get(exerciseName.indexOf(nameList.get(position))));
+        intent.putExtra("des", dis.get(exerciseName.indexOf(nameList.get(position))));
 
         startActivity(intent);
     }

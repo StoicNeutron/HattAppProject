@@ -126,6 +126,7 @@ public class SignUp extends AppCompatActivity {
                                     DocumentReference documentReference = firebase_database.collection("User").document(UID);
                                     Map<String, Object> User_data = new HashMap<>();
                                     User_data.put("user_name", Username);
+                                    User_data.put("uid", UID);
                                     User_data.put("email_address", Email);
                                     User_data.put("weight", "0");
                                     User_data.put("height", "0");
@@ -140,6 +141,7 @@ public class SignUp extends AppCompatActivity {
                                     editData.putString("weight", "0");
                                     editData.putString("height", "0");
                                     editData.putString("MG", "false");
+                                    editData.putString("AZ", "false");
                                     editData.putInt("MG_Index", 0);
                                     editData.putString("UID", UID);
                                     editData.apply();

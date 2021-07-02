@@ -130,12 +130,14 @@ public class LogIn extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                                         editData.putString("user_name", documentSnapshot.getString("user_name"));
+                                        editData.putString("uid", documentSnapshot.getString("uid"));
                                         editData.putString("email_address", documentSnapshot.getString("email_address"));
                                         editData.putString("unit", documentSnapshot.getString("unit"));
-                                        editData.putString("weight", documentSnapshot.getString("Weight"));
-                                        editData.putString("weight", documentSnapshot.getString("Height"));
+                                        editData.putString("weight", documentSnapshot.getString("weight"));
+                                        editData.putString("height", documentSnapshot.getString("height"));
                                         editData.putString("MG", "false");
                                         editData.putInt("MG_Index", 0);
+                                        editData.putString("AZ", "false");
                                         editData.apply();
                                     }
                                 });
@@ -151,7 +153,6 @@ public class LogIn extends AppCompatActivity {
                             }
                         }
                     });
-
                 } else {
                     email.setError("*Incorrect Email Format!");
                 }

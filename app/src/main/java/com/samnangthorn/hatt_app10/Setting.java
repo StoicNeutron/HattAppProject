@@ -3,12 +3,15 @@ package com.samnangthorn.hatt_app10;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -36,6 +40,7 @@ public class Setting extends AppCompatActivity {
     private SharedPreferences getData;
     private SharedPreferences.Editor editData;
     private FirebaseFirestore firebase_database;
+    private Dialog dialog;
 
     private String newUserName, newHeight, newWeight, newUnit;
 
@@ -62,6 +67,34 @@ public class Setting extends AppCompatActivity {
         btt_save = findViewById(R.id.btt_save);
         txt_wUnit = findViewById(R.id.txt_wUnit);
         txt_hUnit = findViewById(R.id.txt_hUnit);
+
+        dialog = new Dialog(Setting.this);
+        dialog.setContentView(R.layout.pop_up_dialog);
+
+
+
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false);
+
+        TextView btt_cancel, btt_logout;
+        btt_cancel = dialog.findViewById(R.id.pop_btt_cancel);
+        btt_logout = dialog.findViewById(R.id.pop_btt_logout);
+
+        btt_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        btt_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.getInstance().signOut();
+                open_setUpLayout();
+                finish();
+            }
+        });
 
         getData = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
         editData = getData.edit();
@@ -137,9 +170,7 @@ public class Setting extends AppCompatActivity {
         btt_signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAuth.getInstance().signOut();
-                open_setUpLayout();
-                finish();
+                dialog.show();
             }
         });
 
@@ -148,57 +179,39 @@ public class Setting extends AppCompatActivity {
             public void onClick(View v) {
                 boolean saveCondition = false;
 
-                if(!(userName.getText().toString().equals(getData.getString("user_name", "ERROR")))) {
+                if (!(userName.getText().toString().equals(getData.getString("user_name", "ERROR")))) {
                     newUserName = userName.getText().toString();
                     saveCondition = true;
                 }
-                if(!(height.getText().toString().equals(getData.getString("Height", "ERROR")))) {
+                if (!(height.getText().toString().equals(getData.getString("Height", "ERROR")))) {
                     newHeight = height.getText().toString();
                     saveCondition = true;
                 }
-                if(!(weight.getText().toString().equals(getData.getString("Weight", "ERROR")))) {
+                if (!(weight.getText().toString().equals(getData.getString("Weight", "ERROR")))) {
                     newWeight = weight.getText().toString();
                     saveCondition = true;
                 }
 
-                if(!(kg.isChecked() && getData.getString("unit", "ERROR").equalsIgnoreCase("NonUS"))){
+                if (!(kg.isChecked() && getData.getString("unit", "ERROR").equalsIgnoreCase("NonUS"))) {
                     saveCondition = true;
                 }
-                if(!(lb.isChecked() && getData.getString("unit", "ERROR").equalsIgnoreCase("US"))){
+                if (!(lb.isChecked() && getData.getString("unit", "ERROR").equalsIgnoreCase("US"))) {
                     saveCondition = true;
                 }
-
-                if(saveCondition){
+                if (saveCondition) {
                     String unit;
-                    if(kg.isChecked()){
+                    if (kg.isChecked()) {
                         newUnit = "NonUS";
-                        unit = "NonUS";
-                    }else{
+                    } else {
                         newUnit = "US";
-                        unit = "US";
                     }
-                    firebase_database = FirebaseFirestore.getInstance();
-                    DocumentReference documentReference = firebase_database.collection("User").document(getData.getString("UID", "ERROR"));
-                    Map<String, Object> User_data = new HashMap<>();
-                    User_data.put("user_name", userName.getText().toString());
-                    User_data.put("height", height.getText().toString());
-                    User_data.put("weight", weight.getText().toString());
-                    User_data.put("unit", unit);
-                    documentReference.update(User_data).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
-                                editData.putString("user_name", newUserName);
-                                editData.putString("unit", newUnit);
-                                editData.putString("weight", newWeight);
-                                editData.putString("height", newHeight);
-                                editData.apply();
-                                Toast.makeText(Setting.this, "Saved!", Toast.LENGTH_SHORT).show();
-                            }else{
-                                Toast.makeText(Setting.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+                    // update local data
+                    editData.putString("user_name", newUserName);
+                    editData.putString("unit", newUnit);
+                    editData.putString("weight", newWeight);
+                    editData.putString("height", newHeight);
+                    editData.apply();
+                    Toast.makeText(Setting.this, "Saved!", Toast.LENGTH_SHORT).show();
                 }
             }
         });

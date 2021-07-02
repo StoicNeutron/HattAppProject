@@ -17,11 +17,11 @@ import java.util.ArrayList;
 
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
 
-    ArrayList<String> exerciseName;
+    ArrayList<String> exerciseName, mT, sT, des;
     Context context;
     onExeClickListener onExeClickListener;
 
-    public RVAdapter (Context context, ArrayList<String> Name, onExeClickListener onExeClickListener){
+    public RVAdapter (Context context, ArrayList<String> Name,onExeClickListener onExeClickListener){
         this.context = context;
         this.exerciseName = Name;
         this.onExeClickListener = onExeClickListener;

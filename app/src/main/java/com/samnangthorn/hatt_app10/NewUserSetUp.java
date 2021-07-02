@@ -16,7 +16,7 @@ public class NewUserSetUp extends AppCompatActivity {
 
         dataBaseHelper myDB = new dataBaseHelper(NewUserSetUp.this);
         for(int x = 0; x < Helper.eName_List.length; x++){
-            myDB.addExercise(Helper.eName_List[x], "NOT FOUND", "NOT FOUND", "NOT FOUND");
+            myDB.addExercise(Helper.eName_List[x], Helper.mTarget_List[x], Helper.sTarget_List[x], Helper.des_List[x]);
         }
 
         Intent intent = new Intent(this, Home.class);

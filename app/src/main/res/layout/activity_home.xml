@@ -57,7 +57,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:text="Good Evening! User"
             android:textSize="16dp"
@@ -67,8 +67,8 @@
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:background="@color/blue" />
 
         <LinearLayout
@@ -76,8 +76,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:background="@color/gray_dark"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:gravity="start">
 
             <LinearLayout
@@ -153,14 +153,14 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:background="@color/gray_dark"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="12dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="30dp"
             android:textColor="@color/black"
             android:text="Your Today's Workout"
@@ -169,8 +169,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
             android:background="@color/gray_dark"/>
 
@@ -179,8 +179,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:background="@color/gray_dark"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:gravity="center">
 
             <TextView
@@ -208,14 +208,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:background="@color/gray_dark"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="30dp"
             android:text="Your Weekly Report"
             android:textSize="16dp"
@@ -225,8 +225,8 @@
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:background="@color/gray_dark"/>
 
         <LinearLayout
@@ -234,8 +234,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:background="@color/gray_dark"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:gravity="start">
 
             <TextView
@@ -265,8 +265,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:background="@color/gray_dark"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:gravity="start">
 
             <TextView
@@ -285,8 +285,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:background="@color/gray_dark"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:gravity="start">
 
             <LinearLayout
@@ -465,8 +465,8 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:src="@drawable/ic_expand_more"
             android:background="@color/blue"/>
 
