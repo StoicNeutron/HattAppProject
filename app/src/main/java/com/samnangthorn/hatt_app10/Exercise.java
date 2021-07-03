@@ -1,23 +1,16 @@
 package com.samnangthorn.hatt_app10;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.resources.TextAppearanceConfig;
-
 import java.util.ArrayList;
 
 public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickListener{
@@ -50,6 +43,7 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
         btt_goRight = findViewById(R.id.btt_goRight);
         searchView = findViewById(R.id.search_bar);
 
+        // initialization
         myDB = new dataBaseHelper(Exercise.this);
         getData = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
         editData = getData.edit();
@@ -58,13 +52,16 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
         subTarget = new ArrayList<String>();
         dis = new ArrayList<String>();
 
+        // query the database to ArrayList
         transferToArrayList();
 
+        // setup recycle view
         RVAdapter rvAdapter = new RVAdapter(this, exerciseName, this);
         recyclerView.setAdapter(rvAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
+        // on click listener
+        //
         btt_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,13 +112,12 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
             @Override
             public void onClick(View v) {
 
-                getData = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
-                editData = getData.edit();
-
+                // auto disable sorted AZ function
                 editData.putString("AZ", "false");
                 editData.apply();
                 btt_AZ.setTextColor(getResources().getColor(R.color.black));
 
+                // check sp if MG function is off then switch on
                 if(getData.getString("MG", "ERROR").equalsIgnoreCase("false")){
 
                     view_MG.setVisibility(View.VISIBLE);
@@ -131,16 +127,18 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
                     btt_MG.setTextColor(getResources().getColor(R.color.blue));
                     editData.putString("MG", "true");
 
-                    //
+                    // filter corresponding exercises to the following Muscle Group
                     ArrayList<String> tempArray = new ArrayList<String>();
                     for(int x = 0; x < exerciseName.size(); x++){
                         if(mainTarget.get(x).toLowerCase().contains(Helper.muscleGroup_List[getData.getInt("MG_Index", 0)])){
                             tempArray.add(exerciseName.get(x));
                         }
                     }
+                    // update recycle view
                     RVAdapter rvAdapter = new RVAdapter(getApplicationContext(), tempArray, Exercise.this::onExeClick);
                     recyclerView.setAdapter(rvAdapter);
 
+                    // check sp if MG function is on then switch off
                 }else{
                     view_MG.setVisibility(View.GONE);
                     btt_goLeft.setVisibility(View.GONE);
@@ -148,9 +146,11 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
                     btt_MG.setTextColor(getResources().getColor(R.color.black));
                     editData.putString("MG", "false");
 
+                    // update recycle view
                     RVAdapter rvAdapter = new RVAdapter(getApplicationContext(), exerciseName, Exercise.this::onExeClick);
                     recyclerView.setAdapter(rvAdapter);
                 }
+                // update sp key value
                 editData.apply();
             }
         });
@@ -158,8 +158,8 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
         btt_AZ.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getData = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
-                editData = getData.edit();
+
+                // check sp if MG function is on then switch off
                 if(getData.getString("MG", "ERROR").equalsIgnoreCase("true")){
                     view_MG.setVisibility(View.GONE);
                     btt_goLeft.setVisibility(View.GONE);
@@ -167,6 +167,8 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
                     btt_MG.setTextColor(getResources().getColor(R.color.black));
                     editData.putString("MG", "false");
                 }
+
+                // check sp if AZ function is off then switch on
                 if(getData.getString("AZ", "ERROR").equalsIgnoreCase("false")){
                     String[] eNameList = new String[exerciseName.size()];
                     for(int x = 0; x < exerciseName.size(); x++){
@@ -187,21 +189,26 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
                     for(int x = 0; x < eNameList.length; x++){
                         sortedArray.add(eNameList[x]);
                     }
+                    // update recycle view
                     RVAdapter rvAdapter = new RVAdapter(getApplicationContext(), sortedArray, Exercise.this::onExeClick);
                     recyclerView.setAdapter(rvAdapter);
 
+                    // update sp key value
                     editData.putString("AZ", "true");
                     editData.apply();
                     btt_AZ.setTextColor(getResources().getColor(R.color.blue));
+
+                    // check sp if AZ function is on then switch off
                 }else if(getData.getString("AZ", "ERROR").equalsIgnoreCase("true")){
+                    // update recycle view
                     RVAdapter rvAdapter = new RVAdapter(getApplicationContext(), exerciseName, Exercise.this::onExeClick);
                     recyclerView.setAdapter(rvAdapter);
 
+                    // update sp key value
                     editData.putString("AZ", "false");
                     editData.apply();
                     btt_AZ.setTextColor(getResources().getColor(R.color.black));
                 }
-
             }
         });
 
@@ -233,6 +240,7 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
                         tempArray.add(exerciseName.get(x));
                     }
                 }
+                // update recycle view
                 RVAdapter rvAdapter = new RVAdapter(getApplicationContext(), tempArray, Exercise.this::onExeClick);
                 recyclerView.setAdapter(rvAdapter);
 
@@ -244,6 +252,7 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
             @Override
             public void onClick(View v) {
 
+                // Access MG value from sp to the corresponding index
                 int index = getData.getInt("MG_Index", 0);
                 index += 1;
                 if (index >= (Helper.muscleGroup_List.length - 1)){
@@ -251,7 +260,7 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
                 }
                 view_MG.setText(Helper.muscleGroup_List[index]);
 
-                //
+                // filter corresponding exercises to the following Muscle Group
                 ArrayList<String> tempArray = new ArrayList<String>();
                 tempArray.clear();
                 for(int x = 0; x < exerciseName.size(); x++){
@@ -259,9 +268,11 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
                         tempArray.add(exerciseName.get(x));
                     }
                 }
+                // update recycle view
                 RVAdapter rvAdapter = new RVAdapter(getApplicationContext(), tempArray, Exercise.this::onExeClick);
                 recyclerView.setAdapter(rvAdapter);
 
+                // update sp key value
                 editData.putInt("MG_Index", index);
                 editData.apply();
             }
@@ -271,6 +282,7 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
             @Override
             public void onClick(View v) {
 
+                // Access MG value from sp to the corresponding index
                 int index = getData.getInt("MG_Index", 0);
                 index -= 1;
                 if (index <= 0){
@@ -278,16 +290,18 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
                 }
                 view_MG.setText(Helper.muscleGroup_List[index]);
 
-                //
+                // filter corresponding exercises to the following Muscle Group
                 ArrayList<String> tempArray = new ArrayList<String>();
                 for(int x = 0; x < exerciseName.size(); x++){
                     if(mainTarget.get(x).toLowerCase().equalsIgnoreCase(Helper.muscleGroup_List[index])){
                         tempArray.add(exerciseName.get(x));
                     }
                 }
+                // update recycle view
                 RVAdapter rvAdapter = new RVAdapter(getApplicationContext(), tempArray, Exercise.this::onExeClick);
                 recyclerView.setAdapter(rvAdapter);
 
+                // update sp key value
                 editData.putInt("MG_Index", index);
                 editData.apply();
             }
@@ -295,7 +309,7 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
 
     }
 
-    // methods
+    // helper methods
 
     private void open_homeLayout() {
         Intent intent = new Intent(this, Home.class);

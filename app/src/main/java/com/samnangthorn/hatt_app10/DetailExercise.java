@@ -3,6 +3,7 @@ package com.samnangthorn.hatt_app10;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,8 +13,9 @@ import com.google.android.material.textfield.TextInputLayout;
 
 public class DetailExercise extends AppCompatActivity {
 
-    ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_back;
+    ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_back, btt_delete;
     TextView txt_eName, txt_mTarget, txt_sTarget, txt_des;
+    String eName;
 
 
     @Override
@@ -32,8 +34,10 @@ public class DetailExercise extends AppCompatActivity {
         txt_mTarget = findViewById(R.id.txt_mTarget);
         txt_sTarget = findViewById(R.id.txt_sTarget);
         txt_des = findViewById(R.id.txt_dis);
+        btt_delete = findViewById(R.id.btt_deleteExercise);
 
-        txt_eName.setText(getIntent().getStringExtra("eName"));
+        eName = getIntent().getStringExtra("eName");
+        txt_eName.setText(eName);
         txt_mTarget.setText(getIntent().getStringExtra("mTarget"));
         txt_sTarget.setText(getIntent().getStringExtra("sTarget"));
         txt_des.setText(getIntent().getStringExtra("des"));
@@ -84,6 +88,16 @@ public class DetailExercise extends AppCompatActivity {
                 open_exerciseLayout();
             }
         });
+
+        btt_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dataBaseHelper db = new dataBaseHelper(DetailExercise.this);
+                db.deleteThisExercise(eName);
+                open_exerciseLayout();
+                finish();
+            }
+        });
     }
 
     // methods
@@ -125,4 +139,5 @@ public class DetailExercise extends AppCompatActivity {
             overridePendingTransition(R.anim.sa_slide_in_left, R.anim.sa_slide_out_right);
         }
     }
+
 }

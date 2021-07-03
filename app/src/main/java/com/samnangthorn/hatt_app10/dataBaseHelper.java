@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -55,6 +56,12 @@ public class dataBaseHelper extends SQLiteOpenHelper {
             success = true;
         }
         return success;
+    }
+
+    public void deleteThisExercise(String eName){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_1 + " = '" + eName + "'";
+        db.execSQL(query);
     }
 
     Cursor readAllAtr(){
