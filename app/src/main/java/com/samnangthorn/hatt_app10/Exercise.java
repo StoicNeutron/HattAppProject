@@ -338,6 +338,8 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
 
     private void open_addExerciseLayout() {
         Intent intent = new Intent(this, AddExercise.class);
+        Helper.exerciseNameArray.clear();
+        Helper.exerciseNameArray = exerciseName;
         startActivity(intent);
     }
 
@@ -371,7 +373,6 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
         intent.putExtra("mTarget", mainTarget.get(exerciseName.indexOf(nameList.get(position))));
         intent.putExtra("sTarget", subTarget.get(exerciseName.indexOf(nameList.get(position))));
         intent.putExtra("des", dis.get(exerciseName.indexOf(nameList.get(position))));
-
         startActivity(intent);
     }
 }

@@ -13,9 +13,9 @@ import com.google.android.material.textfield.TextInputLayout;
 
 public class DetailExercise extends AppCompatActivity {
 
-    ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_back, btt_delete;
-    TextView txt_eName, txt_mTarget, txt_sTarget, txt_des;
-    String eName;
+    private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_back, btt_delete;
+    private TextView txt_eName, txt_mTarget, txt_sTarget, txt_des;
+    private String eName;
 
 
     @Override
@@ -42,7 +42,8 @@ public class DetailExercise extends AppCompatActivity {
         txt_sTarget.setText(getIntent().getStringExtra("sTarget"));
         txt_des.setText(getIntent().getStringExtra("des"));
 
-
+        // on click listeners
+        //
         btt_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,39 +101,39 @@ public class DetailExercise extends AppCompatActivity {
         });
     }
 
-    // methods
+    // helper methods
 
-    public void open_homeLayout() {
+    private void open_homeLayout() {
         Intent intent = new Intent(this, Home.class);
         startActivity(intent);
     }
 
-    public void open_settingLayout() {
+    private void open_settingLayout() {
         Intent intent = new Intent(this, Setting.class);
         startActivity(intent);
     }
 
-    public void open_reportLayout() {
+    private void open_reportLayout() {
         Intent intent = new Intent(this, Report.class);
         startActivity(intent);
     }
 
-    public void open_scheduleLayout() {
+    private void open_scheduleLayout() {
         Intent intent = new Intent(this, Schedule.class);
         startActivity(intent);
     }
 
-    public void open_timerLayout() {
+    private void open_timerLayout() {
         Intent intent = new Intent(this, Timer.class);
         startActivity(intent);
     }
 
-    public void open_exerciseLayout() {
+    private void open_exerciseLayout() {
         Intent intent = new Intent(this, Exercise.class);
         startActivity(intent);
     }
 
-    public void transition_animation(String leftOrRight){
+    private void transition_animation(String leftOrRight){
         if(leftOrRight.equalsIgnoreCase("right")){
             overridePendingTransition(R.anim.sa_slide_in_right, R.anim.sa_slide_out_left);
         }else if(leftOrRight.equalsIgnoreCase("left")){

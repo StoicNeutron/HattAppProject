@@ -16,10 +16,10 @@ import java.util.ArrayList;
 
 public class AddExercise extends AppCompatActivity {
 
-    ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_back, btt_addNewExercise;
-    TextInputLayout dt_mainTarget, dt_subTarget, edt_exerciseName, edt_description;
-    AutoCompleteTextView autoTxt_1, autoTxt_2;
-    String[] muscleGroup_list = {"Bicep", "Triceps", "Shoulder", "Chest", "Traps", "Abs", "Forearm", "Quads", "Calves", "Hamstrings", "Lower back", "Middle back", "Lats" };
+    private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_back, btt_addNewExercise;
+    private TextInputLayout dt_mainTarget, dt_subTarget, edt_exerciseName, edt_description;
+    private AutoCompleteTextView autoTxt_1, autoTxt_2;
+    private String[] muscleGroup_list = {"Bicep", "Tricep", "Shoulder", "Chest", "Trap.", "Abs", "Forearm", "Quadricep", "Calf", "Hamstring", "Lower Back", "Lat." };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +50,8 @@ public class AddExercise extends AppCompatActivity {
         autoTxt_1.setAdapter(arrayAdapter);
         autoTxt_2.setAdapter(arrayAdapter);
 
-
-        
-
+        // on click listener
+        //
         btt_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,48 +106,78 @@ public class AddExercise extends AppCompatActivity {
                 String mainTarget = dt_mainTarget.getEditText().getText().toString();
                 String subTarget = dt_subTarget.getEditText().getText().toString();
                 String dis = edt_description.getEditText().getText().toString();
-                if(myDB.addExercise(exerciseName, mainTarget, subTarget, dis)){
-                    Toast.makeText(AddExercise.this, "Successful!", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(AddExercise.this, "Fail!", Toast.LENGTH_SHORT).show();
+
+                // reset error
+                edt_exerciseName.setError(null);
+                dt_mainTarget.setError(null);
+                dt_subTarget.setError(null);
+                edt_description.setError(null);
+
+                //validation new exercise input
+                boolean addCondition = true;
+                for(int x = 0 ; x < Helper.exerciseNameArray.size(); x++){
+                    if(exerciseName.equalsIgnoreCase(Helper.exerciseNameArray.get(x))){
+                        addCondition = false;
+                        edt_exerciseName.setError("Exercise already existed");
+                        break;
+                    }
+                }
+                if(mainTarget.isEmpty()){
+                    addCondition = false;
+                    dt_mainTarget.setError("Require*");
+                }
+                if(subTarget.isEmpty()){
+                    addCondition = false;
+                    dt_subTarget.setError("Require*");
+                }
+                if(dis.isEmpty()){
+                    addCondition = false;
+                    edt_description.setError("Require*");
+                }
+                // add new exercise into the database
+                if(addCondition){
+                    myDB.addExercise(exerciseName, mainTarget, subTarget, dis);
+                    Toast.makeText(AddExercise.this, "Added", Toast.LENGTH_SHORT).show();
+                    open_exerciseLayout();
+                    finish();
                 }
             }
         });
     }
 
-    // methods
+    // helper methods
 
-    public void open_homeLayout() {
+    private void open_homeLayout() {
         Intent intent = new Intent(this, Home.class);
         startActivity(intent);
     }
 
-    public void open_settingLayout() {
+    private void open_settingLayout() {
         Intent intent = new Intent(this, Setting.class);
         startActivity(intent);
     }
 
-    public void open_reportLayout() {
+    private void open_reportLayout() {
         Intent intent = new Intent(this, Report.class);
         startActivity(intent);
     }
 
-    public void open_scheduleLayout() {
+    private void open_scheduleLayout() {
         Intent intent = new Intent(this, Schedule.class);
         startActivity(intent);
     }
 
-    public void open_timerLayout() {
+    private void open_timerLayout() {
         Intent intent = new Intent(this, Timer.class);
         startActivity(intent);
     }
 
-    public void open_exerciseLayout() {
+    private void open_exerciseLayout() {
         Intent intent = new Intent(this, Exercise.class);
         startActivity(intent);
     }
 
-    public void transition_animation(String leftOrRight){
+    private void transition_animation(String leftOrRight){
         if(leftOrRight.equalsIgnoreCase("right")){
             overridePendingTransition(R.anim.sa_slide_in_right, R.anim.sa_slide_out_left);
         }else if(leftOrRight.equalsIgnoreCase("left")){
