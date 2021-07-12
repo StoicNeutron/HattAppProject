@@ -6,7 +6,9 @@ public class Helper {
 
     private static int[] totalDayOfMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
     private static int[] leapYearTotalDayOfMonth = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+    private static String[] monthList = {"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
     private static String currentYear = "99";
+    private static String currentMonth = "MONTH";
     public static String[] muscleGroup_List = {"Bicep", "Tricep", "Chest", "Shoulder", "Forearm", "Quadricep", "Abs", "Trap.", "Lat.", "Lower Back", "Calf", "Hamstring"};
     public static String[] eName_List = {"Push Up" , "Pull Up" , "Deadlift" , "Squat" , "Bench Press"};
     public static String[] mTarget_List = {"Chest" , "Lat." , "Lower back" , "Quadricep" , "Chest"};
@@ -48,10 +50,25 @@ public class Helper {
         return currentYear;
     }
 
+    public static int getCurrentMonth() {
+        int returnInt = 0;
+        for (int x = 0; x < monthList.length; x++){
+            if (currentMonth.equalsIgnoreCase(monthList[x])){
+                returnInt = x;
+                break;
+            }
+        }
+        return returnInt;
+    }
+
     // setter methods
     //
     public static void setCurrentYear(String currentYear) {
         Helper.currentYear = currentYear;
+    }
+
+    public static void setCurrentMonth(String currentMonth) {
+        Helper.currentMonth = currentMonth;
     }
 
 
