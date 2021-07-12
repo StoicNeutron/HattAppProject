@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class Schedule extends AppCompatActivity{
 
     private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting;
-
+    private TextView txt_month;
     private TextView d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27, d28, d29, d30, d31, d32;
     private TextView[] daysList = {d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27, d28, d29, d30, d31, d32};
     private @IdRes int[] dayIDList = {R.id.d1, R.id.d2, R.id.d3, R.id.d4, R.id.d5, R.id.d6, R.id.d7, R.id.d8, R.id.d9, R.id.d10,
@@ -44,8 +44,10 @@ public class Schedule extends AppCompatActivity{
         btt_schedule = findViewById(R.id.btt_schedule);
         btt_timer = findViewById(R.id.btt_timer);
         btt_setting = findViewById(R.id.btt_setting);
+        txt_month = findViewById(R.id.txt_monthYear);
 
         // setting calendar
+        txt_month.setText(Helper.getCurrentMonthName());
         int currentYear = 0;
         try{
             currentYear = Integer.parseInt(Helper.getCurrentYear());

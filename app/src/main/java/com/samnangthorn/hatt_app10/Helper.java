@@ -61,6 +61,10 @@ public class Helper {
         return returnInt;
     }
 
+    public static String getCurrentMonthName() {
+        return currentMonth;
+    }
+
     // setter methods
     //
     public static void setCurrentYear(String currentYear) {

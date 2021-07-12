@@ -59,8 +59,8 @@ public class Home extends AppCompatActivity {
         String year = subDate.substring(subDate.length()-2, subDate.length()-1);
         Helper.setCurrentYear(year);
         String month = "";
-        for(int x = 0; x < subDate.length(); x++){
-            if(subDate.charAt(x) == 32){
+        for(int x = 1; x < subDate.length(); x++){
+            if(subDate.charAt(x) != 32){
                 month += subDate.charAt(x);
             }else{
                 break;
