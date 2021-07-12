@@ -56,6 +56,9 @@ public class Home extends AppCompatActivity {
         }
         String nameofDay = currentDate.substring(0, n);
         String subDate = currentDate.substring(n+1, currentDate.length());
+        String year = subDate.substring(subDate.length()-2, subDate.length()-1);
+        Helper.setCurrentYear(year);
+
         txt_day.setText(nameofDay);
         txt_date.setText(subDate);
         txt_time.setText(time);

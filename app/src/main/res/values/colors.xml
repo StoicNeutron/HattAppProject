@@ -11,5 +11,8 @@
     <color name="gray_dark">#A6A6A6</color>
     <color name="blue">#00B0F0</color>
     <color name="red_dark">#C00000</color>
+    <color name="red">#FF0000</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="orange">#ED7D31</color>
     <color name="green">#00B050</color>
 </resources>
