@@ -17,7 +17,7 @@ public class AddWorkout extends AppCompatActivity implements RVAdapter.onExeClic
 
     private ImageView btt_home, btt_report, btt_timer, btt_setting, btt_exercise, btt_back;
     private SearchView searchView;
-    private ArrayList<String> exerciseName;
+    private ArrayList<String> exerciseName, selectedExercise;
     private dataBaseHelper myDB;
     private RecyclerView recyclerView;
 
@@ -35,6 +35,7 @@ public class AddWorkout extends AppCompatActivity implements RVAdapter.onExeClic
         searchView = findViewById(R.id.search_bar);
         recyclerView = findViewById(R.id.recycleView);
         exerciseName = new ArrayList<String>();
+        selectedExercise = new ArrayList<String>();
         myDB = new dataBaseHelper(AddWorkout.this);
 
         // query the database to ArrayList
@@ -166,6 +167,6 @@ public class AddWorkout extends AppCompatActivity implements RVAdapter.onExeClic
 
     @Override
     public void onExeClick(int position, ArrayList<String> nameList) {
-        recyclerView.setVisibility(View.GONE);
+
     }
 }

@@ -65,6 +65,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
         }
     }
     public interface onExeClickListener{
-        void onExeClick(int position, ArrayList<String> nameList);
+        void onExeClick(int position, ArrayList<String> nameList );
     }
 }
