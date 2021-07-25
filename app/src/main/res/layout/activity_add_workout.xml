@@ -120,7 +120,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:background="@drawable/view_layout_white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -138,6 +138,7 @@
 
             <LinearLayout
                 android:id="@+id/selectedEx1"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -166,6 +167,8 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/tool1"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -212,6 +215,7 @@
 
             <LinearLayout
                 android:id="@+id/selectedEx2"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -241,6 +245,8 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/tool2"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -287,6 +293,7 @@
 
             <LinearLayout
                 android:id="@+id/selectedEx3"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -316,6 +323,8 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/tool3"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -362,6 +371,7 @@
 
             <LinearLayout
                 android:id="@+id/selectedEx4"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -391,6 +401,8 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/tool4"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -437,6 +449,7 @@
 
             <LinearLayout
                 android:id="@+id/selectedEx5"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -466,6 +479,8 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/tool5"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -512,6 +527,7 @@
 
             <LinearLayout
                 android:id="@+id/selectedEx6"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -541,6 +557,8 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/tool6"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -587,6 +605,7 @@
 
             <LinearLayout
                 android:id="@+id/selectedEx7"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -616,6 +635,8 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/tool7"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -662,6 +683,7 @@
 
             <LinearLayout
                 android:id="@+id/selectedEx8"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -691,6 +713,8 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/tool8"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -737,6 +761,7 @@
 
             <LinearLayout
                 android:id="@+id/selectedEx9"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -766,6 +791,8 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/tool9"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -812,6 +839,7 @@
 
             <LinearLayout
                 android:id="@+id/selectedEx10"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -841,6 +869,8 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/tool10"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -887,6 +917,7 @@
 
             <LinearLayout
                 android:id="@+id/selectedEx11"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -916,6 +947,8 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/tool11"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -962,6 +995,7 @@
 
             <LinearLayout
                 android:id="@+id/selectedEx12"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -991,6 +1025,8 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/tool12"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"

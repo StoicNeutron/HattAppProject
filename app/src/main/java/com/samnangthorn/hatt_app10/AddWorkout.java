@@ -1,5 +1,7 @@
 package com.samnangthorn.hatt_app10;
 
+import androidx.annotation.IdRes;
+import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,7 +11,9 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -20,6 +24,9 @@ public class AddWorkout extends AppCompatActivity implements RVAdapter.onExeClic
     private ArrayList<String> exerciseName, selectedExercise;
     private dataBaseHelper myDB;
     private RecyclerView recyclerView;
+    private LinearLayout selectedE1, selectedE2, selectedE3, selectedE4, selectedE5, selectedE6, selectedE7, selectedE8, selectedE9, selectedE10, selectedE11, selectedE12;
+    private TextView Ex1, Ex2, Ex3, Ex4, Ex5, Ex6, Ex7, Ex8, Ex9, Ex10, Ex11, Ex12;
+    int currentIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +44,41 @@ public class AddWorkout extends AppCompatActivity implements RVAdapter.onExeClic
         exerciseName = new ArrayList<String>();
         selectedExercise = new ArrayList<String>();
         myDB = new dataBaseHelper(AddWorkout.this);
+
+        selectedE1 = findViewById(R.id.selectedEx1);
+        selectedE2 = findViewById(R.id.selectedEx2);
+        selectedE3 = findViewById(R.id.selectedEx3);
+        selectedE4 = findViewById(R.id.selectedEx4);
+        selectedE5 = findViewById(R.id.selectedEx5);
+        selectedE6 = findViewById(R.id.selectedEx6);
+        selectedE7 = findViewById(R.id.selectedEx7);
+        selectedE8 = findViewById(R.id.selectedEx8);
+        selectedE9 = findViewById(R.id.selectedEx9);
+        selectedE10 = findViewById(R.id.selectedEx10);
+        selectedE11 = findViewById(R.id.selectedEx11);
+        selectedE12 = findViewById(R.id.selectedEx12);
+
+        Ex1 = findViewById(R.id.Ex1);
+        Ex2 = findViewById(R.id.Ex2);
+        Ex3 = findViewById(R.id.Ex3);
+        Ex4 = findViewById(R.id.Ex4);
+        Ex5 = findViewById(R.id.Ex5);
+        Ex6 = findViewById(R.id.Ex6);
+        Ex7 = findViewById(R.id.Ex7);
+        Ex8 = findViewById(R.id.Ex8);
+        Ex9 = findViewById(R.id.Ex9);
+        Ex10 = findViewById(R.id.Ex10);
+        Ex11 = findViewById(R.id.Ex11);
+        Ex12 = findViewById(R.id.Ex12);
+
+        /*
+        LinearLayout[] LayoutSelectedE = new LinearLayout[]{selectedE1, selectedE2, selectedE3, selectedE4, selectedE5, selectedE6, selectedE7, selectedE8, selectedE9, selectedE10, selectedE11, selectedE12};
+        for(int i = 0; i< 12; i++){
+            LayoutSelectedE[i].setVisibility(View.VISIBLE);
+        }
+
+         */
+
 
         // query the database to ArrayList
         transferToArrayList();
@@ -167,6 +209,80 @@ public class AddWorkout extends AppCompatActivity implements RVAdapter.onExeClic
 
     @Override
     public void onExeClick(int position, ArrayList<String> nameList) {
+        switch (currentIndex){
+            case 0:
+                selectedE1.setVisibility(View.VISIBLE);
+                Ex1.setText(nameList.get(position));
+                recyclerView.setVisibility(View.GONE);
+                currentIndex +=1;
+                break;
+            case 1:
+                selectedE2.setVisibility(View.VISIBLE);
+                Ex2.setText(nameList.get(position));
+                recyclerView.setVisibility(View.GONE);
+                currentIndex +=1;
+                break;
+            case 2:
+                selectedE3.setVisibility(View.VISIBLE);
+                Ex3.setText(nameList.get(position));
+                recyclerView.setVisibility(View.GONE);
+                currentIndex +=1;
+                break;
+            case 3:
+                selectedE4.setVisibility(View.VISIBLE);
+                Ex4.setText(nameList.get(position));
+                recyclerView.setVisibility(View.GONE);
+                currentIndex +=1;
+                break;
+            case 4:
+                selectedE5.setVisibility(View.VISIBLE);
+                Ex5.setText(nameList.get(position));
+                recyclerView.setVisibility(View.GONE);
+                currentIndex +=1;
+                break;
+            case 5:
+                selectedE6.setVisibility(View.VISIBLE);
+                Ex6.setText(nameList.get(position));
+                recyclerView.setVisibility(View.GONE);
+                currentIndex +=1;
+                break;
+            case 6:
+                selectedE7.setVisibility(View.VISIBLE);
+                Ex7.setText(nameList.get(position));
+                recyclerView.setVisibility(View.GONE);
+                currentIndex +=1;
+                break;
+            case 7:
+                selectedE8.setVisibility(View.VISIBLE);
+                Ex8.setText(nameList.get(position));
+                recyclerView.setVisibility(View.GONE);
+                currentIndex +=1;
+                break;
+            case 8:
+                selectedE9.setVisibility(View.VISIBLE);
+                Ex9.setText(nameList.get(position));
+                recyclerView.setVisibility(View.GONE);
+                currentIndex +=1;
+                break;
+            case 9:
+                selectedE10.setVisibility(View.VISIBLE);
+                Ex10.setText(nameList.get(position));
+                recyclerView.setVisibility(View.GONE);
+                currentIndex +=1;
+                break;
+            case 10:
+                selectedE11.setVisibility(View.VISIBLE);
+                Ex11.setText(nameList.get(position));
+                recyclerView.setVisibility(View.GONE);
+                currentIndex +=1;
+                break;
+            case 11:
+                selectedE12.setVisibility(View.VISIBLE);
+                Ex12.setText(nameList.get(position));
+                recyclerView.setVisibility(View.GONE);
+                currentIndex +=1;
+                break;
+        }
 
     }
 }
