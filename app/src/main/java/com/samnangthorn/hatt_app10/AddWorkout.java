@@ -26,6 +26,8 @@ public class AddWorkout extends AppCompatActivity implements RVAdapter.onExeClic
     private RecyclerView recyclerView;
     private LinearLayout selectedE1, selectedE2, selectedE3, selectedE4, selectedE5, selectedE6, selectedE7, selectedE8, selectedE9, selectedE10, selectedE11, selectedE12;
     private TextView Ex1, Ex2, Ex3, Ex4, Ex5, Ex6, Ex7, Ex8, Ex9, Ex10, Ex11, Ex12;
+    private ImageView DE1, DE2, DE3, DE4, DE5, DE6, DE7, DE8, DE9, DE10, DE11, DE12;
+    private String[] eNameListedIn = new String[12];
     int currentIndex = 0;
 
     @Override
@@ -71,8 +73,21 @@ public class AddWorkout extends AppCompatActivity implements RVAdapter.onExeClic
         Ex11 = findViewById(R.id.Ex11);
         Ex12 = findViewById(R.id.Ex12);
 
-        /*
+        DE1 = findViewById(R.id.DE1);
+        DE2 = findViewById(R.id.DE2);
+        DE3 = findViewById(R.id.DE3);
+        DE4 = findViewById(R.id.DE4);
+        DE5 = findViewById(R.id.DE5);
+        DE6 = findViewById(R.id.DE6);
+        DE7 = findViewById(R.id.DE7);
+        DE8 = findViewById(R.id.DE8);
+        DE9 = findViewById(R.id.DE9);
+        DE10 = findViewById(R.id.DE10);
+        DE11 = findViewById(R.id.DE11);
+        DE12 = findViewById(R.id.DE12);
+
         LinearLayout[] LayoutSelectedE = new LinearLayout[]{selectedE1, selectedE2, selectedE3, selectedE4, selectedE5, selectedE6, selectedE7, selectedE8, selectedE9, selectedE10, selectedE11, selectedE12};
+        /*
         for(int i = 0; i< 12; i++){
             LayoutSelectedE[i].setVisibility(View.VISIBLE);
         }
@@ -152,6 +167,114 @@ public class AddWorkout extends AppCompatActivity implements RVAdapter.onExeClic
             }
         });
 
+        DE1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentIndex -= 1;
+                LayoutSelectedE[currentIndex].setVisibility(View.GONE);
+                reSortingIndex(0);
+            }
+        });
+
+        DE2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentIndex -= 1;
+                selectedE2.setVisibility(View.GONE);
+                reSortingIndex(1);
+            }
+        });
+
+        DE3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentIndex -= 1;
+                selectedE3.setVisibility(View.GONE);
+                reSortingIndex(2);
+            }
+        });
+
+        DE4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentIndex -= 1;
+                selectedE4.setVisibility(View.GONE);
+                reSortingIndex(3);
+            }
+        });
+
+        DE5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentIndex -= 1;
+                selectedE5.setVisibility(View.GONE);
+                reSortingIndex(4);
+            }
+        });
+
+        DE6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentIndex -= 1;
+                selectedE6.setVisibility(View.GONE);
+                reSortingIndex(5);
+            }
+        });
+
+        DE7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentIndex -= 1;
+                selectedE7.setVisibility(View.GONE);
+                reSortingIndex(6);
+            }
+        });
+
+        DE8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentIndex -= 1;
+                selectedE8.setVisibility(View.GONE);
+                reSortingIndex(7);
+            }
+        });
+
+        DE9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentIndex -= 1;
+                selectedE9.setVisibility(View.GONE);
+                reSortingIndex(8);
+            }
+        });
+
+        DE10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentIndex -= 1;
+                selectedE10.setVisibility(View.GONE);
+                reSortingIndex(9);
+            }
+        });
+
+        DE11.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentIndex -= 1;
+                selectedE11.setVisibility(View.GONE);
+                reSortingIndex(10);
+            }
+        });
+
+        DE12.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentIndex -= 1;
+                selectedE12.setVisibility(View.GONE);
+                reSortingIndex(11);
+            }
+        });
+
     }
 
     // helper methods
@@ -209,80 +332,126 @@ public class AddWorkout extends AppCompatActivity implements RVAdapter.onExeClic
 
     @Override
     public void onExeClick(int position, ArrayList<String> nameList) {
+        String inputString;
         switch (currentIndex){
             case 0:
                 selectedE1.setVisibility(View.VISIBLE);
-                Ex1.setText(nameList.get(position));
+                inputString = (currentIndex+1) + ". "+ nameList.get(position);
+                Ex1.setText(inputString);
+                eNameListedIn[currentIndex] = inputString;
                 recyclerView.setVisibility(View.GONE);
                 currentIndex +=1;
                 break;
             case 1:
                 selectedE2.setVisibility(View.VISIBLE);
-                Ex2.setText(nameList.get(position));
+                inputString = (currentIndex+1) + ". "+ nameList.get(position);
+                Ex2.setText(inputString);
+                eNameListedIn[currentIndex] = inputString;
                 recyclerView.setVisibility(View.GONE);
                 currentIndex +=1;
                 break;
             case 2:
                 selectedE3.setVisibility(View.VISIBLE);
-                Ex3.setText(nameList.get(position));
+                inputString = (currentIndex+1) + ". "+ nameList.get(position);
+                Ex3.setText(inputString);
+                eNameListedIn[currentIndex] = inputString;
                 recyclerView.setVisibility(View.GONE);
                 currentIndex +=1;
                 break;
             case 3:
                 selectedE4.setVisibility(View.VISIBLE);
-                Ex4.setText(nameList.get(position));
+                inputString = (currentIndex+1) + ". "+ nameList.get(position);
+                Ex4.setText(inputString);
+                eNameListedIn[currentIndex] = inputString;
                 recyclerView.setVisibility(View.GONE);
                 currentIndex +=1;
                 break;
             case 4:
                 selectedE5.setVisibility(View.VISIBLE);
-                Ex5.setText(nameList.get(position));
+                inputString = (currentIndex+1) + ". "+ nameList.get(position);
+                Ex5.setText(inputString);
+                eNameListedIn[currentIndex] = inputString;
                 recyclerView.setVisibility(View.GONE);
                 currentIndex +=1;
                 break;
             case 5:
                 selectedE6.setVisibility(View.VISIBLE);
-                Ex6.setText(nameList.get(position));
+                inputString = (currentIndex+1) + ". "+ nameList.get(position);
+                Ex6.setText(inputString);
+                eNameListedIn[currentIndex] = inputString;
                 recyclerView.setVisibility(View.GONE);
                 currentIndex +=1;
                 break;
             case 6:
                 selectedE7.setVisibility(View.VISIBLE);
-                Ex7.setText(nameList.get(position));
+                inputString = (currentIndex+1) + ". "+ nameList.get(position);
+                Ex7.setText(inputString);
+                eNameListedIn[currentIndex] = inputString;
                 recyclerView.setVisibility(View.GONE);
                 currentIndex +=1;
                 break;
             case 7:
                 selectedE8.setVisibility(View.VISIBLE);
-                Ex8.setText(nameList.get(position));
+                inputString = (currentIndex+1) + ". "+ nameList.get(position);
+                Ex8.setText(inputString);
+                eNameListedIn[currentIndex] = inputString;
                 recyclerView.setVisibility(View.GONE);
                 currentIndex +=1;
                 break;
             case 8:
                 selectedE9.setVisibility(View.VISIBLE);
-                Ex9.setText(nameList.get(position));
+                inputString = (currentIndex+1) + ". "+ nameList.get(position);
+                Ex9.setText(inputString);
+                eNameListedIn[currentIndex] = inputString;
                 recyclerView.setVisibility(View.GONE);
                 currentIndex +=1;
                 break;
             case 9:
                 selectedE10.setVisibility(View.VISIBLE);
-                Ex10.setText(nameList.get(position));
+                inputString = (currentIndex+1) + ". "+ nameList.get(position);
+                Ex10.setText(inputString);
+                eNameListedIn[currentIndex] = inputString;
                 recyclerView.setVisibility(View.GONE);
                 currentIndex +=1;
                 break;
             case 10:
                 selectedE11.setVisibility(View.VISIBLE);
-                Ex11.setText(nameList.get(position));
+                inputString = (currentIndex+1) + ". "+ nameList.get(position);
+                Ex11.setText(inputString);
+                eNameListedIn[currentIndex] = inputString;
                 recyclerView.setVisibility(View.GONE);
                 currentIndex +=1;
                 break;
             case 11:
                 selectedE12.setVisibility(View.VISIBLE);
-                Ex12.setText(nameList.get(position));
+                inputString = (currentIndex+1) + ". "+ nameList.get(position);
+                Ex12.setText(inputString);
+                eNameListedIn[currentIndex] = inputString;
                 recyclerView.setVisibility(View.GONE);
                 currentIndex +=1;
                 break;
         }
 
+    }
+
+    private void reSortingIndex(int startingIndex){
+        TextView[] ExList = new TextView[]{Ex1, Ex2, Ex3, Ex4, Ex5, Ex6, Ex7, Ex8, Ex9, Ex10, Ex11, Ex12};
+        String tempName;
+        int newIndex = 0;
+        String indexString;
+        for (int x = startingIndex; x < currentIndex; x++){
+            tempName = eNameListedIn[x+1];
+
+            for(int i = 0; i< tempName.length(); i++){
+                if(tempName.charAt(i) == 32){
+                    tempName = tempName.substring(i+1, tempName.length());
+                    break;
+                }
+            }
+            eNameListedIn[x] = eNameListedIn[x+1];
+            indexString = String.valueOf(x+1);
+            ExList[x].setText(indexString + ". " + tempName);
+            newIndex +=1;
+        }
     }
 }

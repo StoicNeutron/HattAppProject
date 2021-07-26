@@ -118,7 +118,6 @@ public class Schedule extends AppCompatActivity{
     private void findViewOfThese(int totalDaysInMonth){
         for(int x = 0; x < totalDaysInMonth; x++){
             daysList[x] = findViewById(dayIDList[x]);
-            daysList[x].setText("xx");
         }
     }
 
