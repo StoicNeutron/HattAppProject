@@ -94,7 +94,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="55dp"
                     android:fontFamily="@font/roboto"
                     android:hint="WORKOUT NAME"
                     android:inputType="textPersonName"/>
@@ -103,7 +103,7 @@
             <SearchView
                 android:id="@+id/search_bar"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="55dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
@@ -143,7 +143,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <LinearLayout
+            <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -170,7 +170,7 @@
                         android:layout_weight="1"/>
 
                 </LinearLayout>
-                <LinearLayout
+            <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -182,9 +182,9 @@
                         android:padding="5dp"
                         android:layout_marginStart="20dp"
                         android:text="SET&amp;REP"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="12dp"
-                        android:background="@drawable/outline_filled_blue"
+                        android:background="@drawable/outline_filled_black"
                         android:layout_weight="1"
                         android:gravity="center"/>
 
@@ -197,23 +197,67 @@
                         android:text="TIMER"
                         android:textColor="@color/black"
                         android:textSize="12dp"
-                        android:background="@drawable/outline_filled_blue"
+                        android:background="@drawable/outline_filled_none"
                         android:layout_weight="1"
                         android:gravity="center"/>
 
                     <TextView
                         android:layout_width="0dp"
+                        android:visibility="invisible"
                         android:layout_height="wrap_content"
                         android:padding="5dp"
                         android:layout_marginEnd="20dp"
                         android:text="DROP SET"
                         android:textColor="@color/black"
                         android:textSize="12dp"
-                        android:background="@drawable/outline_filled_blue"
+                        android:background="@drawable/outline_filled_none"
                         android:layout_weight="1"
                         android:gravity="center"/>
 
                 </LinearLayout>
+            <LinearLayout
+                android:id="@+id/sr1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:padding="10dp"
+                android:background="@drawable/outline_filled_flatb"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="SET: "
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:layout_weight="1"/>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:inputType="number"
+                    android:background="@drawable/outline_gray_dark"
+                    android:hint="1"
+                    android:gravity="center"
+                    android:layout_weight="2"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="REP:   "
+                    android:textColor="@color/black"
+                    android:gravity="end"
+                    android:layout_weight="2"/>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:inputType="number"
+                    android:hint="8"
+                    android:background="@drawable/outline_gray_dark"
+                    android:gravity="center"
+                    android:layout_weight="2"/>
+
+
+            </LinearLayout>
 
             </LinearLayout>
 
@@ -264,9 +308,9 @@
                     android:padding="5dp"
                     android:layout_marginStart="20dp"
                     android:text="SET&amp;REP"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="12dp"
-                    android:background="@drawable/outline_filled_blue"
+                    android:background="@drawable/outline_filled_black"
                     android:layout_weight="1"
                     android:gravity="center"/>
 
@@ -279,13 +323,14 @@
                     android:text="TIMER"
                     android:textColor="@color/black"
                     android:textSize="12dp"
-                    android:background="@drawable/outline_filled_blue"
+                    android:background="@drawable/outline_filled_none"
                     android:layout_weight="1"
                     android:gravity="center"/>
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:visibility="invisible"
                     android:padding="5dp"
                     android:layout_marginEnd="20dp"
                     android:text="DROP SET"
@@ -294,6 +339,50 @@
                     android:background="@drawable/outline_filled_blue"
                     android:layout_weight="1"
                     android:gravity="center"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/sr2"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:padding="10dp"
+                android:background="@drawable/outline_filled_flatb"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="SET: "
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:layout_weight="1"/>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:inputType="number"
+                    android:background="@drawable/outline_gray_dark"
+                    android:hint="1"
+                    android:gravity="center"
+                    android:layout_weight="2"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="REP:   "
+                    android:textColor="@color/black"
+                    android:gravity="end"
+                    android:layout_weight="2"/>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:inputType="number"
+                    android:hint="8"
+                    android:background="@drawable/outline_gray_dark"
+                    android:gravity="center"
+                    android:layout_weight="2"/>
+
 
             </LinearLayout>
 
@@ -346,9 +435,9 @@
                     android:padding="5dp"
                     android:layout_marginStart="20dp"
                     android:text="SET&amp;REP"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="12dp"
-                    android:background="@drawable/outline_filled_blue"
+                    android:background="@drawable/outline_filled_black"
                     android:layout_weight="1"
                     android:gravity="center"/>
 
@@ -361,13 +450,14 @@
                     android:text="TIMER"
                     android:textColor="@color/black"
                     android:textSize="12dp"
-                    android:background="@drawable/outline_filled_blue"
+                    android:background="@drawable/outline_filled_none"
                     android:layout_weight="1"
                     android:gravity="center"/>
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:visibility="invisible"
                     android:padding="5dp"
                     android:layout_marginEnd="20dp"
                     android:text="DROP SET"
@@ -376,6 +466,50 @@
                     android:background="@drawable/outline_filled_blue"
                     android:layout_weight="1"
                     android:gravity="center"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/sr3"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:padding="10dp"
+                android:background="@drawable/outline_filled_flatb"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="SET: "
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:layout_weight="1"/>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:inputType="number"
+                    android:background="@drawable/outline_gray_dark"
+                    android:hint="1"
+                    android:gravity="center"
+                    android:layout_weight="2"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="REP:   "
+                    android:textColor="@color/black"
+                    android:gravity="end"
+                    android:layout_weight="2"/>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:inputType="number"
+                    android:hint="8"
+                    android:background="@drawable/outline_gray_dark"
+                    android:gravity="center"
+                    android:layout_weight="2"/>
+
 
             </LinearLayout>
 
@@ -428,9 +562,9 @@
                     android:padding="5dp"
                     android:layout_marginStart="20dp"
                     android:text="SET&amp;REP"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="12dp"
-                    android:background="@drawable/outline_filled_blue"
+                    android:background="@drawable/outline_filled_black"
                     android:layout_weight="1"
                     android:gravity="center"/>
 
@@ -443,13 +577,14 @@
                     android:text="TIMER"
                     android:textColor="@color/black"
                     android:textSize="12dp"
-                    android:background="@drawable/outline_filled_blue"
+                    android:background="@drawable/outline_filled_none"
                     android:layout_weight="1"
                     android:gravity="center"/>
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:visibility="invisible"
                     android:padding="5dp"
                     android:layout_marginEnd="20dp"
                     android:text="DROP SET"
@@ -458,6 +593,50 @@
                     android:background="@drawable/outline_filled_blue"
                     android:layout_weight="1"
                     android:gravity="center"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/sr4"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:padding="10dp"
+                android:background="@drawable/outline_filled_flatb"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="SET: "
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:layout_weight="1"/>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:inputType="number"
+                    android:background="@drawable/outline_gray_dark"
+                    android:hint="1"
+                    android:gravity="center"
+                    android:layout_weight="2"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="REP:   "
+                    android:textColor="@color/black"
+                    android:gravity="end"
+                    android:layout_weight="2"/>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:inputType="number"
+                    android:hint="8"
+                    android:background="@drawable/outline_gray_dark"
+                    android:gravity="center"
+                    android:layout_weight="2"/>
+
 
             </LinearLayout>
 
@@ -511,9 +690,9 @@
                     android:padding="5dp"
                     android:layout_marginStart="20dp"
                     android:text="SET&amp;REP"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="12dp"
-                    android:background="@drawable/outline_filled_blue"
+                    android:background="@drawable/outline_filled_black"
                     android:layout_weight="1"
                     android:gravity="center"/>
 
@@ -526,7 +705,7 @@
                     android:text="TIMER"
                     android:textColor="@color/black"
                     android:textSize="12dp"
-                    android:background="@drawable/outline_filled_blue"
+                    android:background="@drawable/outline_filled_none"
                     android:layout_weight="1"
                     android:gravity="center"/>
 
@@ -534,6 +713,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
+                    android:visibility="invisible"
                     android:layout_marginEnd="20dp"
                     android:text="DROP SET"
                     android:textColor="@color/black"
@@ -541,6 +721,50 @@
                     android:background="@drawable/outline_filled_blue"
                     android:layout_weight="1"
                     android:gravity="center"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/sr5"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:padding="10dp"
+                android:background="@drawable/outline_filled_flatb"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="SET: "
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:layout_weight="1"/>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:inputType="number"
+                    android:background="@drawable/outline_gray_dark"
+                    android:hint="1"
+                    android:gravity="center"
+                    android:layout_weight="2"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="REP:   "
+                    android:textColor="@color/black"
+                    android:gravity="end"
+                    android:layout_weight="2"/>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:inputType="number"
+                    android:hint="8"
+                    android:background="@drawable/outline_gray_dark"
+                    android:gravity="center"
+                    android:layout_weight="2"/>
+
 
             </LinearLayout>
 
@@ -594,9 +818,9 @@
                     android:padding="5dp"
                     android:layout_marginStart="20dp"
                     android:text="SET&amp;REP"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="12dp"
-                    android:background="@drawable/outline_filled_blue"
+                    android:background="@drawable/outline_filled_black"
                     android:layout_weight="1"
                     android:gravity="center"/>
 
@@ -609,7 +833,7 @@
                     android:text="TIMER"
                     android:textColor="@color/black"
                     android:textSize="12dp"
-                    android:background="@drawable/outline_filled_blue"
+                    android:background="@drawable/outline_filled_none"
                     android:layout_weight="1"
                     android:gravity="center"/>
 
@@ -617,6 +841,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
+                    android:visibility="invisible"
                     android:layout_marginEnd="20dp"
                     android:text="DROP SET"
                     android:textColor="@color/black"
@@ -624,6 +849,50 @@
                     android:background="@drawable/outline_filled_blue"
                     android:layout_weight="1"
                     android:gravity="center"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/sr6"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:padding="10dp"
+                android:background="@drawable/outline_filled_flatb"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="SET: "
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:layout_weight="1"/>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:inputType="number"
+                    android:background="@drawable/outline_gray_dark"
+                    android:hint="1"
+                    android:gravity="center"
+                    android:layout_weight="2"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="REP:   "
+                    android:textColor="@color/black"
+                    android:gravity="end"
+                    android:layout_weight="2"/>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:inputType="number"
+                    android:hint="8"
+                    android:background="@drawable/outline_gray_dark"
+                    android:gravity="center"
+                    android:layout_weight="2"/>
+
 
             </LinearLayout>
 
@@ -677,9 +946,9 @@
                     android:padding="5dp"
                     android:layout_marginStart="20dp"
                     android:text="SET&amp;REP"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="12dp"
-                    android:background="@drawable/outline_filled_blue"
+                    android:background="@drawable/outline_filled_black"
                     android:layout_weight="1"
                     android:gravity="center"/>
 
@@ -692,7 +961,7 @@
                     android:text="TIMER"
                     android:textColor="@color/black"
                     android:textSize="12dp"
-                    android:background="@drawable/outline_filled_blue"
+                    android:background="@drawable/outline_filled_none"
                     android:layout_weight="1"
                     android:gravity="center"/>
 
@@ -700,6 +969,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
+                    android:visibility="invisible"
                     android:layout_marginEnd="20dp"
                     android:text="DROP SET"
                     android:textColor="@color/black"
@@ -707,6 +977,50 @@
                     android:background="@drawable/outline_filled_blue"
                     android:layout_weight="1"
                     android:gravity="center"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/sr7"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:padding="10dp"
+                android:background="@drawable/outline_filled_flatb"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="SET: "
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:layout_weight="1"/>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:inputType="number"
+                    android:background="@drawable/outline_gray_dark"
+                    android:hint="1"
+                    android:gravity="center"
+                    android:layout_weight="2"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="REP:   "
+                    android:textColor="@color/black"
+                    android:gravity="end"
+                    android:layout_weight="2"/>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:inputType="number"
+                    android:hint="8"
+                    android:background="@drawable/outline_gray_dark"
+                    android:gravity="center"
+                    android:layout_weight="2"/>
+
 
             </LinearLayout>
 
@@ -760,9 +1074,9 @@
                     android:padding="5dp"
                     android:layout_marginStart="20dp"
                     android:text="SET&amp;REP"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="12dp"
-                    android:background="@drawable/outline_filled_blue"
+                    android:background="@drawable/outline_filled_black"
                     android:layout_weight="1"
                     android:gravity="center"/>
 
@@ -775,7 +1089,7 @@
                     android:text="TIMER"
                     android:textColor="@color/black"
                     android:textSize="12dp"
-                    android:background="@drawable/outline_filled_blue"
+                    android:background="@drawable/outline_filled_none"
                     android:layout_weight="1"
                     android:gravity="center"/>
 
@@ -783,6 +1097,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
+                    android:visibility="invisible"
                     android:layout_marginEnd="20dp"
                     android:text="DROP SET"
                     android:textColor="@color/black"
@@ -790,6 +1105,50 @@
                     android:background="@drawable/outline_filled_blue"
                     android:layout_weight="1"
                     android:gravity="center"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/sr8"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:padding="10dp"
+                android:background="@drawable/outline_filled_flatb"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="SET: "
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:layout_weight="1"/>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:inputType="number"
+                    android:background="@drawable/outline_gray_dark"
+                    android:hint="1"
+                    android:gravity="center"
+                    android:layout_weight="2"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="REP:   "
+                    android:textColor="@color/black"
+                    android:gravity="end"
+                    android:layout_weight="2"/>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:inputType="number"
+                    android:hint="8"
+                    android:background="@drawable/outline_gray_dark"
+                    android:gravity="center"
+                    android:layout_weight="2"/>
+
 
             </LinearLayout>
 
@@ -843,9 +1202,9 @@
                     android:padding="5dp"
                     android:layout_marginStart="20dp"
                     android:text="SET&amp;REP"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="12dp"
-                    android:background="@drawable/outline_filled_blue"
+                    android:background="@drawable/outline_filled_black"
                     android:layout_weight="1"
                     android:gravity="center"/>
 
@@ -858,7 +1217,7 @@
                     android:text="TIMER"
                     android:textColor="@color/black"
                     android:textSize="12dp"
-                    android:background="@drawable/outline_filled_blue"
+                    android:background="@drawable/outline_filled_none"
                     android:layout_weight="1"
                     android:gravity="center"/>
 
@@ -866,6 +1225,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
+                    android:visibility="invisible"
                     android:layout_marginEnd="20dp"
                     android:text="DROP SET"
                     android:textColor="@color/black"
@@ -873,6 +1233,50 @@
                     android:background="@drawable/outline_filled_blue"
                     android:layout_weight="1"
                     android:gravity="center"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/sr9"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:padding="10dp"
+                android:background="@drawable/outline_filled_flatb"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="SET: "
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:layout_weight="1"/>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:inputType="number"
+                    android:background="@drawable/outline_gray_dark"
+                    android:hint="1"
+                    android:gravity="center"
+                    android:layout_weight="2"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="REP:   "
+                    android:textColor="@color/black"
+                    android:gravity="end"
+                    android:layout_weight="2"/>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:inputType="number"
+                    android:hint="8"
+                    android:background="@drawable/outline_gray_dark"
+                    android:gravity="center"
+                    android:layout_weight="2"/>
+
 
             </LinearLayout>
 
@@ -926,9 +1330,9 @@
                     android:padding="5dp"
                     android:layout_marginStart="20dp"
                     android:text="SET&amp;REP"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="12dp"
-                    android:background="@drawable/outline_filled_blue"
+                    android:background="@drawable/outline_filled_black"
                     android:layout_weight="1"
                     android:gravity="center"/>
 
@@ -941,7 +1345,7 @@
                     android:text="TIMER"
                     android:textColor="@color/black"
                     android:textSize="12dp"
-                    android:background="@drawable/outline_filled_blue"
+                    android:background="@drawable/outline_filled_none"
                     android:layout_weight="1"
                     android:gravity="center"/>
 
@@ -949,6 +1353,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
+                    android:visibility="invisible"
                     android:layout_marginEnd="20dp"
                     android:text="DROP SET"
                     android:textColor="@color/black"
@@ -956,6 +1361,50 @@
                     android:background="@drawable/outline_filled_blue"
                     android:layout_weight="1"
                     android:gravity="center"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/sr10"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:padding="10dp"
+                android:background="@drawable/outline_filled_flatb"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="SET: "
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:layout_weight="1"/>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:inputType="number"
+                    android:background="@drawable/outline_gray_dark"
+                    android:hint="1"
+                    android:gravity="center"
+                    android:layout_weight="2"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="REP:   "
+                    android:textColor="@color/black"
+                    android:gravity="end"
+                    android:layout_weight="2"/>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:inputType="number"
+                    android:hint="8"
+                    android:background="@drawable/outline_gray_dark"
+                    android:gravity="center"
+                    android:layout_weight="2"/>
+
 
             </LinearLayout>
 
@@ -1009,9 +1458,9 @@
                     android:padding="5dp"
                     android:layout_marginStart="20dp"
                     android:text="SET&amp;REP"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="12dp"
-                    android:background="@drawable/outline_filled_blue"
+                    android:background="@drawable/outline_filled_black"
                     android:layout_weight="1"
                     android:gravity="center"/>
 
@@ -1024,7 +1473,7 @@
                     android:text="TIMER"
                     android:textColor="@color/black"
                     android:textSize="12dp"
-                    android:background="@drawable/outline_filled_blue"
+                    android:background="@drawable/outline_filled_none"
                     android:layout_weight="1"
                     android:gravity="center"/>
 
@@ -1032,6 +1481,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
+                    android:visibility="invisible"
                     android:layout_marginEnd="20dp"
                     android:text="DROP SET"
                     android:textColor="@color/black"
@@ -1039,6 +1489,50 @@
                     android:background="@drawable/outline_filled_blue"
                     android:layout_weight="1"
                     android:gravity="center"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/sr11"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:padding="10dp"
+                android:background="@drawable/outline_filled_flatb"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="SET: "
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:layout_weight="1"/>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:inputType="number"
+                    android:background="@drawable/outline_gray_dark"
+                    android:hint="1"
+                    android:gravity="center"
+                    android:layout_weight="2"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="REP:   "
+                    android:textColor="@color/black"
+                    android:gravity="end"
+                    android:layout_weight="2"/>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:inputType="number"
+                    android:hint="8"
+                    android:background="@drawable/outline_gray_dark"
+                    android:gravity="center"
+                    android:layout_weight="2"/>
+
 
             </LinearLayout>
 
@@ -1092,9 +1586,9 @@
                     android:padding="5dp"
                     android:layout_marginStart="20dp"
                     android:text="SET&amp;REP"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="12dp"
-                    android:background="@drawable/outline_filled_blue"
+                    android:background="@drawable/outline_filled_black"
                     android:layout_weight="1"
                     android:gravity="center"/>
 
@@ -1107,7 +1601,7 @@
                     android:text="TIMER"
                     android:textColor="@color/black"
                     android:textSize="12dp"
-                    android:background="@drawable/outline_filled_blue"
+                    android:background="@drawable/outline_filled_none"
                     android:layout_weight="1"
                     android:gravity="center"/>
 
@@ -1115,6 +1609,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
+                    android:visibility="invisible"
                     android:layout_marginEnd="20dp"
                     android:text="DROP SET"
                     android:textColor="@color/black"
@@ -1122,6 +1617,50 @@
                     android:background="@drawable/outline_filled_blue"
                     android:layout_weight="1"
                     android:gravity="center"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/sr12"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:padding="10dp"
+                android:background="@drawable/outline_filled_flatb"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="SET: "
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:layout_weight="1"/>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:inputType="number"
+                    android:background="@drawable/outline_gray_dark"
+                    android:hint="1"
+                    android:gravity="center"
+                    android:layout_weight="2"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="REP:   "
+                    android:textColor="@color/black"
+                    android:gravity="end"
+                    android:layout_weight="2"/>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:inputType="number"
+                    android:hint="8"
+                    android:background="@drawable/outline_gray_dark"
+                    android:gravity="center"
+                    android:layout_weight="2"/>
+
 
             </LinearLayout>
 
@@ -1154,7 +1693,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="55dp"
                     android:fontFamily="@font/roboto"
                     android:hint="ADD NOTE"
                     android:inputType="textPersonName"/>
@@ -1165,6 +1704,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
                 android:padding="5dp"
                 android:text="ADD"
                 android:textSize="16dp"

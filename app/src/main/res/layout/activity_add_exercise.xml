@@ -94,7 +94,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="55dp"
                 android:fontFamily="@font/roboto"
                 android:hint="EXERCISE NAME"
                 android:inputType="textPersonName"/>
@@ -117,7 +117,7 @@
             <AutoCompleteTextView
                 android:id="@+id/autoTxt_1"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="55dp"
                 android:fontFamily="@font/roboto"
                 android:hint="MAIN MUSCLE TARGET"
                 android:inputType="textAutoComplete"/>
@@ -140,7 +140,7 @@
             <AutoCompleteTextView
                 android:id="@+id/autoTxt_2"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="55dp"
                 android:fontFamily="@font/roboto"
                 android:hint="SUB MUSCLE TARGET"
                 android:inputType="textAutoComplete"/>
@@ -164,7 +164,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="55dp"
                 android:fontFamily="@font/roboto"
                 android:hint="DESCRIPTION"
                 android:inputType="textPersonName"/>
