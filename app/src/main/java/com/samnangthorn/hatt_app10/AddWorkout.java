@@ -180,7 +180,7 @@ public class AddWorkout extends AppCompatActivity implements RVAdapter.onExeClic
             @Override
             public void onClick(View v) {
                 currentIndex -= 1;
-                selectedE2.setVisibility(View.GONE);
+                LayoutSelectedE[currentIndex].setVisibility(View.GONE);
                 reSortingIndex(1);
             }
         });
@@ -189,7 +189,7 @@ public class AddWorkout extends AppCompatActivity implements RVAdapter.onExeClic
             @Override
             public void onClick(View v) {
                 currentIndex -= 1;
-                selectedE3.setVisibility(View.GONE);
+                LayoutSelectedE[currentIndex].setVisibility(View.GONE);
                 reSortingIndex(2);
             }
         });
@@ -198,7 +198,7 @@ public class AddWorkout extends AppCompatActivity implements RVAdapter.onExeClic
             @Override
             public void onClick(View v) {
                 currentIndex -= 1;
-                selectedE4.setVisibility(View.GONE);
+                LayoutSelectedE[currentIndex].setVisibility(View.GONE);
                 reSortingIndex(3);
             }
         });
@@ -207,7 +207,7 @@ public class AddWorkout extends AppCompatActivity implements RVAdapter.onExeClic
             @Override
             public void onClick(View v) {
                 currentIndex -= 1;
-                selectedE5.setVisibility(View.GONE);
+                LayoutSelectedE[currentIndex].setVisibility(View.GONE);
                 reSortingIndex(4);
             }
         });
@@ -216,7 +216,7 @@ public class AddWorkout extends AppCompatActivity implements RVAdapter.onExeClic
             @Override
             public void onClick(View v) {
                 currentIndex -= 1;
-                selectedE6.setVisibility(View.GONE);
+                LayoutSelectedE[currentIndex].setVisibility(View.GONE);
                 reSortingIndex(5);
             }
         });
@@ -225,7 +225,7 @@ public class AddWorkout extends AppCompatActivity implements RVAdapter.onExeClic
             @Override
             public void onClick(View v) {
                 currentIndex -= 1;
-                selectedE7.setVisibility(View.GONE);
+                LayoutSelectedE[currentIndex].setVisibility(View.GONE);
                 reSortingIndex(6);
             }
         });
@@ -234,7 +234,7 @@ public class AddWorkout extends AppCompatActivity implements RVAdapter.onExeClic
             @Override
             public void onClick(View v) {
                 currentIndex -= 1;
-                selectedE8.setVisibility(View.GONE);
+                LayoutSelectedE[currentIndex].setVisibility(View.GONE);
                 reSortingIndex(7);
             }
         });
@@ -243,7 +243,7 @@ public class AddWorkout extends AppCompatActivity implements RVAdapter.onExeClic
             @Override
             public void onClick(View v) {
                 currentIndex -= 1;
-                selectedE9.setVisibility(View.GONE);
+                LayoutSelectedE[currentIndex].setVisibility(View.GONE);
                 reSortingIndex(8);
             }
         });
@@ -252,7 +252,7 @@ public class AddWorkout extends AppCompatActivity implements RVAdapter.onExeClic
             @Override
             public void onClick(View v) {
                 currentIndex -= 1;
-                selectedE10.setVisibility(View.GONE);
+                LayoutSelectedE[currentIndex].setVisibility(View.GONE);
                 reSortingIndex(9);
             }
         });
@@ -261,7 +261,7 @@ public class AddWorkout extends AppCompatActivity implements RVAdapter.onExeClic
             @Override
             public void onClick(View v) {
                 currentIndex -= 1;
-                selectedE11.setVisibility(View.GONE);
+                LayoutSelectedE[currentIndex].setVisibility(View.GONE);
                 reSortingIndex(10);
             }
         });
@@ -270,7 +270,7 @@ public class AddWorkout extends AppCompatActivity implements RVAdapter.onExeClic
             @Override
             public void onClick(View v) {
                 currentIndex -= 1;
-                selectedE12.setVisibility(View.GONE);
+                LayoutSelectedE[currentIndex].setVisibility(View.GONE);
                 reSortingIndex(11);
             }
         });
