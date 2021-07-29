@@ -138,7 +138,7 @@ public class EditWorkout extends AppCompatActivity implements RVAdapter.onExeCli
         c12 = findViewById(R.id.c12);
 
         LinearLayout[] LayoutSelectedE = new LinearLayout[]{selectedE1, selectedE2, selectedE3, selectedE4, selectedE5, selectedE6, selectedE7, selectedE8, selectedE9, selectedE10, selectedE11, selectedE12};
-
+        TextView[] eNameList = new TextView[]{Ex1, Ex2, Ex3, Ex4, Ex5, Ex6, Ex7, Ex8, Ex9, Ex10, Ex11, Ex12};
         // query the database to ArrayList
         transferToArrayList();
 
@@ -152,6 +152,15 @@ public class EditWorkout extends AppCompatActivity implements RVAdapter.onExeCli
         String[] wN_keySet = new String[]{"W1", "W2", "W3", "W4", "W5", "W6", "W7"};
         String wKName = getData.getString(wN_keySet[0], "ERROR");
         workoutName.setText(wKName);
+
+        for(int x = 0; x < getData.getInt(wN_keySet[0]+"eT", 0); x++){
+            LayoutSelectedE[x].setVisibility(View.VISIBLE);
+            String retrieveKey = wN_keySet[0] + "e" + String.valueOf(x);
+            String inputString = getData.getString(retrieveKey, "ERROR");
+            eNameList[x].setText(inputString);
+            eNameListedIn[currentIndex] = inputString;
+            currentIndex +=1;
+        }
 
 
         // on click listener

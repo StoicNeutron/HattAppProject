@@ -219,6 +219,7 @@ public class AddWorkout extends AppCompatActivity implements RVAdapter.onExeClic
                         }else{
                             editData.putString(newKey_WD_num, workout_des);
                         }
+                        editData.putInt(newKey_W_num + "eT", currentIndex);
                         // workout exercise
                         // generate key
                         String newKey_W_num_e_num;
