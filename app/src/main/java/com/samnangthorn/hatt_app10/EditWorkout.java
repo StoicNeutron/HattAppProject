@@ -31,13 +31,15 @@ public class EditWorkout extends AppCompatActivity implements RVAdapter.onExeCli
     private LinearLayout selectedE1, selectedE2, selectedE3, selectedE4, selectedE5, selectedE6, selectedE7, selectedE8, selectedE9, selectedE10, selectedE11, selectedE12;
     private TextView Ex1, Ex2, Ex3, Ex4, Ex5, Ex6, Ex7, Ex8, Ex9, Ex10, Ex11, Ex12, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12;
     private TextView btt_save;
-    private ImageView DE1, DE2, DE3, DE4, DE5, DE6, DE7, DE8, DE9, DE10, DE11, DE12;
+    private ImageView DE1, DE2, DE3, DE4, DE5, DE6, DE7, DE8, DE9, DE10, DE11, DE12, btt_right, btt_left;
     private TextView workoutName;
     private TextInputLayout workoutDes;
     private String[] eNameListedIn = new String[12];
     private SharedPreferences getData;
     private SharedPreferences.Editor editData;
     int currentIndex = 0;
+    int currentWorkoutIndex = 0;
+    String[] wN_keySet = new String[]{"W1", "W2", "W3", "W4", "W5", "W6", "W7"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,8 @@ public class EditWorkout extends AppCompatActivity implements RVAdapter.onExeCli
         getData = getApplicationContext().getSharedPreferences("workout_data", MODE_PRIVATE);
         editData = getData.edit();
         workoutDes = findViewById(R.id.edt_description);
+        btt_left = findViewById(R.id.btt_left);
+        btt_right = findViewById(R.id.btt_right);
         selectedE1 = findViewById(R.id.selectedEx1);
         selectedE2 = findViewById(R.id.selectedEx2);
         selectedE3 = findViewById(R.id.selectedEx3);
@@ -149,13 +153,13 @@ public class EditWorkout extends AppCompatActivity implements RVAdapter.onExeCli
 
         // set up existing workout view
         int sp_workoutTotal = getData.getInt("WT", 0);
-        String[] wN_keySet = new String[]{"W1", "W2", "W3", "W4", "W5", "W6", "W7"};
-        String wKName = getData.getString(wN_keySet[0], "ERROR");
+
+        String wKName = getData.getString(wN_keySet[currentWorkoutIndex], "ERROR");
         workoutName.setText(wKName);
 
-        for(int x = 0; x < getData.getInt(wN_keySet[0]+"eT", 0); x++){
+        for(int x = 0; x < getData.getInt(wN_keySet[currentWorkoutIndex]+"eT", 0); x++){
             LayoutSelectedE[x].setVisibility(View.VISIBLE);
-            String retrieveKey = wN_keySet[0] + "e" + String.valueOf(x);
+            String retrieveKey = wN_keySet[currentWorkoutIndex] + "e" + String.valueOf(x);
             String inputString = getData.getString(retrieveKey, "ERROR");
             eNameList[x].setText(inputString);
             eNameListedIn[currentIndex] = inputString;
@@ -211,6 +215,101 @@ public class EditWorkout extends AppCompatActivity implements RVAdapter.onExeCli
             }
         });
 
+        btt_right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // set up existing workout view
+
+                if(sp_workoutTotal>1){
+                    if(currentWorkoutIndex < sp_workoutTotal){
+                        currentWorkoutIndex += 1;
+                    }else if(currentWorkoutIndex >= sp_workoutTotal){
+                        currentWorkoutIndex = 0;
+                    }
+
+                    String wKName = getData.getString(wN_keySet[currentWorkoutIndex], "ERROR");
+                    workoutName.setText(wKName);
+
+                    if(currentIndex <= getData.getInt(wN_keySet[currentWorkoutIndex]+"eT", 0)){
+
+                        currentIndex = 0;
+                        for(int x = 0; x < getData.getInt(wN_keySet[currentWorkoutIndex]+"eT", 0); x++){
+                            LayoutSelectedE[x].setVisibility(View.VISIBLE);
+                            String retrieveKey = wN_keySet[currentWorkoutIndex] + "e" + String.valueOf(x);
+                            String inputString = getData.getString(retrieveKey, "ERROR");
+                            eNameList[x].setText(inputString);
+                            eNameListedIn[currentIndex] = inputString;
+                            currentIndex +=1;
+                        }
+                    }else if(currentIndex > getData.getInt(wN_keySet[currentWorkoutIndex]+"eT", 0)){
+
+                        int tempNum = currentIndex;
+                        currentIndex = 0;
+                        for(int x = 0; x < getData.getInt(wN_keySet[currentWorkoutIndex]+"eT", 0); x++){
+                            LayoutSelectedE[x].setVisibility(View.VISIBLE);
+                            String retrieveKey = wN_keySet[currentWorkoutIndex] + "e" + String.valueOf(x);
+                            String inputString = getData.getString(retrieveKey, "ERROR");
+                            eNameList[x].setText(inputString);
+                            eNameListedIn[currentIndex] = inputString;
+                            currentIndex +=1;
+                        }
+                        for(int y = getData.getInt(wN_keySet[currentWorkoutIndex]+"eT", 0); y < tempNum+1; y++){
+                            LayoutSelectedE[y].setVisibility(View.GONE);
+                        }
+                    }
+                }
+            }
+        });
+
+        btt_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    // set up existing workout view
+
+                    if(sp_workoutTotal>1){
+                        if(currentWorkoutIndex == 0){
+                            currentWorkoutIndex = sp_workoutTotal;
+                        }else if(currentWorkoutIndex <= sp_workoutTotal){
+                            currentWorkoutIndex -= 1;
+                        }
+
+                        String wKName = getData.getString(wN_keySet[currentWorkoutIndex], "ERROR");
+                        workoutName.setText(wKName);
+
+                        if(currentIndex <= getData.getInt(wN_keySet[currentWorkoutIndex]+"eT", 0)){
+
+                            currentIndex = 0;
+                            for(int x = 0; x < getData.getInt(wN_keySet[currentWorkoutIndex]+"eT", 0); x++){
+                                LayoutSelectedE[x].setVisibility(View.VISIBLE);
+                                String retrieveKey = wN_keySet[currentWorkoutIndex] + "e" + String.valueOf(x);
+                                String inputString = getData.getString(retrieveKey, "ERROR");
+                                eNameList[x].setText(inputString);
+                                eNameListedIn[currentIndex] = inputString;
+                                currentIndex +=1;
+                            }
+                        }else if(currentIndex > getData.getInt(wN_keySet[currentWorkoutIndex]+"eT", 0)){
+
+                            int tempNum = currentIndex;
+                            currentIndex = 0;
+                            for(int x = 0; x < getData.getInt(wN_keySet[currentWorkoutIndex]+"eT", 0); x++){
+                                LayoutSelectedE[x].setVisibility(View.VISIBLE);
+                                String retrieveKey = wN_keySet[currentWorkoutIndex] + "e" + String.valueOf(x);
+                                String inputString = getData.getString(retrieveKey, "ERROR");
+                                eNameList[x].setText(inputString);
+                                eNameListedIn[currentIndex] = inputString;
+                                currentIndex +=1;
+                            }
+                            for(int y = getData.getInt(wN_keySet[currentWorkoutIndex]+"eT", 0); y < tempNum+1; y++){
+                                LayoutSelectedE[y].setVisibility(View.GONE);
+                            }
+                        }
+                    }
+                }
+
+            }
+        });
+
         btt_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -218,8 +317,7 @@ public class EditWorkout extends AppCompatActivity implements RVAdapter.onExeCli
                 String workout_name = workoutName.getText().toString();
                 String workout_des = workoutDes.getEditText().getText().toString();
 
-                // validation input isn't null
-                if(!workout_name.isEmpty()){
+
                     // at least 1 exercise in a workout
                     if(currentIndex>0){
 
@@ -245,10 +343,10 @@ public class EditWorkout extends AppCompatActivity implements RVAdapter.onExeCli
                             editData.putString(newKey_W_num_e_num, eNameListedIn[x]);
                             editData.apply();
                         }
-                        Toast.makeText(EditWorkout.this, "Add Successful", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditWorkout.this, "Save Successful", Toast.LENGTH_SHORT).show();
                         open_scheduleLayout();
                     }
-                }
+
             }
         });
 
