@@ -323,27 +323,26 @@ public class EditWorkout extends AppCompatActivity implements RVAdapter.onExeCli
                         String newKey_W_num = "W" + String.valueOf(currentWorkoutIndex+1);
                         String newKey_WD_num = "WD" + String.valueOf(currentWorkoutIndex+1);
 
-                            // workout description
-                            if(workout_des.isEmpty()){
-                                editData.putString(newKey_WD_num, "NONE");
-                            }else{
-                                editData.putString(newKey_WD_num, workout_des);
-                            }
-                            // workout exercises
-                            editData.putInt(newKey_W_num + "eT", currentExerciseIndex);
-                            // generate key
-                            String newKey_W_num_e_num;
-                            //ArrayList<String> keyArray = new ArrayList<String>();
-                            for(int x = 0; x < currentExerciseIndex +1; x++){
-                                newKey_W_num_e_num = newKey_W_num + "e" + String.valueOf(x);
-                                //keyArray.add(newKey_W_num_e_num);
-                                editData.putString(newKey_W_num_e_num, eNameListedIn[x]);
-                                editData.apply();
-                            }
+                        // workout description
+                        if(workout_des.isEmpty()){
+                            editData.putString(newKey_WD_num, "NONE");
+                        }else{
+                            editData.putString(newKey_WD_num, workout_des);
+                        }
+                        // workout exercises
+                        editData.putInt(newKey_W_num + "eT", currentExerciseIndex);
+                        // generate key
+                        String newKey_W_num_e_num;
+                        //ArrayList<String> keyArray = new ArrayList<String>();
+                        for(int x = 0; x < currentExerciseIndex +1; x++){
+                            newKey_W_num_e_num = newKey_W_num + "e" + String.valueOf(x);
+                            //keyArray.add(newKey_W_num_e_num);
+                            editData.putString(newKey_W_num_e_num, eNameListedIn[x]);
+                            editData.apply();
                         }
                         Toast.makeText(EditWorkout.this, "Save Successful", Toast.LENGTH_SHORT).show();
                         open_scheduleLayout();
-
+                    }
             }
         });
 
