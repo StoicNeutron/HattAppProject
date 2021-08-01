@@ -1730,14 +1730,12 @@
                 app:counterEnabled="true"
                 app:counterMaxLength="150"
                 app:errorEnabled="true"
-                app:startIconDrawable="@drawable/ic_addnote"
                 android:layout_weight="1">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="55dp"
+                    android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto"
-                    android:hint="ADD NOTE"
                     android:inputType="textPersonName"/>
             </com.google.android.material.textfield.TextInputLayout>
 
