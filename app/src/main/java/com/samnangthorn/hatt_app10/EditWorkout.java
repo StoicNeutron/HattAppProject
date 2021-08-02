@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
@@ -29,7 +30,7 @@ public class EditWorkout extends AppCompatActivity implements RVAdapter.onExeCli
     private LinearLayout selectedE1, selectedE2, selectedE3, selectedE4, selectedE5, selectedE6, selectedE7, selectedE8, selectedE9, selectedE10, selectedE11, selectedE12;
     private TextView workoutName, btt_save, Ex1, Ex2, Ex3, Ex4, Ex5, Ex6, Ex7, Ex8, Ex9, Ex10, Ex11, Ex12, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12;
     private ImageView DE1, DE2, DE3, DE4, DE5, DE6, DE7, DE8, DE9, DE10, DE11, DE12, btt_right, btt_left;
-    private TextInputLayout workoutDes;
+    private EditText workoutDes;
     private String[] eNameListedIn = new String[12];
     private SharedPreferences getData;
     private SharedPreferences.Editor editData;
@@ -157,7 +158,9 @@ public class EditWorkout extends AppCompatActivity implements RVAdapter.onExeCli
         // set up existing workout view
         int sp_workoutTotal = getData.getInt("WT", 0);
         String wKName = getData.getString(W_num_keySet[currentWorkoutIndex], "ERROR");
+        // *Workout Name
         workoutName.setText(wKName);
+        // *Exercises Name
         for(int x = 0; x < getData.getInt(W_num_keySet[currentWorkoutIndex]+"eT", 0); x++){
             LayoutSelectedE[x].setVisibility(View.VISIBLE);
             String retrieveKey = W_num_keySet[currentWorkoutIndex] + "e" + String.valueOf(x);
@@ -167,7 +170,8 @@ public class EditWorkout extends AppCompatActivity implements RVAdapter.onExeCli
             currentExerciseIndex +=1;
         }
         String keyDes = "WD" + String.valueOf(currentWorkoutIndex+1);
-        workoutDes.setHint(getData.getString(keyDes, "ERROR"));
+        // *Description
+        workoutDes.setText(getData.getString(keyDes, "ERROR"));
 
 
         // on click listener
@@ -244,6 +248,9 @@ public class EditWorkout extends AppCompatActivity implements RVAdapter.onExeCli
                             eNameListedIn[currentExerciseIndex] = inputString;
                             currentExerciseIndex +=1;
                         }
+                        String keyDes = "WD" + String.valueOf(currentWorkoutIndex+1);
+                        // *Description
+                        workoutDes.setText(getData.getString(keyDes, "ERROR"));
                     }else if(currentExerciseIndex > getData.getInt(W_num_keySet[currentWorkoutIndex]+"eT", 0)){
 
                         int tempNum = currentExerciseIndex;
@@ -256,6 +263,9 @@ public class EditWorkout extends AppCompatActivity implements RVAdapter.onExeCli
                             eNameListedIn[currentExerciseIndex] = inputString;
                             currentExerciseIndex +=1;
                         }
+                        String keyDes = "WD" + String.valueOf(currentWorkoutIndex+1);
+                        // *Description
+                        workoutDes.setText(getData.getString(keyDes, "ERROR"));
                         for(int y = getData.getInt(W_num_keySet[currentWorkoutIndex]+"eT", 0); y < tempNum+1; y++){
                             LayoutSelectedE[y].setVisibility(View.GONE);
                         }
@@ -291,6 +301,9 @@ public class EditWorkout extends AppCompatActivity implements RVAdapter.onExeCli
                                 eNameListedIn[currentExerciseIndex] = inputString;
                                 currentExerciseIndex +=1;
                             }
+                            String keyDes = "WD" + String.valueOf(currentWorkoutIndex+1);
+                            // *Description
+                            workoutDes.setText(getData.getString(keyDes, "ERROR"));
                         }else if(currentExerciseIndex > getData.getInt(W_num_keySet[currentWorkoutIndex]+"eT", 0)){
 
                             int tempNum = currentExerciseIndex;
@@ -303,6 +316,9 @@ public class EditWorkout extends AppCompatActivity implements RVAdapter.onExeCli
                                 eNameListedIn[currentExerciseIndex] = inputString;
                                 currentExerciseIndex +=1;
                             }
+                            String keyDes = "WD" + String.valueOf(currentWorkoutIndex+1);
+                            // *Description
+                            workoutDes.setText(getData.getString(keyDes, "ERROR"));
                             for(int y = getData.getInt(W_num_keySet[currentWorkoutIndex]+"eT", 0); y < tempNum+1; y++){
                                 LayoutSelectedE[y].setVisibility(View.GONE);
                             }
@@ -316,7 +332,7 @@ public class EditWorkout extends AppCompatActivity implements RVAdapter.onExeCli
         btt_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String workout_des = workoutDes.getEditText().getText().toString();
+                String workout_des = workoutDes.getText().toString();
 
                     // validation at least 1 exercise in a workout
                     if(currentExerciseIndex > 0){
@@ -340,6 +356,9 @@ public class EditWorkout extends AppCompatActivity implements RVAdapter.onExeCli
                             editData.putString(newKey_W_num_e_num, eNameListedIn[x]);
                             editData.apply();
                         }
+                        String keyDes = "WD" + String.valueOf(currentWorkoutIndex+1);
+                        // *Description
+                        editData.putString(keyDes, workoutDes.getText().toString());
                         Toast.makeText(EditWorkout.this, "Save Successful", Toast.LENGTH_SHORT).show();
                         open_scheduleLayout();
                     }

@@ -12,6 +12,7 @@ import android.database.Cursor;
 import android.icu.util.ICUUncheckedIOException;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
@@ -32,6 +33,7 @@ public class AddWorkout extends AppCompatActivity implements RVAdapter.onExeClic
     private LinearLayout selectedE1, selectedE2, selectedE3, selectedE4, selectedE5, selectedE6, selectedE7, selectedE8, selectedE9, selectedE10, selectedE11, selectedE12;
     private TextView Ex1, Ex2, Ex3, Ex4, Ex5, Ex6, Ex7, Ex8, Ex9, Ex10, Ex11, Ex12, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12;
     private TextView btt_add;
+    private EditText es1, es2, es3, es4, es5, es6, es7, es8, es9, es10, es11, es12, er1, er2, er3, er4, er5, er6, er7,  er8, er9, er10, er11, er12;
     private ImageView DE1, DE2, DE3, DE4, DE5, DE6, DE7, DE8, DE9, DE10, DE11, DE12;
     private TextInputLayout workoutName, workoutDes;
     private String[] eNameListedIn = new String[12];
@@ -136,7 +138,37 @@ public class AddWorkout extends AppCompatActivity implements RVAdapter.onExeClic
         c11 = findViewById(R.id.c11);
         c12 = findViewById(R.id.c12);
 
+        es1 = findViewById(R.id.e1s);
+        es2 = findViewById(R.id.e2s);
+        es3 = findViewById(R.id.e3s);
+        es4 = findViewById(R.id.e4s);
+        es5 = findViewById(R.id.e5s);
+        es6 = findViewById(R.id.e6s);
+        es7 = findViewById(R.id.e7s);
+        es8 = findViewById(R.id.e8s);
+        es9 = findViewById(R.id.e9s);
+        es10 = findViewById(R.id.e10s);
+        es11 = findViewById(R.id.e11s);
+        es12 = findViewById(R.id.e12s);
+
+        er1 = findViewById(R.id.e1r);
+        er2 = findViewById(R.id.e2r);
+        er3 = findViewById(R.id.e3r);
+        er4 = findViewById(R.id.e4r);
+        er5 = findViewById(R.id.e5r);
+        er6 = findViewById(R.id.e6r);
+        er7 = findViewById(R.id.e7r);
+        er8 = findViewById(R.id.e8r);
+        er9 = findViewById(R.id.e9r);
+        er10 = findViewById(R.id.e10r);
+        er11 = findViewById(R.id.e11r);
+        er12 = findViewById(R.id.e12r);
+
+
         LinearLayout[] LayoutSelectedE = new LinearLayout[]{selectedE1, selectedE2, selectedE3, selectedE4, selectedE5, selectedE6, selectedE7, selectedE8, selectedE9, selectedE10, selectedE11, selectedE12};
+        TextView[] cList = new TextView[]{c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12};
+        EditText[] sList = new EditText[]{es1, es2, es3, es4, es5, es6, es7, es8, es9, es10, es11, es12};
+        EditText[] rList = new EditText[]{er1, er2, er3, er4, er5, er6, er7,  er8, er9, er10, er11, er12};
 
         // query the database to ArrayList
         transferToArrayList();
@@ -224,10 +256,16 @@ public class AddWorkout extends AppCompatActivity implements RVAdapter.onExeClic
                         // generate key
                         String newKey_W_num_e_num;
                         ArrayList<String> keyArray = new ArrayList<String>();
-                        for(int x = 0; x < currentIndex+1; x++){
+                        for(int x = 0; x < currentIndex; x++){
                             newKey_W_num_e_num = newKey_W_num + "e" + String.valueOf(x);
                             keyArray.add(newKey_W_num_e_num);
                             editData.putString(newKey_W_num_e_num, eNameListedIn[x]);
+                            editData.putInt(newKey_W_num_e_num + "s", Integer.valueOf(sList[x].getText().toString()));
+                            if(cList[x].getText().toString().contains("REP")){
+                                editData.putInt(newKey_W_num_e_num + "r", Integer.parseInt(rList[x].getText().toString()));
+                            }else{
+                                editData.putInt(newKey_W_num_e_num + "t", Integer.parseInt(rList[x].getText().toString()));
+                            }
                             editData.apply();
                         }
                         Toast.makeText(AddWorkout.this, "Add Successful", Toast.LENGTH_SHORT).show();
