@@ -241,6 +241,7 @@
                         android:gravity="center"
                         android:layout_weight="1"/>
                     <EditText
+                        android:id="@+id/e1s"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:inputType="number"
@@ -257,6 +258,7 @@
                         android:gravity="end"
                         android:layout_weight="2"/>
                     <EditText
+                        android:id="@+id/e1r"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:inputType="number"
@@ -371,6 +373,7 @@
                         android:gravity="center"
                         android:layout_weight="1"/>
                     <EditText
+                        android:id="@+id/e2s"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:inputType="number"
@@ -387,6 +390,7 @@
                         android:gravity="end"
                         android:layout_weight="2"/>
                     <EditText
+                        android:id="@+id/e2r"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:inputType="number"
@@ -501,6 +505,7 @@
                         android:gravity="center"
                         android:layout_weight="1"/>
                     <EditText
+                        android:id="@+id/e3s"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:inputType="number"
@@ -517,6 +522,7 @@
                         android:gravity="end"
                         android:layout_weight="2"/>
                     <EditText
+                        android:id="@+id/e3r"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:inputType="number"
@@ -631,6 +637,7 @@
                         android:gravity="center"
                         android:layout_weight="1"/>
                     <EditText
+                        android:id="@+id/e4s"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:inputType="number"
@@ -647,6 +654,7 @@
                         android:gravity="end"
                         android:layout_weight="2"/>
                     <EditText
+                        android:id="@+id/e4r"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:inputType="number"
@@ -762,6 +770,7 @@
                         android:gravity="center"
                         android:layout_weight="1"/>
                     <EditText
+                        android:id="@+id/e5s"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:inputType="number"
@@ -778,6 +787,7 @@
                         android:gravity="end"
                         android:layout_weight="2"/>
                     <EditText
+                        android:id="@+id/e5r"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:inputType="number"
@@ -893,6 +903,7 @@
                         android:gravity="center"
                         android:layout_weight="1"/>
                     <EditText
+                        android:id="@+id/e6s"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:inputType="number"
@@ -909,6 +920,7 @@
                         android:gravity="end"
                         android:layout_weight="2"/>
                     <EditText
+                        android:id="@+id/e6r"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:inputType="number"
@@ -1024,6 +1036,7 @@
                         android:gravity="center"
                         android:layout_weight="1"/>
                     <EditText
+                        android:id="@+id/e7s"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:inputType="number"
@@ -1040,6 +1053,7 @@
                         android:gravity="end"
                         android:layout_weight="2"/>
                     <EditText
+                        android:id="@+id/e7r"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:inputType="number"
@@ -1155,6 +1169,7 @@
                         android:gravity="center"
                         android:layout_weight="1"/>
                     <EditText
+                        android:id="@+id/e8s"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:inputType="number"
@@ -1171,6 +1186,7 @@
                         android:gravity="end"
                         android:layout_weight="2"/>
                     <EditText
+                        android:id="@+id/e8r"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:inputType="number"
@@ -1286,6 +1302,7 @@
                         android:gravity="center"
                         android:layout_weight="1"/>
                     <EditText
+                        android:id="@+id/e9s"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:inputType="number"
@@ -1302,6 +1319,7 @@
                         android:gravity="end"
                         android:layout_weight="2"/>
                     <EditText
+                        android:id="@+id/e9r"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:inputType="number"
@@ -1417,6 +1435,7 @@
                         android:gravity="center"
                         android:layout_weight="1"/>
                     <EditText
+                        android:id="@+id/e10s"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:inputType="number"
@@ -1433,6 +1452,7 @@
                         android:gravity="end"
                         android:layout_weight="2"/>
                     <EditText
+                        android:id="@+id/e10r"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:inputType="number"
@@ -1548,6 +1568,7 @@
                         android:gravity="center"
                         android:layout_weight="1"/>
                     <EditText
+                        android:id="@+id/e11s"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:inputType="number"
@@ -1564,6 +1585,7 @@
                         android:gravity="end"
                         android:layout_weight="2"/>
                     <EditText
+                        android:id="@+id/e11r"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:inputType="number"
@@ -1679,6 +1701,7 @@
                         android:gravity="center"
                         android:layout_weight="1"/>
                     <EditText
+                        android:id="@+id/e12s"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:inputType="number"
@@ -1695,6 +1718,7 @@
                         android:gravity="end"
                         android:layout_weight="2"/>
                     <EditText
+                        android:id="@+id/e12r"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:inputType="number"

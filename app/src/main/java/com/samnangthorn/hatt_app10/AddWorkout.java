@@ -263,8 +263,10 @@ public class AddWorkout extends AppCompatActivity implements RVAdapter.onExeClic
                             editData.putInt(newKey_W_num_e_num + "s", Integer.valueOf(sList[x].getText().toString()));
                             if(cList[x].getText().toString().contains("REP")){
                                 editData.putInt(newKey_W_num_e_num + "r", Integer.parseInt(rList[x].getText().toString()));
+                                editData.putString(newKey_W_num_e_num + "T", "sr");
                             }else{
                                 editData.putInt(newKey_W_num_e_num + "t", Integer.parseInt(rList[x].getText().toString()));
+                                editData.putString(newKey_W_num_e_num + "T", "st");
                             }
                             editData.apply();
                         }
