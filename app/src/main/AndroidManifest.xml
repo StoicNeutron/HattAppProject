@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Hatt_App10">
-        <activity android:name=".EditWorkout"></activity>
+        <activity android:name=".RemoveWorkout"></activity>
+        <activity android:name=".EditWorkout" />
         <activity android:name=".AddWorkout" />
         <activity android:name=".DetailExercise" />
         <activity android:name=".NewUserSetUp" />
