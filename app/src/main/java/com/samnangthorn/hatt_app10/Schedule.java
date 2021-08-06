@@ -23,6 +23,7 @@ public class Schedule extends AppCompatActivity{
             R.id.d21, R.id.d22, R.id.d23, R.id.d24, R.id.d25, R.id.d26, R.id.d27, R.id.d28, R.id.d29, R.id.d30, R.id.d31, R.id.d32};
     private Calendar realTime_data;
     private String currentMonth;
+    private String initialSetMonth;
     private int currentYear;
     private int currentDay;
 
@@ -47,6 +48,7 @@ public class Schedule extends AppCompatActivity{
 
         // setting calendar
         currentMonth = Helper.getCurrentMonthName();
+        initialSetMonth = currentMonth;
         txt_month.setText(currentMonth);
 
         currentYear = Integer.parseInt(Helper.getCurrentYear());
@@ -108,9 +110,9 @@ public class Schedule extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 // setting calendar
-                txt_month.setText(Helper.getNextMonth(currentMonth));
+                txt_month.setText(Helper.getPreMonth(currentMonth));
                 // update current month
-                currentMonth = Helper.getNextMonth(currentMonth);
+                currentMonth = Helper.getPreMonth(currentMonth);
                 int currentYear = 0;
                 try{
                     currentYear = Integer.parseInt(Helper.getCurrentYear());
@@ -123,7 +125,12 @@ public class Schedule extends AppCompatActivity{
                 }else{
                     findViewOfThese(Helper.getTotalDayOfPreMonth(currentMonth));
                 }
-                daysList[currentDay-1].setTextSize(14f);
+                //
+                if(currentMonth.equalsIgnoreCase(initialSetMonth)){
+                    daysList[currentDay-1].setTextSize(19f);
+                }else{
+                    daysList[currentDay-1].setTextSize(14f);
+                }
             }
         });
 
@@ -146,7 +153,12 @@ public class Schedule extends AppCompatActivity{
                 }else{
                     findViewOfThese(Helper.getTotalDayOfNextMonth(currentMonth));
                 }
-                daysList[currentDay-1].setTextSize(14f);
+                //
+                if(currentMonth.equalsIgnoreCase(initialSetMonth)){
+                    daysList[currentDay-1].setTextSize(19f);
+                }else{
+                    daysList[currentDay-1].setTextSize(14f);
+                }
             }
         });
 

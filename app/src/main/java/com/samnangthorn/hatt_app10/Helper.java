@@ -102,15 +102,15 @@ public class Helper {
             }
         }
 
-        if(index < 0){
+        if(index > 0){
             returnNumber = totalDayOfMonth[index - 1];
         }else if(index == 0){
             Helper newHelper = new Helper();
             int intYear = Integer.valueOf(currentYear) - 1;
             if(newHelper.IS_leapOrNot(intYear)){
-                intYear = leapYearTotalDayOfMonth[0];
+                intYear = leapYearTotalDayOfMonth[11];
             }else{
-                intYear = totalDayOfMonth[0];
+                intYear = totalDayOfMonth[11];
             }
             returnNumber = intYear;
         }
@@ -147,7 +147,7 @@ public class Helper {
         if(index > 0){
             return  leapYearTotalDayOfMonth[index - 1];
         }else{
-            return leapYearTotalDayOfMonth[11];
+            return totalDayOfMonth[11];
         }
     }
 
@@ -174,6 +174,20 @@ public class Helper {
                     nextMonth = monthList[0];
                 }else{
                     nextMonth = monthList[i+1];
+                }
+            }
+        }
+        return nextMonth;
+    }
+
+    public static String getPreMonth(String theCurrentMonth){
+        String nextMonth = "ERROR";
+        for (int i = 0; i < monthList.length; i++){
+            if(monthList[i].equalsIgnoreCase(theCurrentMonth)){
+                if(i > 0){
+                    nextMonth = monthList[i - 1];
+                }else{
+                    nextMonth = monthList[11];
                 }
             }
         }
