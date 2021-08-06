@@ -3,10 +3,12 @@ package com.samnangthorn.hatt_app10;
 import androidx.annotation.IdRes;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -15,17 +17,21 @@ public class Schedule extends AppCompatActivity{
 
     private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_preMonth, btt_nextMonth;
     private TextView txt_month, btt_createWorkout, btt_editWorkout, btt_removeWorkout;
-    private TextView wk1;
+    private TextView wk1, wk2, wk3, wk4, wk5, wk6, wk7;
+    private LinearLayout c1, c2, c3, c4, c5, c6, c7;
     private TextView d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27, d28, d29, d30, d31, d32;
     private TextView[] daysList = {d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27, d28, d29, d30, d31, d32};
     private @IdRes int[] dayIDList = {R.id.d1, R.id.d2, R.id.d3, R.id.d4, R.id.d5, R.id.d6, R.id.d7, R.id.d8, R.id.d9, R.id.d10,
             R.id.d11, R.id.d12, R.id.d13, R.id.d14, R.id.d15, R.id.d16, R.id.d17, R.id.d18, R.id.d19, R.id.d20,
             R.id.d21, R.id.d22, R.id.d23, R.id.d24, R.id.d25, R.id.d26, R.id.d27, R.id.d28, R.id.d29, R.id.d30, R.id.d31, R.id.d32};
+    private SharedPreferences getData;
+    private SharedPreferences.Editor editData;
     private Calendar realTime_data;
     private String currentMonth;
     private String initialSetMonth;
     private int currentYear;
     private int currentDay;
+    private int totalWorkoutNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +49,27 @@ public class Schedule extends AppCompatActivity{
         btt_editWorkout = findViewById(R.id.btt_editWorkout);
         btt_removeWorkout = findViewById(R.id.btt_removeWorkout);
         wk1 = findViewById(R.id.wk1);
+        wk2 = findViewById(R.id.wk2);
+        wk3 = findViewById(R.id.wk3);
+        wk4 = findViewById(R.id.wk4);
+        wk5 = findViewById(R.id.wk5);
+        wk6 = findViewById(R.id.wk6);
+        wk7 = findViewById(R.id.wk7);
+
+        c1 = findViewById(R.id.c1);
+        c2 = findViewById(R.id.c2);
+        c3 = findViewById(R.id.c3);
+        c4 = findViewById(R.id.c4);
+        c5 = findViewById(R.id.c5);
+        c6 = findViewById(R.id.c6);
+        c7 = findViewById(R.id.c7);
+        LinearLayout[] cList = new LinearLayout[]{c1, c2, c3, c4, c5, c6, c7};
+        TextView[] wkList = new TextView[]{wk1, wk2, wk3, wk4, wk5, wk6, wk7};
+
         btt_preMonth = findViewById(R.id.btt_previous_month);
         btt_nextMonth = findViewById(R.id.btt_next_month);
+        getData = getApplicationContext().getSharedPreferences("workout_data", MODE_PRIVATE);
+        editData = getData.edit();
 
         // setting calendar
         currentMonth = Helper.getCurrentMonthName();
@@ -58,12 +83,18 @@ public class Schedule extends AppCompatActivity{
             findViewOfThese(Helper.getTotalDayOfMonth(Helper.getCurrentMonth()));
         }
 
+        // setup view color workout
+        totalWorkoutNum = getData.getInt("WT", 0);
+
+        for(int x = 0; x < totalWorkoutNum; x++){
+            cList[x].setVisibility(View.VISIBLE);
+            wkList[x].setText(getData.getString("W" + (x+1), "ERROR"));
+        }
 
         realTime_data = Calendar.getInstance();
         String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(realTime_data.getTime());
         currentDay = Integer.parseInt(Helper.getCurrentDay(currentDate));
         daysList[currentDay-1].setTextSize(19f);
-
 
         // on click listener
         //
@@ -191,6 +222,12 @@ public class Schedule extends AppCompatActivity{
     private void findViewOfThese(int totalDaysInMonth){
         for(int x = 0; x < 32; x++){
             daysList[x] = findViewById(dayIDList[x]);
+            daysList[x].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
             if(x < totalDaysInMonth){
                 if(x<9){
                     daysList[x].setText("0" + String.valueOf(x + 1));

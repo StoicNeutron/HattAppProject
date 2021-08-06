@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -572,6 +573,8 @@
             android:layout_gravity="start">
 
             <LinearLayout
+                android:id="@+id/c1"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -593,6 +596,8 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/c2"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -605,6 +610,7 @@
                     android:background="@drawable/date_red_bg"/>
 
                 <TextView
+                    android:id="@+id/wk2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -616,6 +622,8 @@
 
 
             <LinearLayout
+                android:id="@+id/c3"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -628,6 +636,7 @@
                     android:background="@drawable/date_yellow_bg"/>
 
                 <TextView
+                    android:id="@+id/wk3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -637,6 +646,8 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/c4"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -649,6 +660,7 @@
                     android:background="@drawable/date_green_bg"/>
 
                 <TextView
+                    android:id="@+id/wk4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -658,6 +670,8 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/c5"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -670,6 +684,7 @@
                     android:background="@drawable/date_purple_bg"/>
 
                 <TextView
+                    android:id="@+id/wk5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -679,6 +694,8 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/c6"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -691,6 +708,7 @@
                     android:background="@drawable/date_orange_bg"/>
 
                 <TextView
+                    android:id="@+id/wk6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -700,6 +718,8 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/c7"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -712,6 +732,7 @@
                     android:background="@drawable/date_rest_bg"/>
 
                 <TextView
+                    android:id="@+id/wk7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
