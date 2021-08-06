@@ -69,6 +69,13 @@
             android:orientation="vertical"
             android:gravity="center">
 
+            <ImageView
+                android:id="@+id/btt_back"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/back"
+                android:layout_gravity="start"/>
+
             <LinearLayout
                 android:id="@+id/wk1"
                 android:visibility="gone"
@@ -339,46 +346,6 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_delete"
                     android:layout_weight="3"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="20dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/btt_back"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:padding="5dp"
-                    android:text="BACK"
-                    android:textSize="16dp"
-                    android:layout_gravity="end"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:background="@drawable/button_bg_blue"
-                    android:layout_weight="1"/>
-                <TextView
-                    android:id="@+id/btt_save"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:padding="5dp"
-                    android:text="SAVE"
-                    android:textSize="16dp"
-                    android:layout_gravity="end"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:background="@drawable/button_bg_blue"
-                    android:layout_weight="1"/>
 
             </LinearLayout>
 

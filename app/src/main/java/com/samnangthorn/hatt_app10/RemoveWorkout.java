@@ -17,7 +17,7 @@ public class RemoveWorkout extends AppCompatActivity {
     private ImageView btt_home, btt_report, btt_timer, btt_setting, btt_exercise;
     private LinearLayout w1, w2, w3, w4, w5, w6, w7;
     private TextView txt1, txt2, txt3, txt4, txt5, txt6, txt7;
-    private TextView btt_back, btt_save;
+    private ImageView btt_back;
     private ImageView d1, d2, d3, d4, d5, d6, d7;
     private SharedPreferences getData;
     private SharedPreferences.Editor editData;
@@ -54,7 +54,6 @@ public class RemoveWorkout extends AppCompatActivity {
         d7 = findViewById(R.id.d7);
 
         btt_back = findViewById(R.id.btt_back);
-        btt_save = findViewById(R.id.btt_save);
         btt_home = findViewById(R.id.btt_home);
         btt_report = findViewById(R.id.btt_report);
         btt_timer = findViewById(R.id.btt_timer);
@@ -104,7 +103,7 @@ public class RemoveWorkout extends AppCompatActivity {
                             editData.putString("W" + (x+1) + "e" + y + "T", getData.getString("W" + (x + 2) + "e" + y + "T", "ERROR type"));
                             editData.putInt("W" + (x+1) + "e" + y + "s", getData.getInt("W" + (x + 2) + "e" + y + "s", 0));
                             if(getData.getString("W" + (x + 2) + "e" + y + "T", "ERROR").equalsIgnoreCase("sr")){
-                                editData.putInt("W" + (x+1) + "e" + y + "t", getData.getInt("W" + (x + 2) + "e" + y + "r", 0));
+                                editData.putInt("W" + (x+1) + "e" + y + "r", getData.getInt("W" + (x + 2) + "e" + y + "r", 0));
                             }else{
                                 editData.putInt("W" + (x+1) + "e" + y + "t", getData.getInt("W" + (x + 2) + "e" + y + "t", 0));
                             }
@@ -164,12 +163,6 @@ public class RemoveWorkout extends AppCompatActivity {
             }
         });
 
-        btt_save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
         d1.setOnClickListener(new View.OnClickListener() {
             @Override

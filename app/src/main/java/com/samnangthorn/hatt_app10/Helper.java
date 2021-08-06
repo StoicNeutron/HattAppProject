@@ -35,6 +35,31 @@ public class Helper {
         }
     }
 
+    public static String getCurrentDay(String dateString){
+        String returnString;
+        int startIndex, endIndex;
+        startIndex = endIndex = 0;
+        boolean activate = false;
+        boolean activate2 = false;
+        for(int x = 0; x < dateString.length(); x++){
+            // space
+            if(dateString.charAt(x) == 32){
+                if(activate){
+                    startIndex = x-2;
+                }
+                activate = true;
+            }
+            // comma
+            if(dateString.charAt(x) == 44){
+                if(activate2){
+                    endIndex = x;
+                }
+                activate2 = true;
+            }
+        }
+        return dateString.substring(startIndex, endIndex);
+    }
+
 
     // getter methods
     //
@@ -42,8 +67,88 @@ public class Helper {
         return totalDayOfMonth[month];
     }
 
+    public  static int getTotalDayOfNextMonth(String currentMonth){
+        int index = 0;
+        int returnNumber = 1;
+        for (int x = 0; x < monthList.length; x++){
+            if (currentMonth.equalsIgnoreCase(monthList[x])){
+                index = x;
+                break;
+            }
+        }
+
+        if(index < 11){
+            returnNumber = totalDayOfMonth[index + 1];
+        }else if(index == 11){
+            Helper newHelper = new Helper();
+            int intYear = Integer.valueOf(currentYear) + 1;
+            if(newHelper.IS_leapOrNot(intYear)){
+                intYear = leapYearTotalDayOfMonth[0];
+            }else{
+                intYear = totalDayOfMonth[0];
+            }
+            returnNumber = intYear;
+        }
+        return returnNumber;
+    }
+
+    public  static int getTotalDayOfPreMonth(String currentMonth){
+        int index = 0;
+        int returnNumber = 1;
+        for (int x = 0; x < monthList.length; x++){
+            if (currentMonth.equalsIgnoreCase(monthList[x])){
+                index = x;
+                break;
+            }
+        }
+
+        if(index < 0){
+            returnNumber = totalDayOfMonth[index - 1];
+        }else if(index == 0){
+            Helper newHelper = new Helper();
+            int intYear = Integer.valueOf(currentYear) - 1;
+            if(newHelper.IS_leapOrNot(intYear)){
+                intYear = leapYearTotalDayOfMonth[0];
+            }else{
+                intYear = totalDayOfMonth[0];
+            }
+            returnNumber = intYear;
+        }
+        return returnNumber;
+    }
+
     public static int getLeapYearTotalDayOfMonth(int month) {
         return leapYearTotalDayOfMonth[month];
+    }
+
+    public static int getLeapYearTotalDayOfNextMonth(String currentMonth){
+        int index = 0;
+        for (int x = 0; x < monthList.length; x++){
+            if (currentMonth.equalsIgnoreCase(monthList[x])){
+                index = x;
+                break;
+            }
+        }
+        if(index == 12){
+            return  leapYearTotalDayOfMonth[index + 1];
+        }else{
+            return leapYearTotalDayOfMonth[0];
+        }
+    }
+
+    public static int getLeapYearTotalDayOfPreMonth(String currentMonth){
+        int index = 0;
+        for (int x = 0; x < monthList.length; x++){
+            if (currentMonth.equalsIgnoreCase(monthList[x])){
+                index = x;
+                break;
+            }
+        }
+        if(index > 0){
+            return  leapYearTotalDayOfMonth[index - 1];
+        }else{
+            return leapYearTotalDayOfMonth[11];
+        }
     }
 
     public static String getCurrentYear() {
@@ -61,6 +166,20 @@ public class Helper {
         return returnInt;
     }
 
+    public static String getNextMonth(String theCurrentMonth){
+        String nextMonth = "ERROR";
+        for (int i = 0; i < monthList.length; i++){
+            if(monthList[i].equalsIgnoreCase(theCurrentMonth)){
+                if(i == 11){
+                    nextMonth = monthList[0];
+                }else{
+                    nextMonth = monthList[i+1];
+                }
+            }
+        }
+        return nextMonth;
+    }
+
     public static String getCurrentMonthName() {
         return currentMonth;
     }
@@ -73,6 +192,23 @@ public class Helper {
 
     public static void setCurrentMonth(String currentMonth) {
         Helper.currentMonth = currentMonth;
+    }
+
+    // Methods
+    private boolean IS_leapOrNot(int year){
+        if(year %4 == 0){
+            if(year %100 == 0){
+                if (year %400 == 0){
+                    return true;
+                }else{
+                    return false;
+                }
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
     }
 
 
