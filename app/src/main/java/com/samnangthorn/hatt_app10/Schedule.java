@@ -2,11 +2,16 @@ package com.samnangthorn.hatt_app10;
 
 import androidx.annotation.IdRes;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,6 +37,8 @@ public class Schedule extends AppCompatActivity{
     private int currentYear;
     private int currentDay;
     private int totalWorkoutNum;
+    private Dialog dialog;
+    private String currentDayNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -214,20 +221,248 @@ public class Schedule extends AppCompatActivity{
             }
         });
 
-
+        // Days on Click Listeners
+        //
+        //
+        daysList[0].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDayNum = "01";
+                open_chooseWKLayout();
+            }
+        });
+        daysList[1].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDayNum = "02";
+                open_chooseWKLayout();
+            }
+        });
+        daysList[2].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDayNum = "03";
+                open_chooseWKLayout();
+            }
+        });
+        daysList[3].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDayNum = "04";
+                open_chooseWKLayout();
+            }
+        });
+        daysList[4].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDayNum = "05";
+                open_chooseWKLayout();
+            }
+        });
+        daysList[5].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDayNum = "06";
+                open_chooseWKLayout();
+            }
+        });
+        daysList[6].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDayNum = "07";
+                open_chooseWKLayout();
+            }
+        });
+        daysList[7].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDayNum = "08";
+                open_chooseWKLayout();
+            }
+        });
+        daysList[8].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDayNum = "09";
+                open_chooseWKLayout();
+            }
+        });
+        daysList[9].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDayNum = "10";
+                open_chooseWKLayout();
+            }
+        });
+        daysList[10].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDayNum = "11";
+                open_chooseWKLayout();
+            }
+        });
+        daysList[11].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDayNum = "12";
+                open_chooseWKLayout();
+            }
+        });
+        daysList[12].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDayNum = "13";
+                open_chooseWKLayout();
+            }
+        });
+        daysList[13].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDayNum = "14";
+                open_chooseWKLayout();
+            }
+        });
+        daysList[14].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDayNum = "15";
+                open_chooseWKLayout();
+            }
+        });
+        daysList[15].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDayNum = "16";
+                open_chooseWKLayout();
+            }
+        });
+        daysList[16].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDayNum = "17";
+                open_chooseWKLayout();
+            }
+        });
+        daysList[17].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDayNum = "18";
+                open_chooseWKLayout();
+            }
+        });
+        daysList[18].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDayNum = "19";
+                open_chooseWKLayout();
+            }
+        });
+        daysList[19].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDayNum = "20";
+                open_chooseWKLayout();
+            }
+        });
+        daysList[20].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDayNum = "21";
+                open_chooseWKLayout();
+            }
+        });
+        daysList[21].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDayNum = "22";
+                open_chooseWKLayout();
+            }
+        });
+        daysList[22].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDayNum = "23";
+                open_chooseWKLayout();
+            }
+        });
+        daysList[23].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDayNum = "24";
+                open_chooseWKLayout();
+            }
+        });
+        daysList[24].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDayNum = "25";
+                open_chooseWKLayout();
+            }
+        });
+        daysList[25].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDayNum = "26";
+                open_chooseWKLayout();
+            }
+        });
+        daysList[26].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDayNum = "27";
+                open_chooseWKLayout();
+            }
+        });
+        daysList[27].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDayNum = "28";
+                open_chooseWKLayout();
+            }
+        });
+        ////
+        if(true){
+            daysList[28].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    currentDayNum = "29";
+                    open_chooseWKLayout();
+                }
+            });
+        }
+        if(true){
+            daysList[29].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    currentDayNum = "30";
+                    open_chooseWKLayout();
+                }
+            });
+        }
+        if(true){
+            daysList[30].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    currentDayNum = "31";
+                    open_chooseWKLayout();
+                }
+            });
+        }
+        if(true){
+            daysList[31].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    currentDayNum = "32";
+                    open_chooseWKLayout();
+                }
+            });
+        }
     }
 
     // methods
-
     private void findViewOfThese(int totalDaysInMonth){
         for(int x = 0; x < 32; x++){
             daysList[x] = findViewById(dayIDList[x]);
-            daysList[x].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
             if(x < totalDaysInMonth){
                 if(x<9){
                     daysList[x].setText("0" + String.valueOf(x + 1));
@@ -238,6 +473,13 @@ public class Schedule extends AppCompatActivity{
                 daysList[x].setText("__");
             }
         }
+    }
+
+    private void open_chooseWKLayout() {
+        Intent intent = new Intent(this, PopUp_chooseWK.class);
+        intent.putExtra("dayString", currentDayNum);
+        intent.putExtra("monthString", currentMonth);
+        startActivity(intent);
     }
 
     private void open_homeLayout() {

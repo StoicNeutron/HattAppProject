@@ -14,8 +14,8 @@ public class dataBaseHelper extends SQLiteOpenHelper {
     private Context context;
     private static final String DataBase_Name = "OffLine_DB";
     private static final int DataBase_Version = 1;
-
     private static final String TABLE_NAME = "attribute";
+
     private static final String COLUMN_ID = "_ID";
     private static final String COLUMN_1 = "exercise_name";
     private static final String COLUMN_2 = "main_muscle_target";
