@@ -101,7 +101,7 @@ public class AddExercise extends AppCompatActivity {
         btt_addNewExercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dataBaseHelper myDB = new dataBaseHelper(AddExercise.this);
+                DataBaseHelper myDB = new DataBaseHelper(AddExercise.this);
                 String exerciseName = edt_exerciseName.getEditText().getText().toString();
                 String mainTarget = dt_mainTarget.getEditText().getText().toString();
                 String subTarget = dt_subTarget.getEditText().getText().toString();

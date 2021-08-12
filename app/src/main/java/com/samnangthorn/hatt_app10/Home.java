@@ -20,8 +20,8 @@ import java.util.TimeZone;
 
 public class Home extends AppCompatActivity {
 
-    ImageView btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting;
-    TextView txt_day, txt_date, txt_time, txt_timeZone;
+    private ImageView btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting;
+    private TextView txt_day, txt_date, txt_time, txt_timeZone;
     private Calendar realTime_data;
     private TimeZone tz;
 
@@ -29,8 +29,6 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-
 
         btt_report = findViewById(R.id.btt_report);
         btt_exercise = findViewById(R.id.btt_exercise);
@@ -56,7 +54,8 @@ public class Home extends AppCompatActivity {
         }
         String nameofDay = currentDate.substring(0, n);
         String subDate = currentDate.substring(n+1, currentDate.length());
-        String year = subDate.substring(subDate.length()-2, subDate.length()-1);
+        String year = subDate.substring(subDate.length()-2);
+        // Update Helper class
         Helper.setCurrentYear(year);
         String month = "";
         for(int x = 1; x < subDate.length(); x++){

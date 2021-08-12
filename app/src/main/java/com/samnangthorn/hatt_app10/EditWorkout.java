@@ -16,8 +16,6 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.textfield.TextInputLayout;
-
 import java.util.ArrayList;
 
 public class EditWorkout extends AppCompatActivity implements RVAdapter.onExeClickListener{
@@ -25,7 +23,7 @@ public class EditWorkout extends AppCompatActivity implements RVAdapter.onExeCli
     private ImageView btt_home, btt_report, btt_timer, btt_setting, btt_exercise, btt_back;
     private SearchView searchView;
     private ArrayList<String> exerciseName;
-    private dataBaseHelper myDB;
+    private DataBaseHelper myDB;
     private RecyclerView recyclerView;
     private LinearLayout selectedE1, selectedE2, selectedE3, selectedE4, selectedE5, selectedE6, selectedE7, selectedE8, selectedE9, selectedE10, selectedE11, selectedE12;
     private TextView workoutName, btt_save, Ex1, Ex2, Ex3, Ex4, Ex5, Ex6, Ex7, Ex8, Ex9, Ex10, Ex11, Ex12, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12;
@@ -60,7 +58,7 @@ public class EditWorkout extends AppCompatActivity implements RVAdapter.onExeCli
         btt_left = findViewById(R.id.btt_left);
         btt_right = findViewById(R.id.btt_right);
         exerciseName = new ArrayList<String>();
-        myDB = new dataBaseHelper(EditWorkout.this);
+        myDB = new DataBaseHelper(EditWorkout.this);
         getData = getApplicationContext().getSharedPreferences("workout_data", MODE_PRIVATE);
         editData = getData.edit();
 

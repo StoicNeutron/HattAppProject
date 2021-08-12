@@ -3,13 +3,10 @@ package com.samnangthorn.hatt_app10;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.google.android.material.textfield.TextInputLayout;
 
 public class DetailExercise extends AppCompatActivity {
 
@@ -93,7 +90,7 @@ public class DetailExercise extends AppCompatActivity {
         btt_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dataBaseHelper db = new dataBaseHelper(DetailExercise.this);
+                DataBaseHelper db = new DataBaseHelper(DetailExercise.this);
                 db.deleteThisExercise(eName);
                 open_exerciseLayout();
                 finish();

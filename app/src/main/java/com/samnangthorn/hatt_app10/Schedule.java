@@ -4,18 +4,16 @@ import androidx.annotation.IdRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Schedule extends AppCompatActivity{
@@ -39,6 +37,9 @@ public class Schedule extends AppCompatActivity{
     private int totalWorkoutNum;
     private Dialog dialog;
     private String currentDayNum;
+    private DataBaseHelper myDB;
+    private ArrayList<String> dateInfoList = new ArrayList<String>();
+    private ArrayList<String> dateWKNameList = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +104,43 @@ public class Schedule extends AppCompatActivity{
         currentDay = Integer.parseInt(Helper.getCurrentDay(currentDate));
         daysList[currentDay-1].setTextSize(19f);
 
+        // set up existed assign workout
+        transferToArrayList();
+        for(int x = 0; x < dateInfoList.size(); x++){
+
+            if(dateInfoList.get(x).substring(2, 4).equalsIgnoreCase(Helper.getCurrentMonthString())){
+                int caseNum = 99;
+                for(int n = 0; n < totalWorkoutNum; n++){
+                    if(dateWKNameList.get(x).equalsIgnoreCase(wkList[n].getText().toString())){
+                        caseNum = n;
+                    }
+                }
+                switch (caseNum){
+                    case 0:
+                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_blue_bg));
+                        break;
+                    case 1:
+                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_red_bg));
+                        break;
+                    case 2:
+                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_yellow_bg));
+                        break;
+                    case 3:
+                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_green_bg));
+                        break;
+                    case 4:
+                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_purple_bg));
+                        break;
+                    case 5:
+                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_orange_bg));
+                        break;
+                    case 6:
+                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_rest_bg));
+                        break;
+                }
+            }
+        }
+
         // on click listener
         //
         btt_home.setOnClickListener(new View.OnClickListener() {
@@ -165,9 +203,9 @@ public class Schedule extends AppCompatActivity{
                 }
                 //
                 if(currentMonth.equalsIgnoreCase(initialSetMonth)){
-                    daysList[currentDay-1].setTextSize(19f);
+                    daysList[currentDay - 1].setTextSize(19f);
                 }else{
-                    daysList[currentDay-1].setTextSize(14f);
+                    daysList[currentDay - 1].setTextSize(14f);
                 }
             }
         });
@@ -193,9 +231,9 @@ public class Schedule extends AppCompatActivity{
                 }
                 //
                 if(currentMonth.equalsIgnoreCase(initialSetMonth)){
-                    daysList[currentDay-1].setTextSize(19f);
+                    daysList[currentDay -1 ].setTextSize(19f);
                 }else{
-                    daysList[currentDay-1].setTextSize(14f);
+                    daysList[currentDay -1 ].setTextSize(14f);
                 }
             }
         });
@@ -479,6 +517,7 @@ public class Schedule extends AppCompatActivity{
         Intent intent = new Intent(this, PopUp_chooseWK.class);
         intent.putExtra("dayString", currentDayNum);
         intent.putExtra("monthString", currentMonth);
+        intent.putExtra("yearString", currentYear);
         startActivity(intent);
     }
 
@@ -527,6 +566,19 @@ public class Schedule extends AppCompatActivity{
             overridePendingTransition(R.anim.sa_slide_in_right, R.anim.sa_slide_out_left);
         }else if(leftOrRight.equalsIgnoreCase("left")){
             overridePendingTransition(R.anim.sa_slide_in_left, R.anim.sa_slide_out_right);
+        }
+    }
+
+    private void transferToArrayList(){
+        myDB = new DataBaseHelper(Schedule.this);
+        Cursor cursor = myDB.readAllDate();
+        if(cursor.getCount() == 0){
+            //None
+        }else{
+            while(cursor.moveToNext()){
+                dateInfoList.add(cursor.getString(0));
+                dateWKNameList.add(cursor.getString(1));
+            }
         }
     }
 }

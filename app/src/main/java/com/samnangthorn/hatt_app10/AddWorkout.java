@@ -1,7 +1,5 @@
 package com.samnangthorn.hatt_app10;
 
-import androidx.annotation.IdRes;
-import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.icu.util.ICUUncheckedIOException;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -28,7 +25,7 @@ public class AddWorkout extends AppCompatActivity implements RVAdapter.onExeClic
     private ImageView btt_home, btt_report, btt_timer, btt_setting, btt_exercise, btt_back;
     private SearchView searchView;
     private ArrayList<String> exerciseName;
-    private dataBaseHelper myDB;
+    private DataBaseHelper myDB;
     private RecyclerView recyclerView;
     private LinearLayout selectedE1, selectedE2, selectedE3, selectedE4, selectedE5, selectedE6, selectedE7, selectedE8, selectedE9, selectedE10, selectedE11, selectedE12;
     private TextView Ex1, Ex2, Ex3, Ex4, Ex5, Ex6, Ex7, Ex8, Ex9, Ex10, Ex11, Ex12, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12;
@@ -58,7 +55,7 @@ public class AddWorkout extends AppCompatActivity implements RVAdapter.onExeClic
         workoutName = findViewById(R.id.edt_exerciseName);
         workoutDes = findViewById(R.id.edt_description);
         exerciseName = new ArrayList<String>();
-        myDB = new dataBaseHelper(AddWorkout.this);
+        myDB = new DataBaseHelper(AddWorkout.this);
 
         selectedE1 = findViewById(R.id.selectedEx1);
         selectedE2 = findViewById(R.id.selectedEx2);

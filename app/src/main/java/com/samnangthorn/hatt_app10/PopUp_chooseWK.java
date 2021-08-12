@@ -15,9 +15,10 @@ public class PopUp_chooseWK extends AppCompatActivity {
     private SharedPreferences getData;
     private SharedPreferences.Editor editData;
     private ImageView btt_home, btt_report, btt_timer, btt_setting, btt_exercise;
-    TextView txt_day, txt_month, btt_back, btt_done;
+    private TextView txt_day, txt_month, btt_back, btt_done;
     private LinearLayout w1, w2, w3, w4, w5, w6, w7;
     private TextView txt1, txt2, txt3, txt4, txt5, txt6, txt7;
+    private int currentSelect = 88;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,7 @@ public class PopUp_chooseWK extends AppCompatActivity {
         txt_day.setText(dayString);
         String monthString = getIntent().getStringExtra("monthString");
         txt_month.setText(monthString);
+        String yearString = getIntent().getStringExtra("yearString");
 
         // on Click Listeners
         //
@@ -117,49 +119,63 @@ public class PopUp_chooseWK extends AppCompatActivity {
         btt_done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                DataBaseHelper myDB = new DataBaseHelper(PopUp_chooseWK.this);
+                String primeKeyString = Helper.getCurrentYear() + Helper.getCurrentMonthString() + dayString;
+                if(currentSelect != 88){
+                    myDB.addDate(primeKeyString, txtList[currentSelect].getText().toString(), "IC", "");
+                    open_scheduleLayout();
+                }
+                finish();
             }
         });
 
         wList[0].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                currentSelect = 0;
                 onSelectAction(0, wList);
             }
         });
         wList[1].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                currentSelect = 1;
                 onSelectAction(1, wList);
             }
         });
         wList[2].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                currentSelect = 2;
                 onSelectAction(2, wList);
             }
         });
         wList[3].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                currentSelect = 3;
                 onSelectAction(3, wList);
             }
         });
         wList[4].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                currentSelect = 4;
                 onSelectAction(4, wList);
             }
         });
         wList[5].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                currentSelect = 5;
                 onSelectAction(5, wList);
             }
         });
         wList[6].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                currentSelect = 6;
                 onSelectAction(6, wList);
             }
         });

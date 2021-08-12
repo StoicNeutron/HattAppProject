@@ -18,7 +18,7 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
     private ImageView btt_home, btt_report, btt_schedule, btt_timer, btt_setting, btt_addExercise, btt_goLeft, btt_goRight;
     private TextView btt_MG, btt_AZ, view_MG;
     private RecyclerView recyclerView;
-    private dataBaseHelper myDB;
+    private DataBaseHelper myDB;
     private ArrayList<String> exerciseName, mainTarget, subTarget, dis, sortedArray;
     private SearchView searchView;
     private SharedPreferences getData;
@@ -44,7 +44,7 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
         searchView = findViewById(R.id.search_bar);
 
         // initialization
-        myDB = new dataBaseHelper(Exercise.this);
+        myDB = new DataBaseHelper(Exercise.this);
         getData = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
         editData = getData.edit();
         exerciseName = new ArrayList<String>();

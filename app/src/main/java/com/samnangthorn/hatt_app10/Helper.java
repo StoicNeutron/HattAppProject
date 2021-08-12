@@ -45,7 +45,7 @@ public class Helper {
             // space
             if(dateString.charAt(x) == 32){
                 if(activate){
-                    startIndex = x-2;
+                    startIndex = x-3;
                 }
                 activate = true;
             }
@@ -151,6 +151,7 @@ public class Helper {
         }
     }
 
+    //return var value of currentYear 2 digit ex: 21
     public static String getCurrentYear() {
         return currentYear;
     }
@@ -159,11 +160,26 @@ public class Helper {
         int returnInt = 0;
         for (int x = 0; x < monthList.length; x++){
             if (currentMonth.equalsIgnoreCase(monthList[x])){
-                returnInt = x;
+                returnInt = x+1;
                 break;
             }
         }
         return returnInt;
+    }
+
+    public static String getCurrentMonthString(){
+        String returnString = "ERROR";
+        for (int x = 0; x < monthList.length; x++){
+            if (currentMonth.equalsIgnoreCase(monthList[x])){
+                if(x < 10){
+                    returnString = "0" + String.valueOf(x + 1);
+                }else{
+                    returnString = String.valueOf(x + 1);
+                }
+                break;
+            }
+        }
+        return returnString;
     }
 
     public static String getNextMonth(String theCurrentMonth){
