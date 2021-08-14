@@ -35,6 +35,7 @@ public class Schedule extends AppCompatActivity{
     private int currentYear;
     private int currentDay;
     private int totalWorkoutNum;
+    private int monthInt;
     private Dialog dialog;
     private String currentDayNum;
     private DataBaseHelper myDB;
@@ -106,40 +107,7 @@ public class Schedule extends AppCompatActivity{
 
         // set up existed assign workout
         transferToArrayList();
-        for(int x = 0; x < dateInfoList.size(); x++){
-
-            if(dateInfoList.get(x).substring(2, 4).equalsIgnoreCase(Helper.getCurrentMonthString())){
-                int caseNum = 99;
-                for(int n = 0; n < totalWorkoutNum; n++){
-                    if(dateWKNameList.get(x).equalsIgnoreCase(wkList[n].getText().toString())){
-                        caseNum = n;
-                    }
-                }
-                switch (caseNum){
-                    case 0:
-                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_blue_bg));
-                        break;
-                    case 1:
-                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_red_bg));
-                        break;
-                    case 2:
-                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_yellow_bg));
-                        break;
-                    case 3:
-                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_green_bg));
-                        break;
-                    case 4:
-                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_purple_bg));
-                        break;
-                    case 5:
-                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_orange_bg));
-                        break;
-                    case 6:
-                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_rest_bg));
-                        break;
-                }
-            }
-        }
+        setEachDayWorkoutColor(wkList);
 
         // on click listener
         //
@@ -187,6 +155,18 @@ public class Schedule extends AppCompatActivity{
             public void onClick(View v) {
                 // setting calendar
                 txt_month.setText(Helper.getPreMonth(currentMonth));
+                // clearing pre bg
+                int totalDaysInMonth = 0;
+                if(Helper.leapOrNot(currentYear)){
+                    totalDaysInMonth = Helper.getLeapYearTotalDayOfMonth(Helper.getCurrentMonth());
+                }else{
+                    totalDaysInMonth = Helper.getTotalDayOfMonth(Helper.getCurrentMonth());
+                }
+                for(int x = 0; x < totalDaysInMonth; x++){
+                    daysList[x].setBackground(getDrawable(R.drawable.date_invisible_bg));
+                }
+                // set up color
+                setEachDayWorkoutColorOfPreMonth(wkList);
                 // update current month
                 currentMonth = Helper.getPreMonth(currentMonth);
                 int currentYear = 0;
@@ -215,6 +195,18 @@ public class Schedule extends AppCompatActivity{
             public void onClick(View v) {
                 // setting calendar
                 txt_month.setText(Helper.getNextMonth(currentMonth));
+                // clearing pre bg
+                int totalDaysInMonth = 0;
+                if(Helper.leapOrNot(currentYear)){
+                    totalDaysInMonth = Helper.getLeapYearTotalDayOfMonth(Helper.getCurrentMonth());
+                }else{
+                    totalDaysInMonth = Helper.getTotalDayOfMonth(Helper.getCurrentMonth());
+                }
+                for(int x = 0; x < totalDaysInMonth; x++){
+                    daysList[x].setBackground(getDrawable(R.drawable.date_invisible_bg));
+                }
+                // set up color
+                setEachDayWorkoutColorOfNextMonth(wkList);
                 // update current month
                 currentMonth = Helper.getNextMonth(currentMonth);
                 int currentYear = 0;
@@ -580,5 +572,141 @@ public class Schedule extends AppCompatActivity{
                 dateWKNameList.add(cursor.getString(1));
             }
         }
+    }
+
+    private void setEachDayWorkoutColor(TextView[] wkList){
+        for(int x = 0; x < dateInfoList.size(); x++){
+
+            monthInt = Integer.valueOf(Helper.getCurrentMonthString());
+            if(dateInfoList.get(x).substring(2, 4).equalsIgnoreCase(Helper.getCurrentMonthString())){
+                int caseNum = 99;
+                for(int n = 0; n < totalWorkoutNum; n++){
+                    if(dateWKNameList.get(x).equalsIgnoreCase(wkList[n].getText().toString())){
+                        caseNum = n;
+                    }
+                }
+                switch (caseNum){
+                    case 0:
+                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_blue_bg));
+                        break;
+                    case 1:
+                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_red_bg));
+                        break;
+                    case 2:
+                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_yellow_bg));
+                        break;
+                    case 3:
+                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_green_bg));
+                        break;
+                    case 4:
+                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_purple_bg));
+                        break;
+                    case 5:
+                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_orange_bg));
+                        break;
+                    case 6:
+                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_rest_bg));
+                        break;
+                }
+            }
+        }
+    }
+
+    private void setEachDayWorkoutColorOfNextMonth(TextView[] wkList){
+        for(int x = 0; x < dateInfoList.size(); x++){
+
+            int tempInt = monthInt;
+            String keyString = "ERROR";
+            if(tempInt == 12){
+                keyString = "01";
+            }else{
+                keyString = String.valueOf(tempInt + 1);
+            }
+            if (keyString.length() == 1){
+                keyString = "0" + keyString;
+            }
+
+            if(dateInfoList.get(x).substring(2, 4).equalsIgnoreCase(keyString)){
+                int caseNum = 99;
+                for(int n = 0; n < totalWorkoutNum; n++){
+                    if(dateWKNameList.get(x).equalsIgnoreCase(wkList[n].getText().toString())){
+                        caseNum = n;
+                    }
+                }
+                switch (caseNum){
+                    case 0:
+                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_blue_bg));
+                        break;
+                    case 1:
+                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_red_bg));
+                        break;
+                    case 2:
+                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_yellow_bg));
+                        break;
+                    case 3:
+                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_green_bg));
+                        break;
+                    case 4:
+                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_purple_bg));
+                        break;
+                    case 5:
+                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_orange_bg));
+                        break;
+                    case 6:
+                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_rest_bg));
+                        break;
+                }
+            }
+        }
+        monthInt += 1;
+    }
+
+    private void setEachDayWorkoutColorOfPreMonth(TextView[] wkList){
+        for(int x = 0; x < dateInfoList.size(); x++){
+
+            int tempInt = monthInt;
+            String keyString = "ERROR";
+            if(tempInt == 1){
+                keyString = "12";
+            }else{
+                keyString = String.valueOf(tempInt -1);
+            }
+            if (keyString.length() == 1){
+                keyString = "0" + keyString;
+            }
+
+            if(dateInfoList.get(x).substring(2, 4).equalsIgnoreCase(keyString)){
+                int caseNum = 99;
+                for(int n = 0; n < totalWorkoutNum; n++){
+                    if(dateWKNameList.get(x).equalsIgnoreCase(wkList[n].getText().toString())){
+                        caseNum = n;
+                    }
+                }
+                switch (caseNum){
+                    case 0:
+                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_blue_bg));
+                        break;
+                    case 1:
+                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_red_bg));
+                        break;
+                    case 2:
+                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_yellow_bg));
+                        break;
+                    case 3:
+                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_green_bg));
+                        break;
+                    case 4:
+                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_purple_bg));
+                        break;
+                    case 5:
+                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_orange_bg));
+                        break;
+                    case 6:
+                        daysList[Integer.valueOf(dateInfoList.get(x).substring(4)) - 1].setBackground(getDrawable(R.drawable.date_rest_bg));
+                        break;
+                }
+            }
+        }
+        monthInt -= 1;
     }
 }
