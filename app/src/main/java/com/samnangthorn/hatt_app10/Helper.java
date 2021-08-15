@@ -210,6 +210,20 @@ public class Helper {
         return nextMonth;
     }
 
+    public static String getThisMonthIndex(String theCurrentMonth){
+        String IndexString = "ERROR";
+        for (int i = 0; i < monthList.length; i++){
+            if(monthList[i].equalsIgnoreCase(theCurrentMonth)){
+                if(i < 10){
+                    IndexString = "0" + String.valueOf(i + 1);
+                }else{
+                    IndexString = String.valueOf(i + 1);
+                }
+            }
+        }
+        return IndexString;
+    }
+
     public static String getCurrentMonthName() {
         return currentMonth;
     }

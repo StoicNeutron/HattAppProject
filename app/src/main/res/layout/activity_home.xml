@@ -38,11 +38,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="80dp"
-        android:layout_marginTop="120dp"
-        android:background="@drawable/view_layout_white_outline_black"
+        android:layout_marginBottom="60dp"
+        android:layout_marginTop="100dp"
         app:layout_constraintBottom_toTopOf="@+id/view_bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +57,7 @@
             android:layout_marginStart="22dp"
             android:layout_marginTop="20dp"
             android:text="Welcome back! User"
-            android:textSize="18dp"
+            android:textSize="15dp"
             android:textStyle="italic"
             android:textColor="@color/black"/>
 
@@ -69,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
-            android:background="@drawable/outline_filled_black"
+            android:background="@drawable/outline_black"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:gravity="start">
@@ -81,17 +78,21 @@
                 android:gravity="center"
                 android:layout_weight="1">
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+
                 <TextView
                     android:id="@+id/txt_day"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginRight="1dp"
+                    android:layout_marginLeft="1dp"
                     android:text="MONDAY"
                     android:textStyle="bold"
                     android:textAllCaps="true"
                     android:gravity="center"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
+                    android:background="@color/blue"
                     android:textSize="20dp" />
 
                 <TextView
@@ -101,13 +102,17 @@
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="1dp"
                     android:text="June 03, 2021"
-                    android:background="@drawable/outline_filled_black"
                     android:textAllCaps="true"
                     android:gravity="center"
-                    android:textColor="@color/blue"
+                    android:textColor="@color/black"
                     android:textSize="10dp"/>
 
             </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/black"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -117,15 +122,18 @@
                 android:layout_weight="1">
 
                 <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+
+                <TextView
                     android:id="@+id/txt_time"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginLeft="1dp"
-                    android:layout_marginRight="2dp"
-
+                    android:layout_marginRight="1dp"
                     android:gravity="center"
                     android:text="8:00 AM"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
+                    android:background="@color/blue"
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
@@ -136,9 +144,8 @@
                     android:layout_marginLeft="1dp"
                     android:layout_marginRight="2dp"
                     android:text="Cambodia"
-                    android:background="@drawable/outline_filled_black"
                     android:gravity="center"
-                    android:textColor="@color/blue"
+                    android:textColor="@color/black"
                     android:textSize="10dp" />
 
             </LinearLayout>
@@ -153,37 +160,40 @@
             android:textColor="@color/black"
             android:text="Today's Workout"
             android:textStyle="italic"
-            android:textSize="18dp"/>
+            android:textSize="15dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
-            android:background="@drawable/outline_filled_blue"
+            android:background="@drawable/outline_black"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:gravity="center">
 
             <TextView
+                android:id="@+id/txt_workoutName"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="100dp"
                 android:layout_marginLeft="2dp"
                 android:text="Workout Name"
-                android:textStyle="bold"
                 android:gravity="center"
                 android:textSize="18dp"
                 android:textColor="@color/black" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/black"/>
 
             <ImageView
                 android:layout_weight="3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
-                android:padding="30dp"
-                android:src="@drawable/ic_start_workout"
-                android:background="@drawable/outline_filled_black_fix"/>
+                android:padding="25dp"
+                android:src="@drawable/ic_start_workout" />
 
         </LinearLayout>
 
@@ -193,7 +203,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="30dp"
             android:text="Weekly Report"
-            android:textSize="18dp"
+            android:textSize="15dp"
             android:textStyle="italic"
             android:textColor="@color/black"/>
 
@@ -202,28 +212,35 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
-            android:background="@drawable/outline_filled_black"
+            android:background="@drawable/outline_black"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:gravity="start">
 
             <TextView
-                android:layout_weight="2"
+                android:id="@+id/txt_BMI_point"
+                android:layout_weight="3"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_marginLeft="2dp"
                 android:text="  BMI: 2.7"
                 android:gravity="center_vertical"
-                android:textColor="@color/white"/>
+                android:textColor="@color/black"/>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/black"/>
 
             <TextView
                 android:layout_weight="1"
                 android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
                 android:layout_height="30dp"
                 android:layout_marginRight="2dp"
                 android:text="Current Condition: GOOD"
                 android:gravity="center_vertical"
-                android:textColor="@color/white"/>
+                android:textColor="@color/black"/>
 
         </LinearLayout>
 
@@ -231,15 +248,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@color/black"
+            android:background="@drawable/outline_black"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:gravity="start">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/blue"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -249,7 +261,7 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
                 android:text="  Past Week Workout Record"
-                android:textColor="@color/white"/>
+                android:textColor="@color/black"/>
 
         </LinearLayout>
 
@@ -257,7 +269,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@color/gray_dark"
+            android:background="@drawable/outline_black"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:gravity="start">
@@ -266,7 +278,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:orientation="horizontal"
-                android:background="@color/black"
                 android:gravity="center">
 
                 <LinearLayout
@@ -277,6 +288,7 @@
                     android:gravity="center">
 
                     <View
+                        android:id="@+id/bar_mon"
                         android:layout_width="wrap_content"
                         android:layout_height="5dp"
                         android:layout_marginLeft="5dp"
@@ -287,7 +299,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:text="Mon"/>
 
                 </LinearLayout>
@@ -300,6 +312,7 @@
                     android:gravity="center">
 
                     <View
+                        android:id="@+id/bar_tue"
                         android:layout_width="wrap_content"
                         android:layout_height="5dp"
                         android:layout_marginLeft="5dp"
@@ -310,7 +323,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:text="Tue"/>
 
                 </LinearLayout>
@@ -323,6 +336,7 @@
                     android:gravity="center">
 
                     <View
+                        android:id="@+id/bar_wed"
                         android:layout_width="wrap_content"
                         android:layout_height="5dp"
                         android:layout_marginLeft="5dp"
@@ -333,7 +347,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:text="Wed"/>
 
                 </LinearLayout>
@@ -346,6 +360,7 @@
                     android:gravity="center">
 
                     <View
+                        android:id="@+id/bar_thu"
                         android:layout_width="wrap_content"
                         android:layout_height="5dp"
                         android:layout_marginLeft="5dp"
@@ -356,7 +371,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:text="Thu"/>
 
                 </LinearLayout>
@@ -369,6 +384,7 @@
                     android:gravity="center">
 
                     <View
+                        android:id="@+id/bar_fri"
                         android:layout_width="wrap_content"
                         android:layout_height="5dp"
                         android:layout_marginLeft="5dp"
@@ -379,7 +395,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:text="Fri"/>
 
                 </LinearLayout>
@@ -392,6 +408,7 @@
                     android:gravity="center">
 
                     <View
+                        android:id="@+id/bar_sat"
                         android:layout_width="wrap_content"
                         android:layout_height="5dp"
                         android:layout_marginLeft="5dp"
@@ -402,7 +419,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:text="Sat"/>
 
                 </LinearLayout>
@@ -415,6 +432,7 @@
                     android:gravity="center">
 
                     <View
+                        android:id="@+id/bar_sun"
                         android:layout_width="wrap_content"
                         android:layout_height="5dp"
                         android:layout_marginLeft="5dp"
@@ -425,11 +443,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:text="Sun"/>
 
                 </LinearLayout>
-
             </LinearLayout>
         </LinearLayout>
 
@@ -439,7 +456,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:src="@drawable/ic_expand_more"
-            android:background="@color/blue"/>
+            android:background="@drawable/outline_filled_blue"/>
 
     </LinearLayout>
     </ScrollView>

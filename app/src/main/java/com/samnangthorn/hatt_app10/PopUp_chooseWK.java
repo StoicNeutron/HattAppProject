@@ -120,7 +120,7 @@ public class PopUp_chooseWK extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DataBaseHelper myDB = new DataBaseHelper(PopUp_chooseWK.this);
-                String primeKeyString = Helper.getCurrentYear() + Helper.getCurrentMonthString() + dayString;
+                String primeKeyString = Helper.getCurrentYear() + Helper.getThisMonthIndex(monthString) + dayString;
                 if(currentSelect != 88){
                     myDB.addDate(primeKeyString, txtList[currentSelect].getText().toString(), "IC", "");
                     open_scheduleLayout();

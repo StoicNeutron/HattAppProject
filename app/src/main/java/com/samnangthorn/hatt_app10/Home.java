@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,15 +16,19 @@ import com.google.android.material.timepicker.TimeFormat;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.TimeZone;
 
 public class Home extends AppCompatActivity {
 
     private ImageView btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting;
-    private TextView txt_day, txt_date, txt_time, txt_timeZone;
+    private TextView txt_day, txt_date, txt_time, txt_timeZone, txt_workoutName;
     private Calendar realTime_data;
     private TimeZone tz;
+    private DataBaseHelper myDB;
+    private ArrayList<String> dateInfoList = new ArrayList<String>();
+    private ArrayList<String> dateWKNameList = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,7 @@ public class Home extends AppCompatActivity {
         txt_date = findViewById(R.id.txt_date);
         txt_time = findViewById(R.id.txt_time);
         txt_timeZone = findViewById(R.id.txt_timeZone);
+        txt_workoutName = findViewById(R.id.txt_workoutName);
 
         tz = TimeZone.getDefault();
         realTime_data = Calendar.getInstance();
@@ -71,6 +77,29 @@ public class Home extends AppCompatActivity {
         txt_date.setText(subDate);
         txt_time.setText(time);
         txt_timeZone.setText(tz.getID());
+
+        // read from database to array list
+        myDB = new DataBaseHelper(Home.this);
+        Cursor cursor = myDB.readAllDate();
+        if(cursor.getCount() == 0){
+            //None
+        }else{
+            while(cursor.moveToNext()){
+                dateInfoList.add(cursor.getString(0));
+                dateWKNameList.add(cursor.getString(1));
+            }
+        }
+        // set up today workout name
+        int currentDay = Integer.parseInt(Helper.getCurrentDay(currentDate));
+        for(int x = 0; x < dateInfoList.size(); x++){
+            if(dateInfoList.get(x).substring(2).equalsIgnoreCase(Helper.getCurrentMonthString() + currentDay)){
+                txt_workoutName.setText(dateWKNameList.get(x));
+            }else{
+                txt_workoutName.setText("REST DAY!");
+            }
+        }
+        // set up BMI point
+
 
         btt_setting.setOnClickListener(new View.OnClickListener() {
             @Override
