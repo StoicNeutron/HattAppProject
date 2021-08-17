@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,7 +15,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Timer extends AppCompatActivity {
 
-    ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting;
+    ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_soundSwitch;
+    private SharedPreferences getData;
+    private SharedPreferences.Editor editData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,10 @@ public class Timer extends AppCompatActivity {
         btt_schedule = findViewById(R.id.btt_schedule);
         btt_timer = findViewById(R.id.btt_timer);
         btt_setting = findViewById(R.id.btt_setting);
+        btt_soundSwitch = findViewById(R.id.btt_soundSwitch);
+        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.sound_on);
+        getData = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
+        editData = getData.edit();
 
         btt_home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +71,21 @@ public class Timer extends AppCompatActivity {
             public void onClick(View v) {
                 open_scheduleLayout();
                 transition_animation("left");
+            }
+        });
+
+        btt_soundSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(getData.getString("sound", "ERROR").equalsIgnoreCase("ERROR") || getData.getString("sound", "ERROR").equalsIgnoreCase("ON")){
+                    editData.putString("sound", "OFF");
+                    btt_soundSwitch.setImageResource(R.drawable.ic_sound_off);
+                }else{
+                    editData.putString("sound", "ON");
+                    btt_soundSwitch.setImageResource(R.drawable.ic_sound_on);
+                }
+                editData.apply();
+                mediaPlayer.start();
             }
         });
 

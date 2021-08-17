@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.timepicker.TimeFormat;
 
@@ -45,6 +46,7 @@ public class Home extends AppCompatActivity {
         txt_time = findViewById(R.id.txt_time);
         txt_timeZone = findViewById(R.id.txt_timeZone);
         txt_workoutName = findViewById(R.id.txt_workoutName);
+
 
         tz = TimeZone.getDefault();
         realTime_data = Calendar.getInstance();
