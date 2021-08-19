@@ -95,6 +95,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
+    public void deleteThisWorkoutByWKName(String wkName){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "DELETE FROM " + TABLE2_NAME + " WHERE " + COLUMN2_2 + " = '" + wkName + "'";
+        db.execSQL(query);
+    }
+
     Cursor readAllAtr(){
         String query = "SELECT * FROM " + TABLE_NAME;
         SQLiteDatabase db = this.getWritableDatabase();

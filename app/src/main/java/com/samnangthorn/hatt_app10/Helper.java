@@ -1,11 +1,16 @@
 package com.samnangthorn.hatt_app10;
 
+import android.widget.TextView;
+
 import java.util.ArrayList;
 
 public class Helper {
 
     private static int[] totalDayOfMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
     private static int[] leapYearTotalDayOfMonth = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+    private static String[] dayNameList = {"SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"};
+    private static String[] helperDNameList = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+    private static String currentDayNameString = "";
     private static String[] monthList = {"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
     private static String currentYear = "99";
     private static String currentMonth = "MONTH";
@@ -18,6 +23,52 @@ public class Helper {
     public static ArrayList<String> exerciseNameArray = new ArrayList<String>();
 
     // methods
+
+    public static void OrderDayName(int currentDatInt, TextView[] dNList){
+        // Find index of current day
+        if(currentDatInt > 7){
+            currentDatInt = currentDatInt - 7;
+            if(currentDatInt > 7){
+                currentDatInt = currentDatInt - 7;
+                if(currentDatInt > 7){
+                    currentDatInt = currentDatInt - 7;
+                    if(currentDatInt > 7){
+                        currentDatInt = currentDatInt - 7;
+                    }
+                }
+            }
+        }
+        // Find relation index of Name List
+        int startIndex = 0;
+        for(int x = 0; x < dayNameList.length ; x++){
+            String test = "Tuesday";
+            if(currentDayNameString.equalsIgnoreCase(helperDNameList[x])){
+                startIndex = x;
+                break;
+            }
+        }
+        int helperInt = startIndex;
+        for(int x = 0; x < 7; x++){
+            if(x >= (currentDatInt - 1)){
+                if(startIndex >= 7){
+                    startIndex = startIndex - 7;
+                }
+                dNList[x].setText(dayNameList[startIndex]);
+                startIndex ++;
+            }
+        }
+        if (currentDatInt > 1) {
+            for(int x = currentDatInt - 2; x >= 0; x--){
+                if(helperInt == 0){
+                    helperInt = 7;
+                }
+
+                    helperInt--;
+                    dNList[x].setText(dayNameList[helperInt]);
+
+            }
+        }
+    }
 
     public static boolean leapOrNot(int year){
         if(year %4 == 0){
@@ -63,6 +114,10 @@ public class Helper {
 
     // getter methods
     //
+    public static void setCurrentDayNameString(String inputString){
+        currentDayNameString = inputString;
+    }
+
     public static int getTotalDayOfMonth(int month) {
         return totalDayOfMonth[month];
     }
@@ -76,8 +131,12 @@ public class Helper {
                 break;
             }
         }
-
-        if(index < 11){
+        if (index < 11){
+            returnNumber = totalDayOfMonth[index];
+        }else{
+            returnNumber = totalDayOfMonth[0];
+        }
+        /*if(index < 11){
             returnNumber = totalDayOfMonth[index + 1];
         }else if(index == 11){
             Helper newHelper = new Helper();
@@ -88,7 +147,7 @@ public class Helper {
                 intYear = totalDayOfMonth[0];
             }
             returnNumber = intYear;
-        }
+        }*/
         return returnNumber;
     }
 
@@ -102,7 +161,12 @@ public class Helper {
             }
         }
 
-        if(index > 0){
+        if (index > 0){
+            returnNumber = totalDayOfMonth[index];
+        }else{
+            returnNumber = totalDayOfMonth[11];
+        }
+        /*if(index > 0){
             returnNumber = totalDayOfMonth[index - 1];
         }else if(index == 0){
             Helper newHelper = new Helper();
@@ -113,7 +177,7 @@ public class Helper {
                 intYear = totalDayOfMonth[11];
             }
             returnNumber = intYear;
-        }
+        }*/
         return returnNumber;
     }
 
@@ -130,7 +194,7 @@ public class Helper {
             }
         }
         if(index == 12){
-            return  leapYearTotalDayOfMonth[index + 1];
+            return  leapYearTotalDayOfMonth[index];
         }else{
             return leapYearTotalDayOfMonth[0];
         }
@@ -145,7 +209,7 @@ public class Helper {
             }
         }
         if(index > 0){
-            return  leapYearTotalDayOfMonth[index - 1];
+            return  leapYearTotalDayOfMonth[index];
         }else{
             return totalDayOfMonth[11];
         }
@@ -160,7 +224,8 @@ public class Helper {
         int returnInt = 0;
         for (int x = 0; x < monthList.length; x++){
             if (currentMonth.equalsIgnoreCase(monthList[x])){
-                returnInt = x+1;
+                // debug test
+                returnInt = x;
                 break;
             }
         }
@@ -197,17 +262,17 @@ public class Helper {
     }
 
     public static String getPreMonth(String theCurrentMonth){
-        String nextMonth = "ERROR";
+        String preMonth = "ERROR";
         for (int i = 0; i < monthList.length; i++){
             if(monthList[i].equalsIgnoreCase(theCurrentMonth)){
                 if(i > 0){
-                    nextMonth = monthList[i - 1];
+                    preMonth = monthList[i - 1];
                 }else{
-                    nextMonth = monthList[11];
+                    preMonth = monthList[11];
                 }
             }
         }
-        return nextMonth;
+        return preMonth;
     }
 
     public static String getThisMonthIndex(String theCurrentMonth){

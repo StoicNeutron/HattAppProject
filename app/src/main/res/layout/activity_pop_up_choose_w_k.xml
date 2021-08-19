@@ -125,7 +125,7 @@
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:padding="10dp"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <View
                         android:layout_width="0dp"
@@ -133,7 +133,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
                         android:layout_weight="1"
-                        android:background="@drawable/date_red_bg" />
+                        android:background="@drawable/date_blue_bg" />
 
                     <TextView
                         android:id="@+id/txt1"
@@ -157,7 +157,7 @@
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:padding="10dp"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <View
                         android:layout_width="0dp"
@@ -165,7 +165,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
                         android:layout_weight="1"
-                        android:background="@drawable/date_green_bg" />
+                        android:background="@drawable/date_red_bg" />
 
                     <TextView
                         android:id="@+id/txt2"
@@ -189,7 +189,7 @@
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:padding="10dp"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <View
                         android:layout_width="0dp"
@@ -197,7 +197,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
                         android:layout_weight="1"
-                        android:background="@drawable/date_blue_bg" />
+                        android:background="@drawable/date_yellow_bg" />
 
                     <TextView
                         android:id="@+id/txt3"
@@ -221,7 +221,7 @@
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:padding="10dp"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <View
                         android:layout_width="0dp"
@@ -229,7 +229,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
                         android:layout_weight="1"
-                        android:background="@drawable/date_orange_bg" />
+                        android:background="@drawable/date_green_bg" />
 
                     <TextView
                         android:id="@+id/txt4"
@@ -253,7 +253,7 @@
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:padding="10dp"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <View
                         android:layout_width="0dp"
@@ -285,7 +285,7 @@
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:padding="10dp"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <View
                         android:layout_width="0dp"
@@ -293,7 +293,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
                         android:layout_weight="1"
-                        android:background="@drawable/date_yellow_bg" />
+                        android:background="@drawable/date_orange_bg" />
 
                     <TextView
                         android:id="@+id/txt6"
@@ -317,7 +317,7 @@
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:padding="10dp"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <View
                         android:layout_width="0dp"

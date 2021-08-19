@@ -61,6 +61,7 @@ public class Home extends AppCompatActivity {
             }
         }
         String nameofDay = currentDate.substring(0, n);
+        Helper.setCurrentDayNameString(nameofDay);
         String subDate = currentDate.substring(n+1, currentDate.length());
         String year = subDate.substring(subDate.length()-2);
         // Update Helper class

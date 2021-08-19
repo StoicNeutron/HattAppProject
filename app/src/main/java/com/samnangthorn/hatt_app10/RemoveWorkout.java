@@ -5,12 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class RemoveWorkout extends AppCompatActivity {
 
@@ -21,6 +24,9 @@ public class RemoveWorkout extends AppCompatActivity {
     private ImageView d1, d2, d3, d4, d5, d6, d7;
     private SharedPreferences getData;
     private SharedPreferences.Editor editData;
+    private DataBaseHelper myDB;
+    private ArrayList<String> dateInfoList = new ArrayList<String>();
+    private ArrayList<String> dateWKNameList = new ArrayList<String>();
     private Dialog dialog;
     private int removeIndex = 0;
 
@@ -109,6 +115,25 @@ public class RemoveWorkout extends AppCompatActivity {
                             }
                         }
                     }
+                    //
+                    myDB = new DataBaseHelper(RemoveWorkout.this);
+                    Cursor cursor = myDB.readAllDate();
+                    if(cursor.getCount() == 0){
+                        //None
+                    }else{
+                        while(cursor.moveToNext()){
+                            dateInfoList.add(cursor.getString(0));
+                            dateWKNameList.add(cursor.getString(1));
+                        }
+                    }
+                    // remove from db
+                    for(int x = 0; x < dateInfoList.size(); x++) {
+                        if (dateWKNameList.get(x).equalsIgnoreCase(txtList[removeIndex].getText().toString())) {
+                            myDB.deleteThisWorkoutByWKName(txtList[removeIndex].getText().toString());
+
+                        }
+                    }
+                    //
                 }
                 editData.apply();
                 dialog.dismiss();

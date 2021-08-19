@@ -232,44 +232,52 @@ public class AddWorkout extends AppCompatActivity implements RVAdapter.onExeClic
                 String workout_des = workoutDes.getEditText().getText().toString();
 
                 // validation input isn't null
-                if(!workout_name.isEmpty()){
-                    // at least 1 exercise in a workout
-                    if(currentIndex>0){
+                if(!workout_name.isEmpty()) {
+                    if (getData.getInt("WT", 0) < 7) {
+                        // at least 1 exercise in a workout
+                        if (currentIndex > 0) {
 
-                        int newWorkoutNum = getData.getInt("WT", 0);
-                        editData.putInt("WT", newWorkoutNum + 1);
-                        String newKey_W_num = "W" + String.valueOf(newWorkoutNum+1);
-                        String newKey_WD_num = "WD" + String.valueOf(newWorkoutNum+1);
-                        // workout name
-                        editData.putString(newKey_W_num, workout_name);
-                        // workout description
-                        if(workout_des.isEmpty()){
-                            editData.putString(newKey_WD_num, "NONE");
-                        }else{
-                            editData.putString(newKey_WD_num, workout_des);
-                        }
-                        editData.putInt(newKey_W_num + "eT", currentIndex);
-                        // workout exercise
-                        // generate key
-                        String newKey_W_num_e_num;
-                        ArrayList<String> keyArray = new ArrayList<String>();
-                        for(int x = 0; x < currentIndex; x++){
-                            newKey_W_num_e_num = newKey_W_num + "e" + String.valueOf(x);
-                            keyArray.add(newKey_W_num_e_num);
-                            editData.putString(newKey_W_num_e_num, eNameListedIn[x]);
-                            editData.putInt(newKey_W_num_e_num + "s", Integer.valueOf(sList[x].getText().toString()));
-                            if(cList[x].getText().toString().contains("REP")){
-                                editData.putInt(newKey_W_num_e_num + "r", Integer.parseInt(rList[x].getText().toString()));
-                                editData.putString(newKey_W_num_e_num + "T", "sr");
-                            }else{
-                                editData.putInt(newKey_W_num_e_num + "t", Integer.parseInt(rList[x].getText().toString()));
-                                editData.putString(newKey_W_num_e_num + "T", "st");
+                            int newWorkoutNum = getData.getInt("WT", 0);
+                            editData.putInt("WT", newWorkoutNum + 1);
+                            String newKey_W_num = "W" + String.valueOf(newWorkoutNum + 1);
+                            String newKey_WD_num = "WD" + String.valueOf(newWorkoutNum + 1);
+                            // workout name
+                            editData.putString(newKey_W_num, workout_name);
+                            // workout description
+                            if (workout_des.isEmpty()) {
+                                editData.putString(newKey_WD_num, "NONE");
+                            } else {
+                                editData.putString(newKey_WD_num, workout_des);
                             }
-                            editData.apply();
+                            editData.putInt(newKey_W_num + "eT", currentIndex);
+                            // workout exercise
+                            // generate key
+                            String newKey_W_num_e_num;
+                            ArrayList<String> keyArray = new ArrayList<String>();
+                            for (int x = 0; x < currentIndex; x++) {
+                                newKey_W_num_e_num = newKey_W_num + "e" + String.valueOf(x);
+                                keyArray.add(newKey_W_num_e_num);
+                                editData.putString(newKey_W_num_e_num, eNameListedIn[x]);
+                                editData.putInt(newKey_W_num_e_num + "s", Integer.valueOf(sList[x].getText().toString()));
+                                if (cList[x].getText().toString().contains("REP")) {
+                                    editData.putInt(newKey_W_num_e_num + "r", Integer.parseInt(rList[x].getText().toString()));
+                                    editData.putString(newKey_W_num_e_num + "T", "sr");
+                                } else {
+                                    editData.putInt(newKey_W_num_e_num + "t", Integer.parseInt(rList[x].getText().toString()));
+                                    editData.putString(newKey_W_num_e_num + "T", "st");
+                                }
+                                editData.apply();
+                            }
+                            Toast.makeText(AddWorkout.this, "Add Successful", Toast.LENGTH_SHORT).show();
+                            open_scheduleLayout();
+                        }else{
+                            Toast.makeText(AddWorkout.this, "Exercise require!", Toast.LENGTH_SHORT).show();
                         }
-                        Toast.makeText(AddWorkout.this, "Add Successful", Toast.LENGTH_SHORT).show();
-                        open_scheduleLayout();
+                    }else{
+                        Toast.makeText(AddWorkout.this, "Workout Amount Full!", Toast.LENGTH_SHORT).show();
                     }
+                }else{
+                    Toast.makeText(AddWorkout.this, "Workout Name Require!", Toast.LENGTH_SHORT).show();
                 }
             }
         });

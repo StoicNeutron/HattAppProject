@@ -21,6 +21,7 @@ public class Schedule extends AppCompatActivity{
     private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_preMonth, btt_nextMonth;
     private TextView txt_month, btt_createWorkout, btt_editWorkout, btt_removeWorkout;
     private TextView wk1, wk2, wk3, wk4, wk5, wk6, wk7;
+    private TextView dN1, dN2, dN3, dN4, dN5, dN6, dN7;
     private LinearLayout c1, c2, c3, c4, c5, c6, c7;
     private TextView d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27, d28, d29, d30, d31, d32;
     private TextView[] daysList = {d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27, d28, d29, d30, d31, d32};
@@ -65,6 +66,14 @@ public class Schedule extends AppCompatActivity{
         wk6 = findViewById(R.id.wk6);
         wk7 = findViewById(R.id.wk7);
 
+        dN1 = findViewById(R.id.dN1);
+        dN2 = findViewById(R.id.dN2);
+        dN3 = findViewById(R.id.dN3);
+        dN4 = findViewById(R.id.dN4);
+        dN5 = findViewById(R.id.dN5);
+        dN6 = findViewById(R.id.dN6);
+        dN7 = findViewById(R.id.dN7);
+
         c1 = findViewById(R.id.c1);
         c2 = findViewById(R.id.c2);
         c3 = findViewById(R.id.c3);
@@ -86,11 +95,13 @@ public class Schedule extends AppCompatActivity{
         txt_month.setText(currentMonth);
 
         currentYear = Integer.parseInt(Helper.getCurrentYear());
+        currentYear =  2000 + currentYear;
         if(Helper.leapOrNot(currentYear)){
             findViewOfThese(Helper.getLeapYearTotalDayOfMonth(Helper.getCurrentMonth()));
         }else{
             findViewOfThese(Helper.getTotalDayOfMonth(Helper.getCurrentMonth()));
         }
+
 
         // setup view color workout
         totalWorkoutNum = getData.getInt("WT", 0);
@@ -104,6 +115,10 @@ public class Schedule extends AppCompatActivity{
         String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(realTime_data.getTime());
         currentDay = Integer.parseInt(Helper.getCurrentDay(currentDate));
         daysList[currentDay-1].setTextSize(19f);
+
+        //
+        TextView[] dNList = {dN1, dN2, dN3, dN4, dN5, dN6, dN7};
+        Helper.OrderDayName(currentDay, dNList);
 
         // set up existed assign workout
         transferToArrayList();
