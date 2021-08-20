@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_light"
-    tools:context=".Timer">
+    tools:context=".TimerLayout">
 
     <View
         android:id="@+id/view_top"
@@ -89,12 +89,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="SET: 03"
+                        android:text="SET: 00"
                         android:textColor="@color/black"
                         android:textSize="18dp" />
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/tap_timer"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -103,12 +104,13 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/txt_totalTimer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
                         android:layout_marginBottom="20dp"
                         android:gravity="center"
-                        android:text="08:35"
+                        android:text="00:00"
                         android:textColor="@color/black"
                         android:textSize="24dp"
                         android:textStyle="bold" />
@@ -142,7 +144,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="REP: 12"
+                        android:text="REP: 00"
                         android:textColor="@color/black"
                         android:textSize="18dp" />
                 </LinearLayout>
@@ -160,16 +162,17 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:padding="8dp"
-                    android:src="@drawable/ic_cc_blue" />
+                    android:src="@drawable/ic_cc_black" />
 
                 <TextView
+                    android:id="@+id/txt_wkName"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
                     android:background="@drawable/outline_black"
                     android:gravity="center"
                     android:padding="5dp"
-                    android:text="WORKOUT NAME"
+                    android:text="CHOOSE WORKOUT"
                     android:textColor="@color/black"
                     android:textSize="18dp" />
 
@@ -198,6 +201,7 @@
                 android:id="@+id/e1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -210,6 +214,7 @@
                 android:id="@+id/e2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -218,22 +223,26 @@
                 android:textColor="@color/black"
                 android:textSize="16dp"
                 android:background="@drawable/outline_black"/>
+
             <TextView
                 android:id="@+id/e3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:visibility="gone"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
+                android:background="@drawable/outline_black"
                 android:padding="8dp"
                 android:text="EXERCISE 3"
                 android:textColor="@color/black"
-                android:textSize="16dp"
-                android:background="@drawable/outline_black"/>
+                android:textSize="16dp" />
+
             <TextView
                 android:id="@+id/e4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -246,6 +255,7 @@
                 android:id="@+id/e5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -258,6 +268,7 @@
                 android:id="@+id/e6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -270,6 +281,7 @@
                 android:id="@+id/e7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -282,6 +294,7 @@
                 android:id="@+id/e8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -294,6 +307,7 @@
                 android:id="@+id/e9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -306,6 +320,7 @@
                 android:id="@+id/e10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -318,6 +333,7 @@
                 android:id="@+id/e11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -330,6 +346,7 @@
                 android:id="@+id/e12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -343,6 +360,7 @@
     </ScrollView>
 
     <TextView
+        android:id="@+id/btt_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"

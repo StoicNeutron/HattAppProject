@@ -1,23 +1,28 @@
 package com.samnangthorn.hatt_app10;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import java.sql.Time;
+import java.util.Timer;
+import java.util.TimerTask;
 
-public class Timer extends AppCompatActivity {
+public class TimerLayout extends AppCompatActivity {
 
-    ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_soundSwitch;
+    private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_soundSwitch;
+    private TextView txt_totalTimer, btt_start, txt_wkName;
     private SharedPreferences getData;
     private SharedPreferences.Editor editData;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +36,43 @@ public class Timer extends AppCompatActivity {
         btt_timer = findViewById(R.id.btt_timer);
         btt_setting = findViewById(R.id.btt_setting);
         btt_soundSwitch = findViewById(R.id.btt_soundSwitch);
+        txt_totalTimer = findViewById(R.id.txt_totalTimer);
+        btt_start = findViewById(R.id.btt_start);
+        txt_wkName = findViewById(R.id.txt_wkName);
         MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.sound_on);
         getData = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
         editData = getData.edit();
+
+        if(Helper.timerCurrentState){
+            startTimer();
+        }
+
+        dialog = new Dialog(TimerLayout.this);
+        dialog.setContentView(R.layout.pop_up_select_workout);
+
+
+
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false);
+
+        TextView btt_cancel, btt_select;
+        btt_cancel = dialog.findViewById(R.id.pop_btt_back);
+        btt_select = dialog.findViewById(R.id.pop_btt_select);
+
+        btt_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        btt_select.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //
+            }
+        });
+
 
         btt_home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +113,29 @@ public class Timer extends AppCompatActivity {
             }
         });
 
+        txt_wkName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.show();
+            }
+        });
+
+        btt_start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Helper.timerCurrentState == false){
+                    Helper.timer = new Timer();
+                    Helper.timerCurrentState = true;
+                    btt_start.setText("STOP");
+                    startTimer();
+                }else{
+                    Helper.timerCurrentState = false;
+                    btt_start.setText("START");
+                    Helper.timerTask.cancel();
+                }
+            }
+        });
+
         btt_soundSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,6 +150,7 @@ public class Timer extends AppCompatActivity {
                 mediaPlayer.start();
             }
         });
+
 
     }
 
@@ -124,5 +187,36 @@ public class Timer extends AppCompatActivity {
         }else if(leftOrRight.equalsIgnoreCase("left")){
             overridePendingTransition(R.anim.sa_slide_in_left, R.anim.sa_slide_out_right);
         }
+    }
+
+    private void startTimer(){
+        Helper.timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Helper.time++;
+                        txt_totalTimer.setText(getTimerText());
+                    }
+                });
+            }
+        };
+        Helper.timer.scheduleAtFixedRate(Helper.timerTask, 0, 1000);
+    }
+
+    private String getTimerText(){
+        int rounded = (int) Math.round(Helper.time);
+        int seconds = ((rounded % 86400) % 3600 % 60);
+        int minutes = ((rounded % 86400) % 3600 / 60);
+        int hours = ((rounded % 86400) / 3600);
+
+        String timeStringFormat;
+        if(minutes < 60){
+            timeStringFormat = String.format("%02d", minutes) + " : " + String.format("%02d", seconds);
+        }else{
+            timeStringFormat = String.format("%02d", hours) + " : " + String.format("%02d", minutes) + " : " + String.format("%02d", seconds);
+        }
+        return timeStringFormat;
     }
 }

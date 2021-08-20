@@ -549,7 +549,7 @@ public class Schedule extends AppCompatActivity{
     }
 
     private void open_timerLayout() {
-        Intent intent = new Intent(this, Timer.class);
+        Intent intent = new Intent(this, TimerLayout.class);
         startActivity(intent);
     }
 

@@ -1,19 +1,13 @@
 package com.samnangthorn.hatt_app10;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.timepicker.TimeFormat;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -167,7 +161,7 @@ public class Home extends AppCompatActivity {
     }
 
     public void open_timerLayout() {
-        Intent intent = new Intent(this, Timer.class);
+        Intent intent = new Intent(this, TimerLayout.class);
         startActivity(intent);
     }
 

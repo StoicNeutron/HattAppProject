@@ -144,6 +144,13 @@
                         android:text="WORKOUT NAME"
                         android:textColor="@color/black" />
 
+                    <ImageView
+                        android:id="@+id/repeat1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_cc_cycle"
+                        android:visibility="invisible"/>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -175,6 +182,13 @@
                         android:gravity="center_vertical"
                         android:text="WORKOUT NAME"
                         android:textColor="@color/black" />
+
+                    <ImageView
+                        android:id="@+id/repeat2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_cc_cycle"
+                        android:visibility="invisible"/>
 
                 </LinearLayout>
 
@@ -208,6 +222,13 @@
                         android:text="WORKOUT NAME"
                         android:textColor="@color/black" />
 
+                    <ImageView
+                        android:id="@+id/repeat3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_cc_cycle"
+                        android:visibility="invisible"/>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -239,6 +260,13 @@
                         android:gravity="center_vertical"
                         android:text="WORKOUT NAME"
                         android:textColor="@color/black" />
+
+                    <ImageView
+                        android:id="@+id/repeat4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_cc_cycle"
+                        android:visibility="invisible"/>
 
                 </LinearLayout>
 
@@ -272,6 +300,13 @@
                         android:text="WORKOUT NAME"
                         android:textColor="@color/black" />
 
+                    <ImageView
+                        android:id="@+id/repeat5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_cc_cycle"
+                        android:visibility="invisible"/>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -304,6 +339,13 @@
                         android:text="WORKOUT NAME"
                         android:textColor="@color/black" />
 
+                    <ImageView
+                        android:id="@+id/repeat6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_cc_cycle"
+                        android:visibility="invisible"/>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -335,6 +377,13 @@
                         android:gravity="center_vertical"
                         android:text="CURRENT DAY"
                         android:textColor="@color/black" />
+
+                    <ImageView
+                        android:id="@+id/repeat7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_cc_cycle"
+                        android:visibility="invisible"/>
 
                 </LinearLayout>
 

@@ -24,7 +24,7 @@
         <activity android:name=".NewUserSetUp" />
         <activity android:name=".AddExercise" />
         <activity android:name=".Setting" />
-        <activity android:name=".Timer" />
+        <activity android:name=".TimerLayout" />
         <activity android:name=".Schedule" />
         <activity android:name=".Exercise" />
         <activity android:name=".Report" />

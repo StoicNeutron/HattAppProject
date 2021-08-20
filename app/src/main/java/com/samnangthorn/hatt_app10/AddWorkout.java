@@ -704,7 +704,7 @@ public class AddWorkout extends AppCompatActivity implements RVAdapter.onExeClic
     }
 
     private void open_timerLayout() {
-        Intent intent = new Intent(this, Timer.class);
+        Intent intent = new Intent(this, TimerLayout.class);
         startActivity(intent);
     }
 

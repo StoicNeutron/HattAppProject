@@ -4,21 +4,26 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class PopUp_chooseWK extends AppCompatActivity {
 
     private SharedPreferences getData;
     private SharedPreferences.Editor editData;
-    private ImageView btt_home, btt_report, btt_timer, btt_setting, btt_exercise;
+    private ImageView btt_home, btt_report, btt_timer, btt_setting, btt_exercise, repeat1, repeat2, repeat3, repeat4, repeat5, repeat6, repeat7;
     private TextView txt_day, txt_month, btt_back, btt_done;
     private LinearLayout w1, w2, w3, w4, w5, w6, w7;
     private TextView txt1, txt2, txt3, txt4, txt5, txt6, txt7;
     private int currentSelect = 88;
+    private int weeklyRepeatIndex = 8;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +51,14 @@ public class PopUp_chooseWK extends AppCompatActivity {
         w6 = findViewById(R.id.wk6);
         w7 = findViewById(R.id.wk7);
 
+        repeat1 = findViewById(R.id.repeat1);
+        repeat2 = findViewById(R.id.repeat2);
+        repeat3 = findViewById(R.id.repeat3);
+        repeat4 = findViewById(R.id.repeat4);
+        repeat5 = findViewById(R.id.repeat5);
+        repeat6 = findViewById(R.id.repeat6);
+        repeat7 = findViewById(R.id.repeat7);
+
         txt1 = findViewById(R.id.txt1);
         txt2 = findViewById(R.id.txt2);
         txt3 = findViewById(R.id.txt3);
@@ -57,6 +70,7 @@ public class PopUp_chooseWK extends AppCompatActivity {
         // helper lists
         LinearLayout[] wList = new LinearLayout[]{w1, w2, w3, w4, w5, w6, w7};
         TextView[] txtList = new TextView[]{txt1, txt2, txt3, txt4, txt5, txt6, txt7};
+        ImageView[] repeatLists = new ImageView[]{repeat1, repeat2, repeat3, repeat4, repeat5, repeat6, repeat7};
         // set up view
         int totalWorkout = getData.getInt("WT", 0);
         for(int x = 0; x < totalWorkout; x++){
@@ -122,7 +136,25 @@ public class PopUp_chooseWK extends AppCompatActivity {
                 DataBaseHelper myDB = new DataBaseHelper(PopUp_chooseWK.this);
                 String primeKeyString = Helper.getCurrentYear() + Helper.getThisMonthIndex(monthString) + dayString;
                 if(currentSelect != 88){
-                    myDB.addDate(primeKeyString, txtList[currentSelect].getText().toString(), "IC", "");
+                    // weekly activated part
+                    if(weeklyRepeatIndex != 8){
+                        // generate primeKeyString
+                        ArrayList<String> primeKeyStringLists = new ArrayList<String>();
+                        for(int x = Integer.valueOf(dayString); x < 32; x += 7){
+                            if(x < 10){
+                                primeKeyStringLists.add(Helper.getCurrentYear() + Helper.getThisMonthIndex(monthString) + "0" + String.valueOf(x));
+                            }else{
+                                primeKeyStringLists.add(Helper.getCurrentYear() + Helper.getThisMonthIndex(monthString) + String.valueOf(x));
+                            }
+                        }
+                        // db part
+                        for(int x = 0; x < primeKeyStringLists.size(); x++){
+                            myDB.addDate(primeKeyStringLists.get(x), txtList[currentSelect].getText().toString(), "IC", "");
+                        }
+                    // just a single day
+                    }else{
+                        myDB.addDate(primeKeyString, txtList[currentSelect].getText().toString(), "IC", "");
+                    }
                     open_scheduleLayout();
                 }
                 finish();
@@ -132,6 +164,9 @@ public class PopUp_chooseWK extends AppCompatActivity {
         wList[0].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(weeklyRepeatIndex < 8){
+                    repeatLists[weeklyRepeatIndex].setVisibility(View.INVISIBLE);
+                }
                 currentSelect = 0;
                 onSelectAction(0, wList);
             }
@@ -139,7 +174,9 @@ public class PopUp_chooseWK extends AppCompatActivity {
         wList[1].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if(weeklyRepeatIndex < 8){
+                    repeatLists[weeklyRepeatIndex].setVisibility(View.INVISIBLE);
+                }
                 currentSelect = 1;
                 onSelectAction(1, wList);
             }
@@ -147,6 +184,9 @@ public class PopUp_chooseWK extends AppCompatActivity {
         wList[2].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(weeklyRepeatIndex < 8){
+                    repeatLists[weeklyRepeatIndex].setVisibility(View.INVISIBLE);
+                }
                 currentSelect = 2;
                 onSelectAction(2, wList);
             }
@@ -154,6 +194,9 @@ public class PopUp_chooseWK extends AppCompatActivity {
         wList[3].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(weeklyRepeatIndex < 8){
+                    repeatLists[weeklyRepeatIndex].setVisibility(View.INVISIBLE);
+                }
                 currentSelect = 3;
                 onSelectAction(3, wList);
             }
@@ -161,6 +204,9 @@ public class PopUp_chooseWK extends AppCompatActivity {
         wList[4].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(weeklyRepeatIndex < 8){
+                    repeatLists[weeklyRepeatIndex].setVisibility(View.INVISIBLE);
+                }
                 currentSelect = 4;
                 onSelectAction(4, wList);
             }
@@ -168,6 +214,9 @@ public class PopUp_chooseWK extends AppCompatActivity {
         wList[5].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(weeklyRepeatIndex < 8){
+                    repeatLists[weeklyRepeatIndex].setVisibility(View.INVISIBLE);
+                }
                 currentSelect = 5;
                 onSelectAction(5, wList);
             }
@@ -175,8 +224,118 @@ public class PopUp_chooseWK extends AppCompatActivity {
         wList[6].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(weeklyRepeatIndex < 8){
+                    repeatLists[weeklyRepeatIndex].setVisibility(View.INVISIBLE);
+                }
                 currentSelect = 6;
                 onSelectAction(6, wList);
+            }
+        });
+
+        // on hold listeners
+        wList[0].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                weeklyRepeatIndex = 0;
+                for(int x = 0; x < repeatLists.length; x++){
+                    repeatLists[x].setVisibility(View.INVISIBLE);
+                }
+                repeat1.setVisibility(View.VISIBLE);
+                Toast.makeText(PopUp_chooseWK.this, "Weekly Repeat Activated!", Toast.LENGTH_SHORT).show();
+                //
+                currentSelect = 0;
+                onSelectAction(0, wList);
+                return true;
+            }
+        });
+        wList[1].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                weeklyRepeatIndex = 1;
+                for(int x = 0; x < repeatLists.length; x++){
+                    repeatLists[x].setVisibility(View.INVISIBLE);
+                }
+                repeat2.setVisibility(View.VISIBLE);
+                Toast.makeText(PopUp_chooseWK.this, "Weekly Repeat Activated!", Toast.LENGTH_SHORT).show();
+                //
+                currentSelect = 1;
+                onSelectAction(1, wList);
+                return true;
+            }
+        });
+        wList[2].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                weeklyRepeatIndex = 2;
+                for(int x = 0; x < repeatLists.length; x++){
+                    repeatLists[x].setVisibility(View.INVISIBLE);
+                }
+                repeat3.setVisibility(View.VISIBLE);
+                Toast.makeText(PopUp_chooseWK.this, "Weekly Repeat Activated!", Toast.LENGTH_SHORT).show();
+                //
+                currentSelect = 2;
+                onSelectAction(2, wList);
+                return true;
+            }
+        });
+        wList[3].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                weeklyRepeatIndex = 3;
+                for(int x = 0; x < repeatLists.length; x++){
+                    repeatLists[x].setVisibility(View.INVISIBLE);
+                }
+                repeat4.setVisibility(View.VISIBLE);
+                Toast.makeText(PopUp_chooseWK.this, "Weekly Repeat Activated!", Toast.LENGTH_SHORT).show();
+                //
+                currentSelect = 3;
+                onSelectAction(3, wList);
+                return true;
+            }
+        });
+        wList[4].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                weeklyRepeatIndex = 4;
+                for(int x = 0; x < repeatLists.length; x++){
+                    repeatLists[x].setVisibility(View.INVISIBLE);
+                }
+                repeat5.setVisibility(View.VISIBLE);
+                Toast.makeText(PopUp_chooseWK.this, "Weekly Repeat Activated!", Toast.LENGTH_SHORT).show();
+                //
+                currentSelect = 4;
+                onSelectAction(4, wList);
+                return true;
+            }
+        });
+        wList[5].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                weeklyRepeatIndex = 5;
+                for(int x = 0; x < repeatLists.length; x++){
+                    repeatLists[x].setVisibility(View.INVISIBLE);
+                }
+                repeat6.setVisibility(View.VISIBLE);
+                Toast.makeText(PopUp_chooseWK.this, "Weekly Repeat Activated!", Toast.LENGTH_SHORT).show();
+                //
+                currentSelect = 5;
+                onSelectAction(5, wList);
+                return true;
+            }
+        });
+        wList[6].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                weeklyRepeatIndex = 6;
+                for(int x = 0; x < repeatLists.length; x++){
+                    repeatLists[x].setVisibility(View.INVISIBLE);
+                }
+                repeat7.setVisibility(View.VISIBLE);
+                Toast.makeText(PopUp_chooseWK.this, "Weekly Repeat Activated!", Toast.LENGTH_SHORT).show();
+                //
+                currentSelect = 6;
+                onSelectAction(6, wList);
+                return true;
             }
         });
 
@@ -205,7 +364,7 @@ public class PopUp_chooseWK extends AppCompatActivity {
     }
 
     private void open_timerLayout() {
-        Intent intent = new Intent(this, Timer.class);
+        Intent intent = new Intent(this, TimerLayout.class);
         startActivity(intent);
     }
 
