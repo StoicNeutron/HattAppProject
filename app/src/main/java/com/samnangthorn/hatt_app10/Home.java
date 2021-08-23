@@ -95,6 +95,9 @@ public class Home extends AppCompatActivity {
                 txt_workoutName.setText("REST DAY!");
             }
         }
+        //
+        //
+        Helper.currentDayInteger = currentDay;
         // set up BMI point
 
 

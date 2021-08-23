@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
@@ -24,6 +25,10 @@ public class PopUp_chooseWK extends AppCompatActivity {
     private TextView txt1, txt2, txt3, txt4, txt5, txt6, txt7;
     private int currentSelect = 88;
     private int weeklyRepeatIndex = 8;
+    private ArrayList<String> dateInfoList = new ArrayList<String>();
+    private ArrayList<String> dateWKNameList = new ArrayList<String>();
+    private DataBaseHelper myDB;
+    private int theIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +76,19 @@ public class PopUp_chooseWK extends AppCompatActivity {
         LinearLayout[] wList = new LinearLayout[]{w1, w2, w3, w4, w5, w6, w7};
         TextView[] txtList = new TextView[]{txt1, txt2, txt3, txt4, txt5, txt6, txt7};
         ImageView[] repeatLists = new ImageView[]{repeat1, repeat2, repeat3, repeat4, repeat5, repeat6, repeat7};
+
+        // db read
+        myDB = new DataBaseHelper(PopUp_chooseWK.this);
+        Cursor cursor = myDB.readAllDate();
+        if(cursor.getCount() == 0){
+            //None
+        }else{
+            while(cursor.moveToNext()){
+                dateInfoList.add(cursor.getString(0));
+                dateWKNameList.add(cursor.getString(1));
+            }
+        }
+
         // set up view
         int totalWorkout = getData.getInt("WT", 0);
         for(int x = 0; x < totalWorkout; x++){
@@ -82,6 +100,21 @@ public class PopUp_chooseWK extends AppCompatActivity {
         String monthString = getIntent().getStringExtra("monthString");
         txt_month.setText(monthString);
         String yearString = getIntent().getStringExtra("yearString");
+
+        // set up color
+        String inDB_wkName = "NONE";
+        for(int x = (dateInfoList.size() - 1); x > 0; x--){
+            if(dateInfoList.get(x).equalsIgnoreCase(yearString.substring(2) + Helper.getThisMonthIndex(monthString) + dayString)){
+                inDB_wkName = dateWKNameList.get(x);
+                break;
+            }
+        }
+        for(int y = 0; y < txtList.length; y++){
+            if(txtList[y].getText().toString().equalsIgnoreCase(inDB_wkName)){
+                theIndex = y;
+                wList[y].setBackground(getDrawable(R.drawable.outline_blue));
+            }
+        }
 
         // on Click Listeners
         //
@@ -135,7 +168,7 @@ public class PopUp_chooseWK extends AppCompatActivity {
             public void onClick(View v) {
                 DataBaseHelper myDB = new DataBaseHelper(PopUp_chooseWK.this);
                 String primeKeyString = Helper.getCurrentYear() + Helper.getThisMonthIndex(monthString) + dayString;
-                if(currentSelect != 88){
+                if(currentSelect != 88 && currentSelect != theIndex){
                     // weekly activated part
                     if(weeklyRepeatIndex != 8){
                         // generate primeKeyString

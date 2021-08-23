@@ -26,6 +26,8 @@ public class Helper {
     public static double time = 0.0;
     public static  boolean timerCurrentState = false;
     public static ArrayList<String> exerciseNameArray = new ArrayList<String>();
+    public static String timerWorkoutName = "None";
+    public static int currentDayInteger = 0;
 
     // methods
 
@@ -121,6 +123,10 @@ public class Helper {
     //
     public static void setCurrentDayNameString(String inputString){
         currentDayNameString = inputString;
+    }
+
+    public static String getCurrentDayNameString(){
+        return currentDayNameString;
     }
 
     public static int getTotalDayOfMonth(int month) {

@@ -524,7 +524,9 @@ public class Schedule extends AppCompatActivity{
         Intent intent = new Intent(this, PopUp_chooseWK.class);
         intent.putExtra("dayString", currentDayNum);
         intent.putExtra("monthString", currentMonth);
-        intent.putExtra("yearString", currentYear);
+        String key1 = String.valueOf(currentYear);
+        intent.putExtra("yearString", key1);
+
         startActivity(intent);
     }
 

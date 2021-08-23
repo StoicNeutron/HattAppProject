@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
@@ -12,17 +13,26 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.rpc.Help;
+
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class TimerLayout extends AppCompatActivity {
 
-    private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_soundSwitch;
+    private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_soundSwitch, btt_switch;
     private TextView txt_totalTimer, btt_start, txt_wkName;
+    private int selectedWk = 8;
     private SharedPreferences getData;
     private SharedPreferences.Editor editData;
     private Dialog dialog;
+    private DataBaseHelper myDB;
+    private ArrayList<String> dateInfoList = new ArrayList<String>();
+    private ArrayList<String> dateWKNameList = new ArrayList<String>();
+    private ArrayList<String> wkLists = new ArrayList<String>();
+    private int trigger1, trigger2, trigger3, trigger4, trigger5, trigger6, trigger7;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +49,40 @@ public class TimerLayout extends AppCompatActivity {
         txt_totalTimer = findViewById(R.id.txt_totalTimer);
         btt_start = findViewById(R.id.btt_start);
         txt_wkName = findViewById(R.id.txt_wkName);
+        btt_switch = findViewById(R.id.btt_switch);
         MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.sound_on);
-        getData = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
+        getData = getApplicationContext().getSharedPreferences("workout_data", MODE_PRIVATE);
         editData = getData.edit();
+
+        trigger1 = trigger2 = trigger3 = trigger4 = trigger5 = trigger6 = trigger7 = 0;
+        for(int x = 0; x < getData.getInt("WT", 0); x++){
+            wkLists.add(getData.getString("W" + (x+1), "ERROR"));
+        }
+
+        // reading the database
+        myDB = new DataBaseHelper(TimerLayout.this);
+        Cursor cursor = myDB.readAllDate();
+        if(cursor.getCount() == 0){
+            //None
+        }else{
+            while(cursor.moveToNext()){
+                dateInfoList.add(cursor.getString(0));
+                dateWKNameList.add(cursor.getString(1));
+            }
+        }
+
+        String yearString = "ERROR";
+        String monthString = "ERROR";
+        String dateString = "ERROR";
+        for(int x = 0; x < dateInfoList.size(); x++){
+            yearString = Helper.getCurrentYear();
+            monthString = Helper.getCurrentMonthString();
+            dateString = String.valueOf(Helper.currentDayInteger);
+            if(dateInfoList.get(x).equalsIgnoreCase(yearString + monthString + dateString)){
+
+                txt_wkName.setText(dateWKNameList.get(x));
+            }
+        }
 
         if(Helper.timerCurrentState){
             startTimer();
@@ -55,9 +96,18 @@ public class TimerLayout extends AppCompatActivity {
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.setCancelable(false);
 
-        TextView btt_cancel, btt_select;
+        ImageView btt_cancel;
+        ImageView btt_wk1, btt_wk2, btt_wk3, btt_wk4, btt_wk5, btt_wk6, btt_wk7;
         btt_cancel = dialog.findViewById(R.id.pop_btt_back);
-        btt_select = dialog.findViewById(R.id.pop_btt_select);
+        btt_wk1 = dialog.findViewById(R.id.wk_blue);
+        btt_wk2 = dialog.findViewById(R.id.wk_red);
+        btt_wk3 = dialog.findViewById(R.id.wk_yellow);
+        btt_wk4 = dialog.findViewById(R.id.wk_green);
+        btt_wk5 = dialog.findViewById(R.id.wk_purple);
+        btt_wk6 = dialog.findViewById(R.id.wk_orange);
+        btt_wk7 = dialog.findViewById(R.id.wk_none);
+
+        // pop up buttons on click listeners
 
         btt_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,13 +116,104 @@ public class TimerLayout extends AppCompatActivity {
             }
         });
 
-        btt_select.setOnClickListener(new View.OnClickListener() {
+        btt_wk1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //
+                if(wkLists.size() >= 1){
+                    trigger2 = trigger3 = trigger4 = trigger5 = trigger6 = trigger7 = 0;
+                    trigger1++;
+                    if(trigger1 >= 2){
+                        dialog.dismiss();
+                        txt_wkName.setText(wkLists.get(0));
+                    }
+                }
+            }
+        });
+        btt_wk2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(wkLists.size() >= 2){
+                    trigger1 = trigger3 = trigger4 = trigger5 = trigger6 = trigger7 = 0;
+                    trigger2++;
+                    if(trigger2 >= 2){
+                        dialog.dismiss();
+                        txt_wkName.setText(wkLists.get(1));
+                    }
+                }
+            }
+        });
+        btt_wk3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(wkLists.size() >= 3){
+                    trigger1 = trigger2 = trigger4 = trigger5 = trigger6 = trigger7 = 0;
+                    trigger3++;
+                    if(trigger3 >= 2){
+                        dialog.dismiss();
+                        txt_wkName.setText(wkLists.get(2));
+                    }
+                }
+            }
+        });
+        btt_wk4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(wkLists.size() >= 4){
+                    trigger1 = trigger2 = trigger3 = trigger5 = trigger6 = trigger7 = 0;
+                    trigger4++;
+                    if(trigger4 >= 2){
+                        dialog.dismiss();
+                        txt_wkName.setText(wkLists.get(3));
+                    }
+                }
+            }
+        });
+        btt_wk5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(wkLists.size() >= 5){
+                    trigger1 = trigger2 = trigger3 = trigger4 = trigger6 = trigger7 = 0;
+                    trigger5++;
+                    if(trigger5 >= 2){
+                        dialog.dismiss();
+                        txt_wkName.setText(wkLists.get(4));
+                    }
+                }
+            }
+        });
+        btt_wk6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(wkLists.size() >= 6){
+                    trigger1 = trigger2 = trigger3 = trigger4 = trigger5 = trigger7 = 0;
+                    trigger6++;
+                    if(trigger6 >= 2){
+                        dialog.dismiss();
+                        txt_wkName.setText(wkLists.get(5));
+                    }
+                }
+            }
+        });
+        btt_wk7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(wkLists.size() >= 7){
+                    trigger1 = trigger2 = trigger3 = trigger4 = trigger5 = trigger6 = 0;
+                    trigger7++;
+                    if(trigger7 >= 2){
+                        dialog.dismiss();
+                        txt_wkName.setText(wkLists.get(6));
+                    }
+                }
             }
         });
 
+        btt_switch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.show();
+            }
+        });
 
         btt_home.setOnClickListener(new View.OnClickListener() {
             @Override
