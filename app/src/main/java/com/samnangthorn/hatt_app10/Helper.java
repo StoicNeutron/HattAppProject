@@ -28,6 +28,8 @@ public class Helper {
     public static ArrayList<String> exerciseNameArray = new ArrayList<String>();
     public static String timerWorkoutName = "None";
     public static int currentDayInteger = 0;
+    public static ArrayList<Integer> currentSetLists = new ArrayList<Integer>();
+    public static ArrayList<Integer> currentRepLists = new ArrayList<Integer>();
 
     // methods
 

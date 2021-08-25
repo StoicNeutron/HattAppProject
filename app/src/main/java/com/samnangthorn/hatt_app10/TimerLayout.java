@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.google.rpc.Help;
 
+import org.w3c.dom.Text;
+
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Timer;
@@ -24,6 +26,7 @@ public class TimerLayout extends AppCompatActivity {
 
     private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_soundSwitch, btt_switch;
     private TextView txt_totalTimer, btt_start, txt_wkName;
+    private TextView e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, txt_totalSet, txt_totalRep;
     private int selectedWk = 8;
     private SharedPreferences getData;
     private SharedPreferences.Editor editData;
@@ -50,10 +53,28 @@ public class TimerLayout extends AppCompatActivity {
         btt_start = findViewById(R.id.btt_start);
         txt_wkName = findViewById(R.id.txt_wkName);
         btt_switch = findViewById(R.id.btt_switch);
+        txt_totalSet = findViewById(R.id.txt_total_set);
+        txt_totalRep = findViewById(R.id.txt_total_rep);
+        e1 = findViewById(R.id.e1);
+        e2 = findViewById(R.id.e2);
+        e3 = findViewById(R.id.e3);
+        e4 = findViewById(R.id.e4);
+        e5 = findViewById(R.id.e5);
+        e6 = findViewById(R.id.e6);
+        e7 = findViewById(R.id.e7);
+        e8 = findViewById(R.id.e8);
+        e9 = findViewById(R.id.e9);
+        e10 = findViewById(R.id.e10);
+        e11 = findViewById(R.id.e11);
+        e12 = findViewById(R.id.e12);
         MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.sound_on);
         getData = getApplicationContext().getSharedPreferences("workout_data", MODE_PRIVATE);
         editData = getData.edit();
 
+        // Helper Lists
+        TextView[] eLists = new TextView[]{e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12};
+
+        // read workout name from the sp workout
         trigger1 = trigger2 = trigger3 = trigger4 = trigger5 = trigger6 = trigger7 = 0;
         for(int x = 0; x < getData.getInt("WT", 0); x++){
             wkLists.add(getData.getString("W" + (x+1), "ERROR"));
@@ -84,18 +105,37 @@ public class TimerLayout extends AppCompatActivity {
             }
         }
 
+        String exeString = txt_wkName.getText().toString();
+        if(!exeString.equalsIgnoreCase("choose workout")){
+            int dataIndex = 0;
+            for (int x = 0; x < getData.getInt("WT", 0); x++){
+                if(getData.getString("W" + (x + 1), "error").equalsIgnoreCase(exeString)){
+                    // codes here
+                    for(int y = 0; y < getData.getInt("W" + (x + 1) + "eT", 0); y++){
+                        eLists[y].setText(getData.getString("W" + (x + 1) + "e" + y, "error"));
+                        eLists[y].setVisibility(View.VISIBLE);
+                        Helper.currentSetLists.add(getData.getInt("W" + (x + 1) + "e" + y + "s", 0));
+                        Helper.currentRepLists.add(getData.getInt("W" + (x + 1) + "e" + y + "r", 0));
+                    }
+                    // later whe warm up is done
+                    // txt_totalSet.setText("SET: " + Helper.currentSetLists.get(0));
+                    // txt_totalRep.setText("REP: " + Helper.currentRepLists.get(0));
+                    break;
+                }
+            }
+        }
+
         if(Helper.timerCurrentState){
             startTimer();
         }
 
+        // Dialog
+        //
         dialog = new Dialog(TimerLayout.this);
         dialog.setContentView(R.layout.pop_up_select_workout);
-
-
-
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.setCancelable(false);
-
+        // Dialog Variables
         ImageView btt_cancel;
         ImageView btt_wk1, btt_wk2, btt_wk3, btt_wk4, btt_wk5, btt_wk6, btt_wk7;
         btt_cancel = dialog.findViewById(R.id.pop_btt_back);
@@ -106,16 +146,13 @@ public class TimerLayout extends AppCompatActivity {
         btt_wk5 = dialog.findViewById(R.id.wk_purple);
         btt_wk6 = dialog.findViewById(R.id.wk_orange);
         btt_wk7 = dialog.findViewById(R.id.wk_none);
-
-        // pop up buttons on click listeners
-
+        // Dialog OnClick listeners
         btt_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
             }
         });
-
         btt_wk1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -207,7 +244,11 @@ public class TimerLayout extends AppCompatActivity {
                 }
             }
         });
+        //
+        // End Dialog
 
+        // OnClick Listeners
+        //
         btt_switch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
