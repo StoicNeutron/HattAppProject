@@ -30,6 +30,9 @@ public class Helper {
     public static int currentDayInteger = 0;
     public static ArrayList<Integer> currentSetLists = new ArrayList<Integer>();
     public static ArrayList<Integer> currentRepLists = new ArrayList<Integer>();
+    public static ArrayList<String> currentExLists = new ArrayList<String>();
+    public static int currentExeIndexRunning = 0;
+    public static int currentSetIndexRunning = 0;
 
     // methods
 

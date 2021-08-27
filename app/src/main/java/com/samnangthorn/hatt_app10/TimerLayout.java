@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.rpc.Help;
@@ -26,7 +27,8 @@ public class TimerLayout extends AppCompatActivity {
 
     private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_soundSwitch, btt_switch;
     private TextView txt_totalTimer, btt_start, txt_wkName;
-    private TextView e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, txt_totalSet, txt_totalRep;
+    private TextView e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, txt_totalSet, txt_totalRep;
+    private LinearLayout tapTimer;
     private int selectedWk = 8;
     private SharedPreferences getData;
     private SharedPreferences.Editor editData;
@@ -55,6 +57,8 @@ public class TimerLayout extends AppCompatActivity {
         btt_switch = findViewById(R.id.btt_switch);
         txt_totalSet = findViewById(R.id.txt_total_set);
         txt_totalRep = findViewById(R.id.txt_total_rep);
+        tapTimer = findViewById(R.id.tap_timer);
+        e0 = findViewById(R.id.e0);
         e1 = findViewById(R.id.e1);
         e2 = findViewById(R.id.e2);
         e3 = findViewById(R.id.e3);
@@ -72,7 +76,7 @@ public class TimerLayout extends AppCompatActivity {
         editData = getData.edit();
 
         // Helper Lists
-        TextView[] eLists = new TextView[]{e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12};
+        TextView[] eLists = new TextView[]{e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12};
 
         // read workout name from the sp workout
         trigger1 = trigger2 = trigger3 = trigger4 = trigger5 = trigger6 = trigger7 = 0;
@@ -107,15 +111,22 @@ public class TimerLayout extends AppCompatActivity {
 
         String exeString = txt_wkName.getText().toString();
         if(!exeString.equalsIgnoreCase("choose workout")){
+            // auto add set and rep of warm up to Array List
+            Helper.currentSetLists.add(0);
+            Helper.currentRepLists.add(0);
+
             int dataIndex = 0;
             for (int x = 0; x < getData.getInt("WT", 0); x++){
-                if(getData.getString("W" + (x + 1), "error").equalsIgnoreCase(exeString)){
+                if(getData.getString("W" + (x + 1), "error").equalsIgnoreCase(exeString) ){
                     // codes here
-                    for(int y = 0; y < getData.getInt("W" + (x + 1) + "eT", 0); y++){
-                        eLists[y].setText(getData.getString("W" + (x + 1) + "e" + y, "error"));
-                        eLists[y].setVisibility(View.VISIBLE);
-                        Helper.currentSetLists.add(getData.getInt("W" + (x + 1) + "e" + y + "s", 0));
-                        Helper.currentRepLists.add(getData.getInt("W" + (x + 1) + "e" + y + "r", 0));
+                    for(int y = 0; y <= getData.getInt("W" + (x + 1) + "eT", 0); y++){
+                        if(y != 0){
+                            eLists[y].setText(getData.getString("W" + (x + 1) + "e" + (y - 1), "error"));
+                            eLists[y].setVisibility(View.VISIBLE);
+                            Helper.currentExLists.add(getData.getString("W" + (x + 1) + "e" + (y - 1), "error"));
+                            Helper.currentSetLists.add(getData.getInt("W" + (x + 1) + "e" + y + "s", 0));
+                            Helper.currentRepLists.add(getData.getInt("W" + (x + 1) + "e" + y + "r", 0));
+                        }
                     }
                     // later whe warm up is done
                     // txt_totalSet.setText("SET: " + Helper.currentSetLists.get(0));
@@ -308,9 +319,36 @@ public class TimerLayout extends AppCompatActivity {
                 if(Helper.timerCurrentState == false){
                     Helper.timer = new Timer();
                     Helper.timerCurrentState = true;
-                    btt_start.setText("STOP");
+                    btt_start.setText("NEXT");
                     startTimer();
+                }
+                if(Helper.currentExeIndexRunning != 0){
+                    // setting up new view
+                    for(int x = 0; x < eLists.length; x++){
+                        eLists[x].setBackground(getResources().getDrawable(R.drawable.outline_black));
+                    }
+                    // set specific to blue bg
+                    eLists[Helper.currentExeIndexRunning].setBackground(getResources().getDrawable(R.drawable.outline_filled_blue));
+                    txt_totalSet.setText(String.valueOf(Helper.currentSetLists.get(Helper.currentExeIndexRunning) - Helper.currentSetIndexRunning));
+                    txt_totalRep.setText(String.valueOf(Helper.currentRepLists.get(Helper.currentExeIndexRunning)));
+                }
+                // update current exercise
+                if(Helper.currentSetIndexRunning == Helper.currentSetLists.get(Helper.currentExeIndexRunning) ){
+                    Helper.currentExeIndexRunning += 1;
+                    // update current set
+                    Helper.currentSetIndexRunning = 0;
                 }else{
+                    Helper.currentSetIndexRunning += 1;
+                    //txt_totalSet.setText(String.valueOf((Helper.currentSetLists.get((Helper.currentExeIndexRunning)) - 1)));
+                }
+            }
+        });
+
+        tapTimer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // pause when timer is running
+                if(Helper.timerCurrentState){
                     Helper.timerCurrentState = false;
                     btt_start.setText("START");
                     Helper.timerTask.cancel();
