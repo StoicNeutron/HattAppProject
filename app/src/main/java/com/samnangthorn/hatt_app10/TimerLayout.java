@@ -1,4 +1,4 @@
-package com.samnangthorn.hatt_app10;
+                                                                                                                                                            package com.samnangthorn.hatt_app10;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,8 +25,8 @@ import java.util.TimerTask;
 
 public class TimerLayout extends AppCompatActivity {
 
-    private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_soundSwitch, btt_switch;
-    private TextView txt_totalTimer, btt_start, txt_wkName;
+    private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_soundSwitch, btt_switch, finished_img;
+    private TextView txt_totalTimer, txt_breakTimer, btt_start, txt_wkName, finished_txt;
     private TextView e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, txt_totalSet, txt_totalRep;
     private LinearLayout tapTimer;
     private int selectedWk = 8;
@@ -38,6 +38,7 @@ public class TimerLayout extends AppCompatActivity {
     private ArrayList<String> dateWKNameList = new ArrayList<String>();
     private ArrayList<String> wkLists = new ArrayList<String>();
     private int trigger1, trigger2, trigger3, trigger4, trigger5, trigger6, trigger7;
+    private boolean finished = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,9 @@ public class TimerLayout extends AppCompatActivity {
         btt_switch = findViewById(R.id.btt_switch);
         txt_totalSet = findViewById(R.id.txt_total_set);
         txt_totalRep = findViewById(R.id.txt_total_rep);
+        finished_txt =  findViewById(R.id.finished_txt);
+        finished_img = findViewById(R.id.finished_img);
+        txt_breakTimer = findViewById(R.id.txt_break_timer);
         tapTimer = findViewById(R.id.tap_timer);
         e0 = findViewById(R.id.e0);
         e1 = findViewById(R.id.e1);
@@ -124,8 +128,8 @@ public class TimerLayout extends AppCompatActivity {
                             eLists[y].setText(getData.getString("W" + (x + 1) + "e" + (y - 1), "error"));
                             eLists[y].setVisibility(View.VISIBLE);
                             Helper.currentExLists.add(getData.getString("W" + (x + 1) + "e" + (y - 1), "error"));
-                            Helper.currentSetLists.add(getData.getInt("W" + (x + 1) + "e" + y + "s", 0));
-                            Helper.currentRepLists.add(getData.getInt("W" + (x + 1) + "e" + y + "r", 0));
+                            Helper.currentSetLists.add(getData.getInt("W" + (x + 1) + "e" + (y - 1) + "s", 0));
+                            Helper.currentRepLists.add(getData.getInt("W" + (x + 1) + "e" + (y - 1) + "r", 0));
                         }
                     }
                     // later whe warm up is done
@@ -319,27 +323,48 @@ public class TimerLayout extends AppCompatActivity {
                 if(Helper.timerCurrentState == false){
                     Helper.timer = new Timer();
                     Helper.timerCurrentState = true;
-                    btt_start.setText("NEXT");
+                    btt_start.setText("DONE");
+                    eLists[0].setBackground(getResources().getDrawable(R.drawable.outline_filled_blue));
                     startTimer();
                 }
-                if(Helper.currentExeIndexRunning != 0){
-                    // setting up new view
-                    for(int x = 0; x < eLists.length; x++){
-                        eLists[x].setBackground(getResources().getDrawable(R.drawable.outline_black));
+                try {
+                    if (Helper.currentExeIndexRunning != 0) {
+                        // setting up new view
+                        for (int x = 0; x < eLists.length; x++) {
+                            eLists[x].setBackground(getResources().getDrawable(R.drawable.outline_black));
+                        }
+                        // set specific to blue bg
+                        eLists[Helper.currentExeIndexRunning].setBackground(getResources().getDrawable(R.drawable.outline_filled_blue));
+                        txt_totalSet.setText(String.valueOf(Helper.currentSetLists.get(Helper.currentExeIndexRunning) - Helper.currentSetIndexRunning));
+                        txt_totalRep.setText(String.valueOf(Helper.currentRepLists.get(Helper.currentExeIndexRunning)));
                     }
-                    // set specific to blue bg
-                    eLists[Helper.currentExeIndexRunning].setBackground(getResources().getDrawable(R.drawable.outline_filled_blue));
-                    txt_totalSet.setText(String.valueOf(Helper.currentSetLists.get(Helper.currentExeIndexRunning) - Helper.currentSetIndexRunning));
-                    txt_totalRep.setText(String.valueOf(Helper.currentRepLists.get(Helper.currentExeIndexRunning)));
+                    // update current exercise
+                    if (Helper.currentSetIndexRunning == Helper.currentSetLists.get(Helper.currentExeIndexRunning)) {
+                        Helper.currentExeIndexRunning += 1;
+                        // update current set
+                        Helper.currentSetIndexRunning = 0;
+                        //
+                        Helper.timer2 = new Timer();
+                        startTimer2();
+                    } else {
+                        Helper.currentSetIndexRunning += 1;
+                    }
+                }catch (IndexOutOfBoundsException e){
+                    btt_start.setText("FINISH");
+                    // setting up new view
+                    for (int x = 0; x < eLists.length; x++) {
+                        eLists[x].setVisibility(View.INVISIBLE);
+                    }
+
+                    //
+                    Helper.timerCurrentState = false;
+                    btt_start.setText("Great Job!");
+                    finished = true;
+                    Helper.timerTask.cancel();
                 }
-                // update current exercise
-                if(Helper.currentSetIndexRunning == Helper.currentSetLists.get(Helper.currentExeIndexRunning) ){
-                    Helper.currentExeIndexRunning += 1;
-                    // update current set
-                    Helper.currentSetIndexRunning = 0;
-                }else{
-                    Helper.currentSetIndexRunning += 1;
-                    //txt_totalSet.setText(String.valueOf((Helper.currentSetLists.get((Helper.currentExeIndexRunning)) - 1)));
+                if(finished){
+                    finished_txt.setVisibility(View.VISIBLE);
+                    finished_img.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -425,6 +450,22 @@ public class TimerLayout extends AppCompatActivity {
         Helper.timer.scheduleAtFixedRate(Helper.timerTask, 0, 1000);
     }
 
+    private void startTimer2(){
+        Helper.timerTask2 = new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Helper.time2--;
+                        txt_breakTimer.setText(getTimer2Text());
+                    }
+                });
+            }
+        };
+        Helper.timer2.scheduleAtFixedRate(Helper.timerTask2, 0, 1000);
+    }
+
     private String getTimerText(){
         int rounded = (int) Math.round(Helper.time);
         int seconds = ((rounded % 86400) % 3600 % 60);
@@ -437,6 +478,17 @@ public class TimerLayout extends AppCompatActivity {
         }else{
             timeStringFormat = String.format("%02d", hours) + " : " + String.format("%02d", minutes) + " : " + String.format("%02d", seconds);
         }
+        return timeStringFormat;
+    }
+
+    private String getTimer2Text(){
+        int rounded = (int) Math.round(Helper.time2);
+        int seconds = ((rounded % 86400) % 3600 % 60);
+        int minutes = ((rounded % 86400) % 3600 / 60);
+        int hours = ((rounded % 86400) / 3600);
+
+        String timeStringFormat;
+        timeStringFormat = String.format("%02d", minutes) + " : " + String.format("%02d", seconds);
         return timeStringFormat;
     }
 }
