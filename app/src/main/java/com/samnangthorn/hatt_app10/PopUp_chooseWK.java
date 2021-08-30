@@ -168,7 +168,7 @@ public class PopUp_chooseWK extends AppCompatActivity {
             public void onClick(View v) {
                 DataBaseHelper myDB = new DataBaseHelper(PopUp_chooseWK.this);
                 String primeKeyString = Helper.getCurrentYear() + Helper.getThisMonthIndex(monthString) + dayString;
-                if(currentSelect != 88 && currentSelect != theIndex){
+                if(currentSelect != 88 || currentSelect != theIndex){
                     // weekly activated part
                     if(weeklyRepeatIndex != 8){
                         // generate primeKeyString

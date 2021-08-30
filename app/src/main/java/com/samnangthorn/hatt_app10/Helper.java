@@ -1,5 +1,6 @@
 package com.samnangthorn.hatt_app10;
 
+import android.media.MediaPlayer;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class Helper {
     public static ArrayList<String> currentExLists = new ArrayList<String>();
     public static int currentExeIndexRunning = 0;
     public static int currentSetIndexRunning = 0;
+    public static boolean switcher = false;
 
     // methods
 
@@ -255,7 +257,7 @@ public class Helper {
         for (int x = 0; x < monthList.length; x++){
             if (currentMonth.equalsIgnoreCase(monthList[x])){
                 if(x < 10){
-                    returnString = "0" + String.valueOf(x + 1);
+                    returnString = "0" + (x + 1);
                 }else{
                     returnString = String.valueOf(x + 1);
                 }

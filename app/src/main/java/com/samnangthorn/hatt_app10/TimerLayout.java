@@ -1,4 +1,4 @@
-                                                                                                                                                            package com.samnangthorn.hatt_app10;
+package com.samnangthorn.hatt_app10;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -344,10 +344,10 @@ public class TimerLayout extends AppCompatActivity {
                         // update current set
                         Helper.currentSetIndexRunning = 0;
                         //
-                        Helper.timer2 = new Timer();
-                        startTimer2();
                     } else {
-                        Helper.currentSetIndexRunning += 1;
+                        if(Helper.switcher){
+                            Helper.currentSetIndexRunning += 1;
+                        }
                     }
                 }catch (IndexOutOfBoundsException e){
                     btt_start.setText("FINISH");
@@ -355,12 +355,22 @@ public class TimerLayout extends AppCompatActivity {
                     for (int x = 0; x < eLists.length; x++) {
                         eLists[x].setVisibility(View.INVISIBLE);
                     }
-
                     //
                     Helper.timerCurrentState = false;
-                    btt_start.setText("Great Job!");
                     finished = true;
                     Helper.timerTask.cancel();
+                }
+                if(!Helper.switcher){
+                    Helper.switcher = true;
+                    Helper.timer2 = new Timer();
+                    txt_breakTimer.setVisibility(View.VISIBLE);
+                    startTimer2(eLists);
+                }else{
+                    Helper.switcher = false;
+                    Helper.timerTask2.cancel();
+                    txt_breakTimer.setText("01:00");
+                    txt_breakTimer.setVisibility(View.GONE);
+                    Helper.time2 = 60;
                 }
                 if(finished){
                     finished_txt.setVisibility(View.VISIBLE);
@@ -450,7 +460,7 @@ public class TimerLayout extends AppCompatActivity {
         Helper.timer.scheduleAtFixedRate(Helper.timerTask, 0, 1000);
     }
 
-    private void startTimer2(){
+    private void startTimer2(TextView[] eLists){
         Helper.timerTask2 = new TimerTask() {
             @Override
             public void run() {
@@ -458,7 +468,7 @@ public class TimerLayout extends AppCompatActivity {
                     @Override
                     public void run() {
                         Helper.time2--;
-                        txt_breakTimer.setText(getTimer2Text());
+                        txt_breakTimer.setText(getTimer2Text(eLists));
                     }
                 });
             }
@@ -481,7 +491,7 @@ public class TimerLayout extends AppCompatActivity {
         return timeStringFormat;
     }
 
-    private String getTimer2Text(){
+    private String getTimer2Text(TextView[] eLists){
         int rounded = (int) Math.round(Helper.time2);
         int seconds = ((rounded % 86400) % 3600 % 60);
         int minutes = ((rounded % 86400) % 3600 / 60);
@@ -489,6 +499,41 @@ public class TimerLayout extends AppCompatActivity {
 
         String timeStringFormat;
         timeStringFormat = String.format("%02d", minutes) + " : " + String.format("%02d", seconds);
+        if(timeStringFormat.equalsIgnoreCase("00 : 03")){
+            MediaPlayer mediaPlayer2 = MediaPlayer.create(this, R.raw.soundeffect);
+            mediaPlayer2.start();
+        }
+        if(timeStringFormat.equalsIgnoreCase("00 : 00")){
+            Helper.timerTask2.cancel();
+            txt_breakTimer.setVisibility(View.GONE);
+            nextExerciseOrSet(eLists);
+            Helper.time2 = 60;
+        }
         return timeStringFormat;
+    }
+
+    private void nextExerciseOrSet(TextView[] eLists){
+        if (Helper.currentExeIndexRunning != 0) {
+            // setting up new view
+            for (int x = 0; x < eLists.length; x++) {
+                eLists[x].setBackground(getResources().getDrawable(R.drawable.outline_black));
+            }
+            // set specific to blue bg
+            eLists[Helper.currentExeIndexRunning].setBackground(getResources().getDrawable(R.drawable.outline_filled_blue));
+            txt_totalSet.setText(String.valueOf(Helper.currentSetLists.get(Helper.currentExeIndexRunning) - Helper.currentSetIndexRunning));
+            txt_totalRep.setText(String.valueOf(Helper.currentRepLists.get(Helper.currentExeIndexRunning)));
+        }
+        // update current exercise
+        if (Helper.currentSetIndexRunning == Helper.currentSetLists.get(Helper.currentExeIndexRunning)) {
+            Helper.currentExeIndexRunning += 1;
+            // update current set
+            Helper.currentSetIndexRunning = 0;
+            //
+        } else {
+            if(Helper.switcher){
+                Helper.currentSetIndexRunning += 1;
+                Helper.switcher = false;
+            }
+        }
     }
 }
