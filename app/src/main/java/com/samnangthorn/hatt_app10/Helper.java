@@ -108,20 +108,43 @@ public class Helper {
         startIndex = endIndex = 0;
         boolean activate = false;
         boolean activate2 = false;
-        for(int x = 0; x < dateString.length(); x++){
-            // space
-            if(dateString.charAt(x) == 32){
-                if(activate){
-                    startIndex = x-3;
+
+        if(dateString.length() == 29){
+            System.out.println("xxx1: " + dateString.length());
+            // day below 10
+            for(int x = 0; x < dateString.length(); x++){
+                // space
+                if(dateString.charAt(x) == 32){
+                    if(activate){
+                        startIndex = x-3;
+                    }
+                    activate = true;
                 }
-                activate = true;
+                // comma
+                if(dateString.charAt(x) == 44){
+                    if(activate2){
+                        endIndex = x;
+                    }
+                    activate2 = true;
+                }
             }
-            // comma
-            if(dateString.charAt(x) == 44){
-                if(activate2){
-                    endIndex = x;
+        }else{
+            // day 10 up
+            for(int x = 0; x < dateString.length(); x++){
+                // space
+                if(dateString.charAt(x) == 32){
+                    if(activate){
+                        startIndex = x-2;
+                    }
+                    activate = true;
                 }
-                activate2 = true;
+                // comma
+                if(dateString.charAt(x) == 44){
+                    if(activate2){
+                        endIndex = x;
+                    }
+                    activate2 = true;
+                }
             }
         }
         return dateString.substring(startIndex, endIndex);
