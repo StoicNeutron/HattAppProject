@@ -3,6 +3,7 @@ package com.samnangthorn.hatt_app10;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -18,12 +19,14 @@ import java.util.TimeZone;
 public class Home extends AppCompatActivity {
 
     private ImageView btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting;
-    private TextView txt_day, txt_date, txt_time, txt_timeZone, txt_workoutName;
+    private TextView txt_day, txt_date, txt_time, txt_timeZone, txt_workoutName, txt_BMI_point;
     private Calendar realTime_data;
     private TimeZone tz;
     private DataBaseHelper myDB;
     private ArrayList<String> dateInfoList = new ArrayList<String>();
     private ArrayList<String> dateWKNameList = new ArrayList<String>();
+    private SharedPreferences getData;
+    private SharedPreferences.Editor editData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,7 @@ public class Home extends AppCompatActivity {
         txt_time = findViewById(R.id.txt_time);
         txt_timeZone = findViewById(R.id.txt_timeZone);
         txt_workoutName = findViewById(R.id.txt_workoutName);
+        txt_BMI_point =  findViewById(R.id.txt_BMI_point);
 
 
         tz = TimeZone.getDefault();
@@ -99,8 +103,21 @@ public class Home extends AppCompatActivity {
         //
         Helper.currentDayInteger = currentDay;
         // set up BMI point
+        getData = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
+        editData = getData.edit();
+        double BMI_number;
+        // case unit is lb and inches
+        if(getData.getString("unit", "ERROR").equalsIgnoreCase("US")){
+            BMI_number = Integer.valueOf(getData.getString("weight", "0")) / Math.pow(Double.valueOf(getData.getString("height", "0")), 2) * 703;
+        // case unit is kg and meters
+        }else{
+            BMI_number = Integer.valueOf(getData.getString("weight", "0")) / Math.pow(Double.valueOf(getData.getString("height", "0")), 2);
+        }
+        //BMI_number = Math.round(BMI_number * 100)/ 100;
+        txt_BMI_point.setText(String.valueOf("BMI: " + String.format("%.2f", BMI_number)));
 
-
+        // OnClick Listeners
+        //
         btt_setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

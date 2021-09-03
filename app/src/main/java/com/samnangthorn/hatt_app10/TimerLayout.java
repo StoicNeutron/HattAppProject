@@ -107,6 +107,9 @@ public class TimerLayout extends AppCompatActivity {
             yearString = Helper.getCurrentYear();
             monthString = Helper.getCurrentMonthString();
             dateString = String.valueOf(Helper.currentDayInteger);
+            if(dateString.length() == 1){
+                dateString = "0" + dateString;
+            }
             if(dateInfoList.get(x).equalsIgnoreCase(yearString + monthString + dateString)){
 
                 txt_wkName.setText(dateWKNameList.get(x));
