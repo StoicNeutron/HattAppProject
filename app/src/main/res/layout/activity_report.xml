@@ -73,6 +73,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/txt_bmi_value"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="BMI: 2.7"
@@ -88,19 +89,21 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Current Condition: "
+                android:text="Condition:"
                 android:textSize="18dp"
                 android:textColor="@color/black"
                 android:gravity="end"
-                android:layout_weight="2"/>
+                android:layout_weight="1.4"/>
             <TextView
+                android:id="@+id/txt_bmiStatus"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
                 android:text="GOOD"
                 android:textSize="18dp"
                 android:textColor="@color/green"
                 android:gravity="start"
-                android:layout_weight="1"/>
+                android:layout_weight="2"/>
 
         </LinearLayout>
         <TextView
@@ -148,7 +151,7 @@
                         android:layout_height="5dp"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
-                        android:background="@color/green"/>
+                        android:background="@color/gray_dark"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -172,7 +175,7 @@
                         android:layout_height="5dp"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
-                        android:background="@color/green"/>
+                        android:background="@color/gray_dark"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -196,7 +199,7 @@
                         android:layout_height="5dp"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
-                        android:background="@color/red_dark"/>
+                        android:background="@color/gray_dark"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -220,7 +223,7 @@
                         android:layout_height="5dp"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
-                        android:background="@color/green"/>
+                        android:background="@color/gray_dark"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -244,7 +247,7 @@
                         android:layout_height="5dp"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
-                        android:background="@color/red_dark"/>
+                        android:background="@color/gray_dark"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -268,7 +271,7 @@
                         android:layout_height="5dp"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
-                        android:background="@color/red_dark"/>
+                        android:background="@color/gray_dark"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -292,7 +295,7 @@
                         android:layout_height="5dp"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
-                        android:background="@color/green"/>
+                        android:background="@color/gray_dark"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -404,7 +407,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="EXERCISE 1"
+                android:text="NO DATA AVAILABLE YET"
                 android:layout_gravity="center"
                 android:textSize="16dp"
                 android:textColor="@color/black"/>
@@ -427,7 +430,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="EXERCISE 2"
+                android:text="NO DATA AVAILABLE YET"
                 android:layout_gravity="center"
                 android:textSize="16dp"
                 android:textColor="@color/black"/>
@@ -450,7 +453,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="EXERCISE 3"
+                android:text="NO DATA AVAILABLE YET"
                 android:layout_gravity="center"
                 android:textSize="16dp"
                 android:textColor="@color/black"/>
@@ -486,10 +489,12 @@
             android:layout_marginTop="20dp"
             android:orientation="horizontal">
             <ImageView
+                android:id="@+id/btt_updateWeightHeight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_update_hw"/>
             <TextView
+                android:id="@+id/txt_updateWeightHeight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"

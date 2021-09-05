@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -16,6 +17,8 @@ import com.google.android.gms.ads.initialization.OnInitializationCompleteListene
 public class Report extends AppCompatActivity {
 
     ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_cloudUpload;
+    private TextView txt_bmi_value, txt_bmiStatus, txt_updateWeightHeight;
+    private ImageView btt_updateWeightHeight;
     private AdView mAdView;
 
     @Override
@@ -30,6 +33,16 @@ public class Report extends AppCompatActivity {
         btt_timer = findViewById(R.id.btt_timer);
         btt_setting = findViewById(R.id.btt_setting);
         btt_cloudUpload = findViewById(R.id.btt_cloudUpload);
+        txt_bmi_value = findViewById(R.id.txt_bmi_value);
+        txt_bmiStatus = findViewById(R.id.txt_bmiStatus);
+        txt_updateWeightHeight = findViewById(R.id.txt_updateWeightHeight);
+        btt_updateWeightHeight = findViewById(R.id.btt_updateWeightHeight);
+
+        txt_bmi_value.setText(Helper.tempBMI_value);
+        txt_bmiStatus.setText(Helper.tempBMI_status);
+        if(!Helper.tempBMI_status.equalsIgnoreCase("STANDARD FIT")){
+            txt_bmiStatus.setTextColor(getColor(R.color.red_dark));
+        }
 
         //Ads loading func
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
@@ -79,6 +92,13 @@ public class Report extends AppCompatActivity {
             public void onClick(View v) {
                 open_timerLayout();
                 transition_animation("right");
+            }
+        });
+
+        btt_updateWeightHeight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                open_settingLayout();
             }
         });
 

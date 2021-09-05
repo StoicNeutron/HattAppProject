@@ -18,8 +18,8 @@ import java.util.TimeZone;
 
 public class Home extends AppCompatActivity {
 
-    private ImageView btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting;
-    private TextView txt_day, txt_date, txt_time, txt_timeZone, txt_workoutName, txt_BMI_point;
+    private ImageView btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_goWK, btt_expandReport;
+    private TextView txt_day, txt_date, txt_time, txt_timeZone, txt_workoutName, txt_BMI_point, txt_bmiStatus;
     private Calendar realTime_data;
     private TimeZone tz;
     private DataBaseHelper myDB;
@@ -44,7 +44,9 @@ public class Home extends AppCompatActivity {
         txt_timeZone = findViewById(R.id.txt_timeZone);
         txt_workoutName = findViewById(R.id.txt_workoutName);
         txt_BMI_point =  findViewById(R.id.txt_BMI_point);
-
+        txt_bmiStatus = findViewById(R.id.txt_bmiStatus);
+        btt_goWK = findViewById(R.id.btt_goWK);
+        btt_expandReport = findViewById(R.id.btt_expandReport);
 
         tz = TimeZone.getDefault();
         realTime_data = Calendar.getInstance();
@@ -114,7 +116,28 @@ public class Home extends AppCompatActivity {
             BMI_number = Integer.valueOf(getData.getString("weight", "0")) / Math.pow(Double.valueOf(getData.getString("height", "0")), 2);
         }
         //BMI_number = Math.round(BMI_number * 100)/ 100;
-        txt_BMI_point.setText(String.valueOf("BMI: " + String.format("%.2f", BMI_number)));
+
+        txt_BMI_point.setText(String.valueOf("BMI: " + String.format("%.1f", BMI_number)));
+        Helper.tempBMI_value = "BMI: " + String.format("%.1f", BMI_number);
+        if(BMI_number < 17){
+            txt_bmiStatus.setText("Current Condition: THIN");
+            Helper.tempBMI_status = "TOO_THIN";
+        }else if(BMI_number < 18.5){
+            txt_bmiStatus.setText("Current Condition: UNDER_WEIGHT");
+            Helper.tempBMI_status = "UNDER_WEIGHT";
+        }else if(BMI_number < 25){
+            txt_bmiStatus.setText("Current Condition: STANDARD FIT");
+            Helper.tempBMI_status = "STANDARD FIT";
+        }else if(BMI_number < 30){
+            txt_bmiStatus.setText("Current Condition: OVER_WEIGHT");
+            Helper.tempBMI_status = "OVER_WEIGHT";
+        }else if(BMI_number < 40){
+            txt_bmiStatus.setText("Current Condition: OBESE");
+            Helper.tempBMI_status = "OBESE";
+        }else{
+            txt_bmiStatus.setText("Current Condition: OBESE+");
+            Helper.tempBMI_status = "OBESE+";
+        }
 
         // OnClick Listeners
         //
@@ -154,6 +177,21 @@ public class Home extends AppCompatActivity {
             public void onClick(View v) {
                 open_timerLayout();
                 transition_animation("right");
+            }
+        });
+
+        btt_goWK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                open_timerLayout();
+                transition_animation("right");
+            }
+        });
+
+        btt_expandReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                open_reportLayout();
             }
         });
     }

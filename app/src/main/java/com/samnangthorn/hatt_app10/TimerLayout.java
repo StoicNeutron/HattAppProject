@@ -38,7 +38,6 @@ public class TimerLayout extends AppCompatActivity {
     private ArrayList<String> dateWKNameList = new ArrayList<String>();
     private ArrayList<String> wkLists = new ArrayList<String>();
     private int trigger1, trigger2, trigger3, trigger4, trigger5, trigger6, trigger7;
-    private boolean finished = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +74,10 @@ public class TimerLayout extends AppCompatActivity {
         e10 = findViewById(R.id.e10);
         e11 = findViewById(R.id.e11);
         e12 = findViewById(R.id.e12);
+
+
         MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.sound_on);
+        MediaPlayer mediaPlayer3 = MediaPlayer.create(this, R.raw.congrate3);
         getData = getApplicationContext().getSharedPreferences("workout_data", MODE_PRIVATE);
         editData = getData.edit();
 
@@ -118,6 +120,7 @@ public class TimerLayout extends AppCompatActivity {
 
         String exeString = txt_wkName.getText().toString();
         if(!exeString.equalsIgnoreCase("choose workout")){
+            btt_start.setVisibility(View.VISIBLE);
             // auto add set and rep of warm up to Array List
             Helper.currentSetLists.add(0);
             Helper.currentRepLists.add(0);
@@ -180,6 +183,8 @@ public class TimerLayout extends AppCompatActivity {
                     if(trigger1 >= 2){
                         dialog.dismiss();
                         txt_wkName.setText(wkLists.get(0));
+                        setNewWorkoutTimer(eLists, wkLists.get(0));
+                        btt_start.setVisibility(View.VISIBLE);
                     }
                 }
             }
@@ -193,6 +198,8 @@ public class TimerLayout extends AppCompatActivity {
                     if(trigger2 >= 2){
                         dialog.dismiss();
                         txt_wkName.setText(wkLists.get(1));
+                        setNewWorkoutTimer(eLists, wkLists.get(1));
+                        btt_start.setVisibility(View.VISIBLE);
                     }
                 }
             }
@@ -206,6 +213,8 @@ public class TimerLayout extends AppCompatActivity {
                     if(trigger3 >= 2){
                         dialog.dismiss();
                         txt_wkName.setText(wkLists.get(2));
+                        setNewWorkoutTimer(eLists, wkLists.get(2));
+                        btt_start.setVisibility(View.VISIBLE);
                     }
                 }
             }
@@ -219,6 +228,8 @@ public class TimerLayout extends AppCompatActivity {
                     if(trigger4 >= 2){
                         dialog.dismiss();
                         txt_wkName.setText(wkLists.get(3));
+                        setNewWorkoutTimer(eLists, wkLists.get(3));
+                        btt_start.setVisibility(View.VISIBLE);
                     }
                 }
             }
@@ -232,6 +243,8 @@ public class TimerLayout extends AppCompatActivity {
                     if(trigger5 >= 2){
                         dialog.dismiss();
                         txt_wkName.setText(wkLists.get(4));
+                        setNewWorkoutTimer(eLists, wkLists.get(4));
+                        btt_start.setVisibility(View.VISIBLE);
                     }
                 }
             }
@@ -245,6 +258,8 @@ public class TimerLayout extends AppCompatActivity {
                     if(trigger6 >= 2){
                         dialog.dismiss();
                         txt_wkName.setText(wkLists.get(5));
+                        setNewWorkoutTimer(eLists, wkLists.get(5));
+                        btt_start.setVisibility(View.VISIBLE);
                     }
                 }
             }
@@ -258,6 +273,8 @@ public class TimerLayout extends AppCompatActivity {
                     if(trigger7 >= 2){
                         dialog.dismiss();
                         txt_wkName.setText(wkLists.get(6));
+                        setNewWorkoutTimer(eLists, wkLists.get(6));
+                        btt_start.setVisibility(View.VISIBLE);
                     }
                 }
             }
@@ -330,55 +347,75 @@ public class TimerLayout extends AppCompatActivity {
                     eLists[0].setBackground(getResources().getDrawable(R.drawable.outline_filled_blue));
                     startTimer();
                 }
-                try {
-                    if (Helper.currentExeIndexRunning != 0) {
+                if(!Helper.finished) {
+                    try {
+                        if (Helper.currentExeIndexRunning != 0) {
+                            // setting up new view
+                            for (int x = 0; x < eLists.length; x++) {
+                                eLists[x].setBackground(getResources().getDrawable(R.drawable.outline_black));
+                            }
+                            // set specific to blue bg
+                            eLists[Helper.currentExeIndexRunning].setBackground(getResources().getDrawable(R.drawable.outline_filled_blue));
+                            txt_totalSet.setText(String.valueOf(Helper.currentSetLists.get(Helper.currentExeIndexRunning) - Helper.currentSetIndexRunning));
+                            txt_totalRep.setText(String.valueOf(Helper.currentRepLists.get(Helper.currentExeIndexRunning)));
+                        }
+                        // update current exercise
+                        if (Helper.currentSetIndexRunning == Helper.currentSetLists.get(Helper.currentExeIndexRunning)) {
+                            Helper.currentExeIndexRunning += 1;
+                            // update current set
+                            Helper.currentSetIndexRunning = 0;
+                            //
+                        } else {
+                            if (Helper.switcher) {
+                                Helper.currentSetIndexRunning += 1;
+                            }
+                        }
+                    } catch (IndexOutOfBoundsException e) {
+                        btt_start.setVisibility(View.INVISIBLE);
+                        Helper.finished = true;
+                        finished_txt.setVisibility(View.VISIBLE);
+                        finished_img.setVisibility(View.VISIBLE);
+                        mediaPlayer3.start();
+                        finishedWorkout();
                         // setting up new view
                         for (int x = 0; x < eLists.length; x++) {
-                            eLists[x].setBackground(getResources().getDrawable(R.drawable.outline_black));
+                            eLists[x].setVisibility(View.GONE);
                         }
-                        // set specific to blue bg
-                        eLists[Helper.currentExeIndexRunning].setBackground(getResources().getDrawable(R.drawable.outline_filled_blue));
-                        txt_totalSet.setText(String.valueOf(Helper.currentSetLists.get(Helper.currentExeIndexRunning) - Helper.currentSetIndexRunning));
-                        txt_totalRep.setText(String.valueOf(Helper.currentRepLists.get(Helper.currentExeIndexRunning)));
-                    }
-                    // update current exercise
-                    if (Helper.currentSetIndexRunning == Helper.currentSetLists.get(Helper.currentExeIndexRunning)) {
-                        Helper.currentExeIndexRunning += 1;
-                        // update current set
-                        Helper.currentSetIndexRunning = 0;
                         //
-                    } else {
-                        if(Helper.switcher){
-                            Helper.currentSetIndexRunning += 1;
+                        Helper.timerCurrentState = false;
+                        Helper.timerTask.cancel();
+                    }
+
+                    if(!Helper.switcher){
+                        Helper.switcher = true;
+                        Helper.timer2 = new Timer();
+                        txt_breakTimer.setVisibility(View.VISIBLE);
+                        try {
+                            startTimer2(eLists, mediaPlayer3);
+                        }catch (IndexOutOfBoundsException e){
+                            btt_start.setVisibility(View.INVISIBLE);
+                            Helper.finished = true;
+                            finished_txt.setVisibility(View.VISIBLE);
+                            finished_img.setVisibility(View.VISIBLE);
+                            // setting up new view
+                            for (int x = 0; x < eLists.length; x++) {
+                                eLists[x].setVisibility(View.GONE);
+                            }
+                            //
+                            Helper.timerCurrentState = false;
+                            Helper.timerTask.cancel();
                         }
+                        btt_start.setText("SKIP BREAK");
+                    }else{
+                        Helper.switcher = false;
+                        Helper.timerTask2.cancel();
+                        txt_breakTimer.setText("01:00");
+                        txt_breakTimer.setVisibility(View.GONE);
+                        Helper.time2 = 60;
+                        btt_start.setText("DONE");
                     }
-                }catch (IndexOutOfBoundsException e){
-                    btt_start.setText("FINISH");
-                    // setting up new view
-                    for (int x = 0; x < eLists.length; x++) {
-                        eLists[x].setVisibility(View.INVISIBLE);
-                    }
-                    //
-                    Helper.timerCurrentState = false;
-                    finished = true;
-                    Helper.timerTask.cancel();
                 }
-                if(!Helper.switcher){
-                    Helper.switcher = true;
-                    Helper.timer2 = new Timer();
-                    txt_breakTimer.setVisibility(View.VISIBLE);
-                    startTimer2(eLists);
-                }else{
-                    Helper.switcher = false;
-                    Helper.timerTask2.cancel();
-                    txt_breakTimer.setText("01:00");
-                    txt_breakTimer.setVisibility(View.GONE);
-                    Helper.time2 = 60;
-                }
-                if(finished){
-                    finished_txt.setVisibility(View.VISIBLE);
-                    finished_img.setVisibility(View.VISIBLE);
-                }
+
             }
         });
 
@@ -463,7 +500,7 @@ public class TimerLayout extends AppCompatActivity {
         Helper.timer.scheduleAtFixedRate(Helper.timerTask, 0, 1000);
     }
 
-    private void startTimer2(TextView[] eLists){
+    private void startTimer2(TextView[] eLists, MediaPlayer mediaPlayer3){
         Helper.timerTask2 = new TimerTask() {
             @Override
             public void run() {
@@ -471,7 +508,7 @@ public class TimerLayout extends AppCompatActivity {
                     @Override
                     public void run() {
                         Helper.time2--;
-                        txt_breakTimer.setText(getTimer2Text(eLists));
+                        txt_breakTimer.setText(getTimer2Text(eLists, mediaPlayer3));
                     }
                 });
             }
@@ -494,7 +531,7 @@ public class TimerLayout extends AppCompatActivity {
         return timeStringFormat;
     }
 
-    private String getTimer2Text(TextView[] eLists){
+    private String getTimer2Text(TextView[] eLists, MediaPlayer mediaPlayer3){
         int rounded = (int) Math.round(Helper.time2);
         int seconds = ((rounded % 86400) % 3600 % 60);
         int minutes = ((rounded % 86400) % 3600 / 60);
@@ -509,7 +546,22 @@ public class TimerLayout extends AppCompatActivity {
         if(timeStringFormat.equalsIgnoreCase("00 : 00")){
             Helper.timerTask2.cancel();
             txt_breakTimer.setVisibility(View.GONE);
-            nextExerciseOrSet(eLists);
+            try {
+                nextExerciseOrSet(eLists);
+            }catch (IndexOutOfBoundsException e){
+                btt_start.setVisibility(View.INVISIBLE);
+                Helper.finished = true;
+                finished_txt.setVisibility(View.VISIBLE);
+                finished_img.setVisibility(View.VISIBLE);
+                mediaPlayer3.start();
+                // setting up new view
+                for (int x = 0; x < eLists.length; x++) {
+                    eLists[x].setVisibility(View.GONE);
+                }
+                //
+                Helper.timerCurrentState = false;
+                Helper.timerTask.cancel();
+            }
             Helper.time2 = 60;
         }
         return timeStringFormat;
@@ -538,5 +590,36 @@ public class TimerLayout extends AppCompatActivity {
                 Helper.switcher = false;
             }
         }
+    }
+
+    private void setNewWorkoutTimer(TextView[] eLists, String wkName){
+        Helper.currentExLists.clear();
+        Helper.currentSetLists.clear();
+        Helper.currentRepLists.clear();
+        Helper.currentSetLists.add(0);
+        Helper.currentRepLists.add(0);
+        for (int x = 0; x < getData.getInt("WT", 0); x++){
+            if(getData.getString("W" + (x + 1), "error").equalsIgnoreCase(wkName) ){
+                // codes here
+                for(int y = 0; y <= getData.getInt("W" + (x + 1) + "eT", 0); y++){
+                    if(y != 0){
+                        eLists[y].setText(getData.getString("W" + (x + 1) + "e" + (y - 1), "error"));
+                        eLists[y].setVisibility(View.VISIBLE);
+                        Helper.currentExLists.add(getData.getString("W" + (x + 1) + "e" + (y - 1), "error"));
+                        Helper.currentSetLists.add(getData.getInt("W" + (x + 1) + "e" + (y - 1) + "s", 0));
+                        Helper.currentRepLists.add(getData.getInt("W" + (x + 1) + "e" + (y - 1) + "r", 0));
+                    }
+                }
+                // later whe warm up is done
+                // txt_totalSet.setText("SET: " + Helper.currentSetLists.get(0));
+                // txt_totalRep.setText("REP: " + Helper.currentRepLists.get(0));
+                break;
+            }
+        }
+    }
+
+    private void finishedWorkout(){
+        myDB.deleteThisWorkout("210905");
+        myDB.addDate("210905", txt_wkName.getText().toString(), "C", "Added Note");
     }
 }

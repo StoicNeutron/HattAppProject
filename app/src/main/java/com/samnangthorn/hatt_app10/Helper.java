@@ -37,6 +37,9 @@ public class Helper {
     public static int currentExeIndexRunning = 0;
     public static int currentSetIndexRunning = 0;
     public static boolean switcher = false;
+    public static boolean finished = false;
+    public static String tempBMI_value = null;
+    public static String tempBMI_status = null;
 
     // methods
 

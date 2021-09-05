@@ -189,6 +189,7 @@
                 android:background="@color/black"/>
 
             <ImageView
+                android:id="@+id/btt_goWK"
                 android:layout_weight="3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -234,6 +235,7 @@
                 android:background="@color/black"/>
 
             <TextView
+                android:id="@+id/txt_bmiStatus"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_marginLeft="10dp"
@@ -452,6 +454,7 @@
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/btt_expandReport"
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:layout_marginLeft="20dp"
