@@ -2,9 +2,11 @@ package com.samnangthorn.hatt_app10;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,8 +20,9 @@ public class Report extends AppCompatActivity {
 
     ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_cloudUpload;
     private TextView txt_bmi_value, txt_bmiStatus, txt_updateWeightHeight;
-    private ImageView btt_updateWeightHeight;
+    private ImageView btt_updateWeightHeight, btt_BMI_info;
     private AdView mAdView;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +40,20 @@ public class Report extends AppCompatActivity {
         txt_bmiStatus = findViewById(R.id.txt_bmiStatus);
         txt_updateWeightHeight = findViewById(R.id.txt_updateWeightHeight);
         btt_updateWeightHeight = findViewById(R.id.btt_updateWeightHeight);
+        btt_BMI_info = findViewById(R.id.btt_BMI_info);
 
         txt_bmi_value.setText(Helper.tempBMI_value);
         txt_bmiStatus.setText(Helper.tempBMI_status);
         if(!Helper.tempBMI_status.equalsIgnoreCase("STANDARD FIT")){
             txt_bmiStatus.setTextColor(getColor(R.color.red_dark));
         }
+
+         // Dialog
+        //
+        dialog = new Dialog(Report.this);
+        dialog.setContentView(R.layout.popup_bmi_info);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(true);
 
         //Ads loading func
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
@@ -99,6 +110,13 @@ public class Report extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 open_settingLayout();
+            }
+        });
+
+        btt_BMI_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.show();
             }
         });
 

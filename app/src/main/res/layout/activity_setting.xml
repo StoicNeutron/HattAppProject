@@ -217,6 +217,39 @@
                 android:gravity="start">
 
                 <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="REST TIME: "
+                    android:textSize="14dp"
+                    android:textColor="@color/black"/>
+
+                <EditText
+                    android:id="@+id/edt_restTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="60"
+                    android:textSize="14dp"
+                    android:inputType="number"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/roboto"
+                    android:textAllCaps="true" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" Seconds"
+                    android:textColor="@color/black"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="start">
+
+                <TextView
                     android:layout_width="70dp"
                     android:layout_marginTop="10dp"
                     android:layout_height="wrap_content"
