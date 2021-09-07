@@ -24,7 +24,7 @@ public class Setting extends AppCompatActivity {
 
     private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_facebook, btt_youtube;
     private Button btt_signOut, btt_save;
-    private EditText userName, weight, height;
+    private EditText userName, weight, height, edt_restTime;
     private TextView email, txt_wUnit, txt_hUnit;
     private FirebaseAuth mAuth;
     private RadioButton kg, lb;
@@ -58,6 +58,7 @@ public class Setting extends AppCompatActivity {
         btt_save = findViewById(R.id.btt_save);
         txt_wUnit = findViewById(R.id.txt_wUnit);
         txt_hUnit = findViewById(R.id.txt_hUnit);
+        edt_restTime = findViewById(R.id.edt_restTime);
 
         dialog = new Dialog(Setting.this);
         dialog.setContentView(R.layout.pop_up_dialog);
@@ -97,6 +98,7 @@ public class Setting extends AppCompatActivity {
         weight.setText(newWeight);
         newHeight = getData.getString("height", "ERROR");
         height.setText(newHeight);
+        edt_restTime.setText(String.valueOf(getData.getInt("restTimer", 60)));
 
         newUnit = getData.getString("unit", "ERROR");
         if(newUnit.equalsIgnoreCase("NonUS")){
@@ -201,6 +203,7 @@ public class Setting extends AppCompatActivity {
                     editData.putString("unit", newUnit);
                     editData.putString("weight", newWeight);
                     editData.putString("height", newHeight);
+                    editData.putInt("restTimer", Integer.parseInt(edt_restTime.getText().toString()));
                     editData.apply();
                     Toast.makeText(Setting.this, "Saved!", Toast.LENGTH_SHORT).show();
                 }

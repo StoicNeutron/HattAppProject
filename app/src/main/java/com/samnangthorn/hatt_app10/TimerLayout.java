@@ -30,8 +30,8 @@ public class TimerLayout extends AppCompatActivity {
     private TextView e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, txt_totalSet, txt_totalRep;
     private LinearLayout tapTimer;
     private int selectedWk = 8;
-    private SharedPreferences getData;
-    private SharedPreferences.Editor editData;
+    private SharedPreferences getData, getData2;
+    private SharedPreferences.Editor editData, editData2;
     private Dialog dialog;
     private DataBaseHelper myDB;
     private ArrayList<String> dateInfoList = new ArrayList<String>();
@@ -80,6 +80,8 @@ public class TimerLayout extends AppCompatActivity {
         MediaPlayer mediaPlayer3 = MediaPlayer.create(this, R.raw.congrate3);
         getData = getApplicationContext().getSharedPreferences("workout_data", MODE_PRIVATE);
         editData = getData.edit();
+        getData2 = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
+        editData2 = getData2.edit();
 
         // Helper Lists
         TextView[] eLists = new TextView[]{e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12};
@@ -135,7 +137,12 @@ public class TimerLayout extends AppCompatActivity {
                             eLists[y].setVisibility(View.VISIBLE);
                             Helper.currentExLists.add(getData.getString("W" + (x + 1) + "e" + (y - 1), "error"));
                             Helper.currentSetLists.add(getData.getInt("W" + (x + 1) + "e" + (y - 1) + "s", 0));
-                            Helper.currentRepLists.add(getData.getInt("W" + (x + 1) + "e" + (y - 1) + "r", 0));
+                            String tempVar = getData.getString("W" + (x + 1) + "e" + (y - 1) + "T", "ERROR");
+                            if(tempVar.equalsIgnoreCase("st")){
+                                Helper.currentRepLists.add(getData.getInt("W" + (x + 1) + "e" + (y - 1) + "t", 0));
+                            }else{
+                                Helper.currentRepLists.add(getData.getInt("W" + (x + 1) + "e" + (y - 1) + "r", 0));
+                            }
                         }
                     }
                     // later whe warm up is done
@@ -411,7 +418,7 @@ public class TimerLayout extends AppCompatActivity {
                         Helper.timerTask2.cancel();
                         txt_breakTimer.setText("01:00");
                         txt_breakTimer.setVisibility(View.GONE);
-                        Helper.time2 = 60;
+                        Helper.time2 = getData2.getInt("restTimer", 60);
                         btt_start.setText("DONE");
                     }
                 }
@@ -562,7 +569,7 @@ public class TimerLayout extends AppCompatActivity {
                 Helper.timerCurrentState = false;
                 Helper.timerTask.cancel();
             }
-            Helper.time2 = 60;
+            Helper.time2 = getData2.getInt("restTimer", 60);
         }
         return timeStringFormat;
     }
@@ -607,12 +614,15 @@ public class TimerLayout extends AppCompatActivity {
                         eLists[y].setVisibility(View.VISIBLE);
                         Helper.currentExLists.add(getData.getString("W" + (x + 1) + "e" + (y - 1), "error"));
                         Helper.currentSetLists.add(getData.getInt("W" + (x + 1) + "e" + (y - 1) + "s", 0));
-                        Helper.currentRepLists.add(getData.getInt("W" + (x + 1) + "e" + (y - 1) + "r", 0));
+                        String tempVar = getData.getString("W" + (x + 1) + "e" + (y - 1) + "T", "ERROR");
+                        if(tempVar.equalsIgnoreCase("st")){
+                            Helper.currentRepLists.add(getData.getInt("W" + (x + 1) + "e" + (y - 1) + "t", 0));
+                        }else {
+                            Helper.currentRepLists.add(getData.getInt("W" + (x + 1) + "e" + (y - 1) + "r", 0));
+                        }
                     }
                 }
-                // later whe warm up is done
-                // txt_totalSet.setText("SET: " + Helper.currentSetLists.get(0));
-                // txt_totalRep.setText("REP: " + Helper.currentRepLists.get(0));
+
                 break;
             }
         }
