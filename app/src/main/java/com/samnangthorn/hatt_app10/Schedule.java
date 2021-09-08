@@ -22,7 +22,7 @@ public class Schedule extends AppCompatActivity{
     private TextView txt_month, btt_createWorkout, btt_editWorkout, btt_removeWorkout;
     private TextView wk1, wk2, wk3, wk4, wk5, wk6, wk7;
     private TextView dN1, dN2, dN3, dN4, dN5, dN6, dN7;
-    private LinearLayout c1, c2, c3, c4, c5, c6, c7;
+    private LinearLayout c1, c2, c3, c4, c5, c6, c7, dayName_bar;
     private TextView d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27, d28, d29, d30, d31, d32;
     private TextView[] daysList = {d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27, d28, d29, d30, d31, d32};
     private @IdRes int[] dayIDList = {R.id.d1, R.id.d2, R.id.d3, R.id.d4, R.id.d5, R.id.d6, R.id.d7, R.id.d8, R.id.d9, R.id.d10,
@@ -42,6 +42,7 @@ public class Schedule extends AppCompatActivity{
     private DataBaseHelper myDB;
     private ArrayList<String> dateInfoList = new ArrayList<String>();
     private ArrayList<String> dateWKNameList = new ArrayList<String>();
+    private int Indicator = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,7 @@ public class Schedule extends AppCompatActivity{
         btt_createWorkout = findViewById(R.id.btt_createWorkout);
         btt_editWorkout = findViewById(R.id.btt_editWorkout);
         btt_removeWorkout = findViewById(R.id.btt_removeWorkout);
+        dayName_bar = findViewById(R.id.dayName_bar);
         wk1 = findViewById(R.id.wk1);
         wk2 = findViewById(R.id.wk2);
         wk3 = findViewById(R.id.wk3);
@@ -202,6 +204,11 @@ public class Schedule extends AppCompatActivity{
                 }else{
                     daysList[currentDay - 1].setTextSize(14f);
                 }
+                dayName_bar.setVisibility(View.GONE);
+                Indicator--;
+                if(Indicator == 0){
+                    dayName_bar.setVisibility(View.VISIBLE);
+                }
             }
         });
 
@@ -242,6 +249,14 @@ public class Schedule extends AppCompatActivity{
                 }else{
                     daysList[currentDay -1 ].setTextSize(14f);
                 }
+                // current replace
+                dayName_bar.setVisibility(View.GONE);
+                Indicator++;
+                if(Indicator == 0){
+                    dayName_bar.setVisibility(View.VISIBLE);
+                }
+                // later
+                //reOrderDayName (dNList);
             }
         });
 
@@ -506,6 +521,7 @@ public class Schedule extends AppCompatActivity{
 
     // methods
     private void findViewOfThese(int totalDaysInMonth){
+        Helper.thisMonthTotalDay = totalDaysInMonth;
         for(int x = 0; x < 32; x++){
             daysList[x] = findViewById(dayIDList[x]);
             if(x < totalDaysInMonth){
@@ -725,5 +741,54 @@ public class Schedule extends AppCompatActivity{
             }
         }
         monthInt -= 1;
+    }
+
+    private void reOrderDayName (TextView[] dNList){
+        int currentDatInt = 1;
+        String[] dayNameList = {"SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"};
+        // Find relation index of Name List
+        int startIndex = 0;
+        String keySearch = null;
+        if(Helper.thisMonthTotalDay == 28){
+            keySearch = dNList[6].getText().toString();
+        }else if(Helper.thisMonthTotalDay == 29){
+            keySearch = dNList[0].getText().toString();
+        }else if(Helper.thisMonthTotalDay == 30){
+            keySearch = dNList[1].getText().toString();
+        }else if(Helper.thisMonthTotalDay == 30){
+            keySearch = dNList[2].getText().toString();
+        }else if(Helper.thisMonthTotalDay == 31){
+            keySearch = dNList[3].getText().toString();
+        }
+        //
+        //
+        for(int x = 0; x < dayNameList.length ; x++){
+            if(keySearch.equalsIgnoreCase(dayNameList[x])){
+                startIndex = x;
+                break;
+            }
+        }
+        int helperInt = startIndex;
+        for(int x = 0; x < 7; x++){
+            if(x >= (currentDatInt - 1)){
+                if(startIndex >= 7){
+                    startIndex = startIndex - 7;
+                }
+                dNList[x].setText(dayNameList[startIndex]);
+                startIndex ++;
+            }
+        }
+        if (currentDatInt > 1) {
+            for(int x = currentDatInt - 2; x >= 0; x--){
+                if(helperInt == 0){
+                    helperInt = 7;
+                }
+
+                helperInt--;
+                dNList[x].setText(dayNameList[helperInt]);
+
+            }
+        }
+
     }
 }

@@ -33,6 +33,7 @@ public class Helper {
     public static int currentDayInteger = 0;
     public static ArrayList<Integer> currentSetLists = new ArrayList<Integer>();
     public static ArrayList<Integer> currentRepLists = new ArrayList<Integer>();
+    public static ArrayList<Integer> currentTimerRepLists = new ArrayList<Integer>();
     public static ArrayList<String> currentExLists = new ArrayList<String>();
     public static int currentExeIndexRunning = 0;
     public static int currentSetIndexRunning = 0;
@@ -40,6 +41,7 @@ public class Helper {
     public static boolean finished = false;
     public static String tempBMI_value = null;
     public static String tempBMI_status = null;
+    public static int thisMonthTotalDay;
 
     // methods
 
@@ -113,7 +115,7 @@ public class Helper {
         boolean activate2 = false;
 
         if(dateString.length() == 29){
-            System.out.println("xxx1: " + dateString.length());
+            //System.out.println("xxx1: " + dateString.length());
             // day below 10
             for(int x = 0; x < dateString.length(); x++){
                 // space

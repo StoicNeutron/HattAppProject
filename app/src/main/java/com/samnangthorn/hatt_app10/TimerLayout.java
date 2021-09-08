@@ -126,6 +126,7 @@ public class TimerLayout extends AppCompatActivity {
             // auto add set and rep of warm up to Array List
             Helper.currentSetLists.add(0);
             Helper.currentRepLists.add(0);
+            Helper.currentTimerRepLists.add(0);
 
             int dataIndex = 0;
             for (int x = 0; x < getData.getInt("WT", 0); x++){
@@ -139,9 +140,11 @@ public class TimerLayout extends AppCompatActivity {
                             Helper.currentSetLists.add(getData.getInt("W" + (x + 1) + "e" + (y - 1) + "s", 0));
                             String tempVar = getData.getString("W" + (x + 1) + "e" + (y - 1) + "T", "ERROR");
                             if(tempVar.equalsIgnoreCase("st")){
-                                Helper.currentRepLists.add(getData.getInt("W" + (x + 1) + "e" + (y - 1) + "t", 0));
+                                Helper.currentTimerRepLists.add(getData.getInt("W" + (x + 1) + "e" + (y - 1) + "t", 0));
+                                Helper.currentRepLists.add(0);
                             }else{
                                 Helper.currentRepLists.add(getData.getInt("W" + (x + 1) + "e" + (y - 1) + "r", 0));
+                                Helper.currentTimerRepLists.add(0);
                             }
                         }
                     }
@@ -363,8 +366,12 @@ public class TimerLayout extends AppCompatActivity {
                             }
                             // set specific to blue bg
                             eLists[Helper.currentExeIndexRunning].setBackground(getResources().getDrawable(R.drawable.outline_filled_blue));
-                            txt_totalSet.setText(String.valueOf(Helper.currentSetLists.get(Helper.currentExeIndexRunning) - Helper.currentSetIndexRunning));
-                            txt_totalRep.setText(String.valueOf(Helper.currentRepLists.get(Helper.currentExeIndexRunning)));
+                            txt_totalSet.setText("Set: " + String.valueOf(Helper.currentSetLists.get(Helper.currentExeIndexRunning) - Helper.currentSetIndexRunning));
+                            if(Helper.currentRepLists.get(Helper.currentExeIndexRunning) == 0){
+                                txt_totalRep.setText("Time: " + String.valueOf(Helper.currentTimerRepLists.get(Helper.currentExeIndexRunning)) + "s");
+                            }else if (Helper.currentRepLists.get(Helper.currentExeIndexRunning) > 0){
+                                txt_totalRep.setText("Rep: " + String.valueOf(Helper.currentRepLists.get(Helper.currentExeIndexRunning)));
+                            }
                         }
                         // update current exercise
                         if (Helper.currentSetIndexRunning == Helper.currentSetLists.get(Helper.currentExeIndexRunning)) {
@@ -603,8 +610,10 @@ public class TimerLayout extends AppCompatActivity {
         Helper.currentExLists.clear();
         Helper.currentSetLists.clear();
         Helper.currentRepLists.clear();
+        Helper.currentTimerRepLists.clear();
         Helper.currentSetLists.add(0);
         Helper.currentRepLists.add(0);
+        Helper.currentTimerRepLists.add(0);
         for (int x = 0; x < getData.getInt("WT", 0); x++){
             if(getData.getString("W" + (x + 1), "error").equalsIgnoreCase(wkName) ){
                 // codes here
@@ -616,9 +625,11 @@ public class TimerLayout extends AppCompatActivity {
                         Helper.currentSetLists.add(getData.getInt("W" + (x + 1) + "e" + (y - 1) + "s", 0));
                         String tempVar = getData.getString("W" + (x + 1) + "e" + (y - 1) + "T", "ERROR");
                         if(tempVar.equalsIgnoreCase("st")){
-                            Helper.currentRepLists.add(getData.getInt("W" + (x + 1) + "e" + (y - 1) + "t", 0));
-                        }else {
+                            Helper.currentTimerRepLists.add(getData.getInt("W" + (x + 1) + "e" + (y - 1) + "t", 0));
+                            Helper.currentRepLists.add(0);
+                        }else{
                             Helper.currentRepLists.add(getData.getInt("W" + (x + 1) + "e" + (y - 1) + "r", 0));
+                            Helper.currentTimerRepLists.add(0);
                         }
                     }
                 }
