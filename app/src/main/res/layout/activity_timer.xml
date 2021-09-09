@@ -197,6 +197,43 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/txt_wkDesTitle"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Workout's Description"
+                android:textColor="@color/orange"
+                android:textSize="17dp"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/txt_wkDes"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:padding="15dp"
+                android:text="Workout Description Texts"
+                android:textColor="@color/black"
+                android:textSize="17dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@drawable/outline_black"/>
+
+            <ImageView
+                android:id="@+id/btt_expand"
+                android:layout_width="60dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_expand_more_black"
+                android:layout_gravity="center"/>
+
+            <TextView
                 android:id="@+id/e0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

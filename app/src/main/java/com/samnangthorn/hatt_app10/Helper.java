@@ -42,6 +42,8 @@ public class Helper {
     public static String tempBMI_value = null;
     public static String tempBMI_status = null;
     public static int thisMonthTotalDay;
+    public static boolean wkDesExpand = false;
+    public static boolean soundOn = true;
 
     // methods
 

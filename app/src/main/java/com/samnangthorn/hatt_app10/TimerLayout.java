@@ -25,9 +25,9 @@ import java.util.TimerTask;
 
 public class TimerLayout extends AppCompatActivity {
 
-    private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_soundSwitch, btt_switch, finished_img;
-    private TextView txt_totalTimer, txt_breakTimer, btt_start, txt_wkName, finished_txt;
-    private TextView e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, txt_totalSet, txt_totalRep;
+    private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_soundSwitch, btt_switch, finished_img, btt_expand;
+    private TextView txt_totalTimer, txt_breakTimer, btt_start, txt_wkName, finished_txt, txt_wkDesTitle;
+    private TextView e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, txt_totalSet, txt_totalRep, txt_wkDes;
     private LinearLayout tapTimer;
     private int selectedWk = 8;
     private SharedPreferences getData, getData2;
@@ -37,6 +37,7 @@ public class TimerLayout extends AppCompatActivity {
     private ArrayList<String> dateInfoList = new ArrayList<String>();
     private ArrayList<String> dateWKNameList = new ArrayList<String>();
     private ArrayList<String> wkLists = new ArrayList<String>();
+    private int IntKey;
     private int trigger1, trigger2, trigger3, trigger4, trigger5, trigger6, trigger7;
 
     @Override
@@ -61,6 +62,9 @@ public class TimerLayout extends AppCompatActivity {
         finished_img = findViewById(R.id.finished_img);
         txt_breakTimer = findViewById(R.id.txt_break_timer);
         tapTimer = findViewById(R.id.tap_timer);
+        btt_expand = findViewById(R.id.btt_expand);
+        txt_wkDes = findViewById(R.id.txt_wkDes);
+        txt_wkDesTitle = findViewById(R.id.txt_wkDesTitle);
         e0 = findViewById(R.id.e0);
         e1 = findViewById(R.id.e1);
         e2 = findViewById(R.id.e2);
@@ -82,6 +86,9 @@ public class TimerLayout extends AppCompatActivity {
         editData = getData.edit();
         getData2 = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
         editData2 = getData2.edit();
+
+        /*
+        }*/
 
         // Helper Lists
         TextView[] eLists = new TextView[]{e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12};
@@ -151,6 +158,8 @@ public class TimerLayout extends AppCompatActivity {
                     // later whe warm up is done
                     // txt_totalSet.setText("SET: " + Helper.currentSetLists.get(0));
                     // txt_totalRep.setText("REP: " + Helper.currentRepLists.get(0));
+                    txt_wkDes.setText(getData.getString("WD" + (x + 1) ,"ERROR"));
+                    IntKey = x + 1;
                     break;
                 }
             }
@@ -298,6 +307,24 @@ public class TimerLayout extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.show();
+            }
+        });
+
+        btt_expand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Helper.wkDesExpand == false){
+                    txt_wkDes.setVisibility(View.VISIBLE);
+                    txt_wkDesTitle.setVisibility(View.VISIBLE);
+                    txt_wkDes.setText(getData.getString("WD" + IntKey ,"ERROR"));
+                    btt_expand.setImageResource(R.drawable.ic_collapse_black);
+                    Helper.wkDesExpand = true;
+                }else {
+                    txt_wkDes.setVisibility(View.GONE);
+                    txt_wkDesTitle.setVisibility(View.GONE);
+                    btt_expand.setImageResource(R.drawable.ic_expand_more_black);
+                    Helper.wkDesExpand = false;
+                }
             }
         });
 
@@ -450,9 +477,11 @@ public class TimerLayout extends AppCompatActivity {
             public void onClick(View v) {
                 if(getData.getString("sound", "ERROR").equalsIgnoreCase("ERROR") || getData.getString("sound", "ERROR").equalsIgnoreCase("ON")){
                     editData.putString("sound", "OFF");
+                    Helper.soundOn = false;
                     btt_soundSwitch.setImageResource(R.drawable.ic_sound_off);
                 }else{
                     editData.putString("sound", "ON");
+                    Helper.soundOn = true;
                     btt_soundSwitch.setImageResource(R.drawable.ic_sound_on);
                 }
                 editData.apply();
@@ -554,8 +583,10 @@ public class TimerLayout extends AppCompatActivity {
         String timeStringFormat;
         timeStringFormat = String.format("%02d", minutes) + " : " + String.format("%02d", seconds);
         if(timeStringFormat.equalsIgnoreCase("00 : 03")){
-            MediaPlayer mediaPlayer2 = MediaPlayer.create(this, R.raw.soundeffect);
-            mediaPlayer2.start();
+            if(Helper.soundOn){
+                MediaPlayer mediaPlayer2 = MediaPlayer.create(this, R.raw.soundeffect);
+                mediaPlayer2.start();
+            }
         }
         if(timeStringFormat.equalsIgnoreCase("00 : 00")){
             Helper.timerTask2.cancel();
