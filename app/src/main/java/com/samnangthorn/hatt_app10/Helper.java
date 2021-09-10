@@ -44,6 +44,7 @@ public class Helper {
     public static int thisMonthTotalDay;
     public static boolean wkDesExpand = false;
     public static boolean soundOn = true;
+    public static String currentDateString, currentWkNameString;
 
     // methods
 

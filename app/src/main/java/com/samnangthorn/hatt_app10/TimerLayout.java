@@ -38,6 +38,7 @@ public class TimerLayout extends AppCompatActivity {
     private ArrayList<String> dateWKNameList = new ArrayList<String>();
     private ArrayList<String> wkLists = new ArrayList<String>();
     private int IntKey;
+    private Folder folder;
     private int trigger1, trigger2, trigger3, trigger4, trigger5, trigger6, trigger7;
 
     @Override
@@ -126,9 +127,11 @@ public class TimerLayout extends AppCompatActivity {
                 txt_wkName.setText(dateWKNameList.get(x));
             }
         }
+        Helper.currentDateString = yearString + monthString + dateString;
 
         String exeString = txt_wkName.getText().toString();
         if(!exeString.equalsIgnoreCase("choose workout")){
+            Helper.currentWkNameString = exeString;
             btt_start.setVisibility(View.VISIBLE);
             // auto add set and rep of warm up to Array List
             Helper.currentSetLists.add(0);
@@ -202,6 +205,8 @@ public class TimerLayout extends AppCompatActivity {
                     if(trigger1 >= 2){
                         dialog.dismiss();
                         txt_wkName.setText(wkLists.get(0));
+                        //
+                        Helper.currentWkNameString = wkLists.get(0);
                         setNewWorkoutTimer(eLists, wkLists.get(0));
                         btt_start.setVisibility(View.VISIBLE);
                     }
@@ -217,6 +222,8 @@ public class TimerLayout extends AppCompatActivity {
                     if(trigger2 >= 2){
                         dialog.dismiss();
                         txt_wkName.setText(wkLists.get(1));
+                        //
+                        Helper.currentWkNameString = wkLists.get(1);
                         setNewWorkoutTimer(eLists, wkLists.get(1));
                         btt_start.setVisibility(View.VISIBLE);
                     }
@@ -232,6 +239,8 @@ public class TimerLayout extends AppCompatActivity {
                     if(trigger3 >= 2){
                         dialog.dismiss();
                         txt_wkName.setText(wkLists.get(2));
+                        //
+                        Helper.currentWkNameString = wkLists.get(2);
                         setNewWorkoutTimer(eLists, wkLists.get(2));
                         btt_start.setVisibility(View.VISIBLE);
                     }
@@ -247,6 +256,8 @@ public class TimerLayout extends AppCompatActivity {
                     if(trigger4 >= 2){
                         dialog.dismiss();
                         txt_wkName.setText(wkLists.get(3));
+                        //
+                        Helper.currentWkNameString = wkLists.get(3);
                         setNewWorkoutTimer(eLists, wkLists.get(3));
                         btt_start.setVisibility(View.VISIBLE);
                     }
@@ -262,6 +273,8 @@ public class TimerLayout extends AppCompatActivity {
                     if(trigger5 >= 2){
                         dialog.dismiss();
                         txt_wkName.setText(wkLists.get(4));
+                        //
+                        Helper.currentWkNameString = wkLists.get(4);
                         setNewWorkoutTimer(eLists, wkLists.get(4));
                         btt_start.setVisibility(View.VISIBLE);
                     }
@@ -277,6 +290,8 @@ public class TimerLayout extends AppCompatActivity {
                     if(trigger6 >= 2){
                         dialog.dismiss();
                         txt_wkName.setText(wkLists.get(5));
+                        //
+                        Helper.currentWkNameString = wkLists.get(5);
                         setNewWorkoutTimer(eLists, wkLists.get(5));
                         btt_start.setVisibility(View.VISIBLE);
                     }
@@ -292,6 +307,8 @@ public class TimerLayout extends AppCompatActivity {
                     if(trigger7 >= 2){
                         dialog.dismiss();
                         txt_wkName.setText(wkLists.get(6));
+                        //
+                        Helper.currentWkNameString = wkLists.get(6);
                         setNewWorkoutTimer(eLists, wkLists.get(6));
                         btt_start.setVisibility(View.VISIBLE);
                     }
@@ -425,6 +442,9 @@ public class TimerLayout extends AppCompatActivity {
                         //
                         Helper.timerCurrentState = false;
                         Helper.timerTask.cancel();
+                        // save data for report
+                        folder = new Folder(getApplicationContext());
+                        folder.addCompleted(Helper.currentDateString, Helper.currentWkNameString, Helper.time,Helper.currentExLists);
                     }
 
                     if(!Helper.switcher){
@@ -606,6 +626,9 @@ public class TimerLayout extends AppCompatActivity {
                 //
                 Helper.timerCurrentState = false;
                 Helper.timerTask.cancel();
+                // save data for report
+                folder = new Folder(this);
+                folder.addCompleted(Helper.currentDateString, Helper.currentWkNameString, Helper.time,Helper.currentExLists);
             }
             Helper.time2 = getData2.getInt("restTimer", 60);
         }
