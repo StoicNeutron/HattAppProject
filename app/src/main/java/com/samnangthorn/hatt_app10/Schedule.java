@@ -115,7 +115,7 @@ public class Schedule extends AppCompatActivity{
 
         realTime_data = Calendar.getInstance();
         String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(realTime_data.getTime());
-        currentDay = Integer.parseInt(Helper.getCurrentDay(currentDate));
+        currentDay = Helper.currentDayInteger;
         daysList[currentDay-1].setTextSize(19f);
 
         //

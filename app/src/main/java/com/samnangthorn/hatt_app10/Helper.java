@@ -142,7 +142,7 @@ public class Helper {
                 // space
                 if(dateString.charAt(x) == 32){
                     if(activate){
-                        startIndex = x-2;
+                        startIndex = x-3;
                     }
                     activate = true;
                 }
