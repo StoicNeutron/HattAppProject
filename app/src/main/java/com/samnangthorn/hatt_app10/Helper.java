@@ -111,48 +111,30 @@ public class Helper {
     }
 
     public static String getCurrentDay(String dateString){
-        String returnString;
+        // take parameter string date format: "Friday, September 13, 2021"
+        // return number of the day >>> 13
         int startIndex, endIndex;
+        boolean activate, activate2, lock;
         startIndex = endIndex = 0;
-        boolean activate = false;
-        boolean activate2 = false;
+        activate = activate2 = lock = false;
 
-        if(dateString.length() == 29){
-            //System.out.println("xxx1: " + dateString.length());
-            // day below 10
-            for(int x = 0; x < dateString.length(); x++){
-                // space
-                if(dateString.charAt(x) == 32){
-                    if(activate){
-                        startIndex = x-3;
-                    }
-                    activate = true;
+        for(int x = 0; x < dateString.length(); x++){
+            // space
+            if(dateString.charAt(x) == 32){
+                if(activate && !lock){
+                    startIndex = x+1;
+                    lock = true;
                 }
-                // comma
-                if(dateString.charAt(x) == 44){
-                    if(activate2){
-                        endIndex = x;
-                    }
-                    activate2 = true;
+                if(!lock){
+                    activate = true;
                 }
             }
-        }else{
-            // day 10 up
-            for(int x = 0; x < dateString.length(); x++){
-                // space
-                if(dateString.charAt(x) == 32){
-                    if(activate){
-                        startIndex = x-3;
-                    }
-                    activate = true;
+            // comma
+            if(dateString.charAt(x) == 44){
+                if(activate2){
+                    endIndex = x;
                 }
-                // comma
-                if(dateString.charAt(x) == 44){
-                    if(activate2){
-                        endIndex = x;
-                    }
-                    activate2 = true;
-                }
+                activate2 = true;
             }
         }
         return dateString.substring(startIndex, endIndex);

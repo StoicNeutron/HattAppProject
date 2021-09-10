@@ -53,6 +53,8 @@ public class Home extends AppCompatActivity {
         String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(realTime_data.getTime());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
         String time = simpleDateFormat.format(realTime_data.getTime());
+
+
         int n = 0;
         for(int x = 0; x < currentDate.length(); x++){
             if(currentDate.charAt(x) == 44){
@@ -138,6 +140,16 @@ public class Home extends AppCompatActivity {
             txt_bmiStatus.setText("Current Condition: OBESE+");
             Helper.tempBMI_status = "OBESE+";
         }
+
+        // Folder Report
+        Folder folder = new Folder(this);
+        String monthTemp = String.valueOf(Helper.getCurrentMonth() + 1);
+        if(monthTemp.length() == 1){
+            monthTemp = "0" + monthTemp;
+        }
+        String temmp = Helper.getCurrentYear()+monthTemp+currentDay;
+        int test = folder.checkTotalDayInterval(temmp);
+
 
         // OnClick Listeners
         //

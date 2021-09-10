@@ -23,7 +23,13 @@ public class Folder {
         this.editData = getData.edit();
         this.lastDateActive = getData.getString("lastDateActive", "000000");
         this.R_INDEX = getData.getInt("R_INDEX", 0);
+        if(this.R_INDEX == 0){
+            this.R_INDEX = 1;
+        }
         this.C_INDEX = getData.getInt("C_INDEX", 0);
+        if(this.C_INDEX == 0){
+            this.C_INDEX = 1;
+        }
     }
 
     public void addCompleted(String currentDate, String workoutName, double totalTime, ArrayList<String> exerciseNameList){
@@ -35,6 +41,7 @@ public class Folder {
         this.editData.putString("R" + this.R_INDEX + "_" + this.C_INDEX, saveString);
         this.editData.apply();
         this.lastDateActive = currentDate;
+        editData.putString("lastDateActive", currentDate);
         this.C_INDEX++;
         // limit condition
         if(this.C_INDEX > 7){
@@ -44,6 +51,9 @@ public class Folder {
                 this.R_INDEX = 1;
             }
         }
+        editData.putInt("R_INDEX", this.R_INDEX);
+        editData.putInt("C_INDEX", this.C_INDEX);
+        editData.apply();
     }
 
     public void addInCompleted(String currentDate, String workoutName, double totalTime, ArrayList<String> exerciseNameList){
