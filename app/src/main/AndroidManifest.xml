@@ -11,12 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Hatt_App10">
+        <activity android:name=".Returning"></activity>
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-9354138576649544~2620124713"/>
+            android:value="ca-app-pub-9354138576649544~2620124713" />
 
-        <activity android:name=".PopUp_chooseWK"></activity>
+        <activity android:name=".PopUp_chooseWK" />
         <activity android:name=".RemoveWorkout" />
         <activity android:name=".EditWorkout" />
         <activity android:name=".AddWorkout" />

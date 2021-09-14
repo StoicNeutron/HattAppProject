@@ -106,6 +106,18 @@ public class Home extends AppCompatActivity {
         //
         //
         Helper.currentDayInteger = currentDay;
+        String yearString = "ERROR";
+        String monthString = "ERROR";
+        String dateString = "ERROR";
+        for(int x = 0; x < dateInfoList.size(); x++) {
+            yearString = Helper.getCurrentYear();
+            monthString = Helper.getCurrentMonthString();
+            dateString = String.valueOf(Helper.currentDayInteger);
+            if (dateString.length() == 1) {
+                dateString = "0" + dateString;
+            }
+        }
+        Helper.currentDateString = yearString + monthString + dateString;
         // set up BMI point
         getData = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
         editData = getData.edit();

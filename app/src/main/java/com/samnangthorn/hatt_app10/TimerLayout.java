@@ -26,10 +26,8 @@ import java.util.TimerTask;
 public class TimerLayout extends AppCompatActivity {
 
     private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_soundSwitch, btt_switch, finished_img, btt_expand;
-    private TextView txt_totalTimer, txt_breakTimer, btt_start, txt_wkName, finished_txt, txt_wkDesTitle;
-    private TextView e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, txt_totalSet, txt_totalRep, txt_wkDes;
+    private TextView e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, txt_totalTimer, txt_breakTimer, btt_start, txt_wkName, finished_txt, txt_wkDesTitle, txt_totalSet, txt_totalRep, txt_wkDes;
     private LinearLayout tapTimer;
-    private int selectedWk = 8;
     private SharedPreferences getData, getData2;
     private SharedPreferences.Editor editData, editData2;
     private Dialog dialog;
@@ -37,9 +35,8 @@ public class TimerLayout extends AppCompatActivity {
     private ArrayList<String> dateInfoList = new ArrayList<String>();
     private ArrayList<String> dateWKNameList = new ArrayList<String>();
     private ArrayList<String> wkLists = new ArrayList<String>();
-    private int IntKey;
     private Folder folder;
-    private int trigger1, trigger2, trigger3, trigger4, trigger5, trigger6, trigger7;
+    private int trigger1, trigger2, trigger3, trigger4, trigger5, trigger6, trigger7, IntKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,15 +78,12 @@ public class TimerLayout extends AppCompatActivity {
         e12 = findViewById(R.id.e12);
 
 
-        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.sound_on);
-        MediaPlayer mediaPlayer3 = MediaPlayer.create(this, R.raw.congrate3);
+        MediaPlayer soundSwitchAudio = MediaPlayer.create(this, R.raw.sound_on);
+        MediaPlayer congratsAudio = MediaPlayer.create(this, R.raw.congrate3);
         getData = getApplicationContext().getSharedPreferences("workout_data", MODE_PRIVATE);
         editData = getData.edit();
         getData2 = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
         editData2 = getData2.edit();
-
-        /*
-        }*/
 
         // Helper Lists
         TextView[] eLists = new TextView[]{e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12};
@@ -111,26 +105,19 @@ public class TimerLayout extends AppCompatActivity {
                 dateWKNameList.add(cursor.getString(1));
             }
         }
-
-        String yearString = "ERROR";
-        String monthString = "ERROR";
-        String dateString = "ERROR";
-        for(int x = 0; x < dateInfoList.size(); x++){
-            yearString = Helper.getCurrentYear();
-            monthString = Helper.getCurrentMonthString();
-            dateString = String.valueOf(Helper.currentDayInteger);
-            if(dateString.length() == 1){
-                dateString = "0" + dateString;
+        // set up text wk name when exist by schedule
+        if( Helper.currentWkNameString == null) {
+            for (int x = 0; x < dateInfoList.size(); x++) {
+                if (dateInfoList.get(x).equalsIgnoreCase(Helper.currentDateString)) {
+                    txt_wkName.setText(dateWKNameList.get(x));
+                }
             }
-            if(dateInfoList.get(x).equalsIgnoreCase(yearString + monthString + dateString)){
-
-                txt_wkName.setText(dateWKNameList.get(x));
-            }
+        }else{
+            txt_wkName.setText(Helper.currentWkNameString);
         }
-        Helper.currentDateString = yearString + monthString + dateString;
 
         String exeString = txt_wkName.getText().toString();
-        if(!exeString.equalsIgnoreCase("choose workout")){
+        if(!exeString.equalsIgnoreCase("choose workout")) {
             Helper.currentWkNameString = exeString;
             btt_start.setVisibility(View.VISIBLE);
             // auto add set and rep of warm up to Array List
@@ -138,46 +125,59 @@ public class TimerLayout extends AppCompatActivity {
             Helper.currentRepLists.add(0);
             Helper.currentTimerRepLists.add(0);
 
-            int dataIndex = 0;
-            for (int x = 0; x < getData.getInt("WT", 0); x++){
-                if(getData.getString("W" + (x + 1), "error").equalsIgnoreCase(exeString) ){
+            for (int x = 0; x < getData.getInt("WT", 0); x++) {
+                if (getData.getString("W" + (x + 1), "error").equalsIgnoreCase(exeString)) {
                     // codes here
-                    for(int y = 0; y <= getData.getInt("W" + (x + 1) + "eT", 0); y++){
-                        if(y != 0){
+                    for (int y = 0; y <= getData.getInt("W" + (x + 1) + "eT", 0); y++) {
+                        if (y != 0) {
                             eLists[y].setText(getData.getString("W" + (x + 1) + "e" + (y - 1), "error"));
                             eLists[y].setVisibility(View.VISIBLE);
                             Helper.currentExLists.add(getData.getString("W" + (x + 1) + "e" + (y - 1), "error"));
                             Helper.currentSetLists.add(getData.getInt("W" + (x + 1) + "e" + (y - 1) + "s", 0));
                             String tempVar = getData.getString("W" + (x + 1) + "e" + (y - 1) + "T", "ERROR");
-                            if(tempVar.equalsIgnoreCase("st")){
+                            if (tempVar.equalsIgnoreCase("st")) {
                                 Helper.currentTimerRepLists.add(getData.getInt("W" + (x + 1) + "e" + (y - 1) + "t", 0));
                                 Helper.currentRepLists.add(0);
-                            }else{
+                            } else {
                                 Helper.currentRepLists.add(getData.getInt("W" + (x + 1) + "e" + (y - 1) + "r", 0));
                                 Helper.currentTimerRepLists.add(0);
                             }
                         }
                     }
-                    // later whe warm up is done
-                    // txt_totalSet.setText("SET: " + Helper.currentSetLists.get(0));
-                    // txt_totalRep.setText("REP: " + Helper.currentRepLists.get(0));
-                    txt_wkDes.setText(getData.getString("WD" + (x + 1) ,"ERROR"));
+                    txt_wkDes.setText(getData.getString("WD" + (x + 1), "ERROR"));
                     IntKey = x + 1;
                     break;
                 }
             }
         }
 
+        // reset existing process timer
         if(Helper.timerCurrentState){
             startTimer();
+            // set specific to blue bg
+            if(Helper.currentExeIndexRunning == 1 && Helper.currentSetIndexRunning == 0) {
+                eLists[Helper.currentExeIndexRunning-1].setBackground(getResources().getDrawable(R.drawable.outline_filled_blue));
+            }else{
+                eLists[Helper.currentExeIndexRunning].setBackground(getResources().getDrawable(R.drawable.outline_filled_blue));
+            }
+            String[] temp = Helper.getInstances();
+            txt_totalSet.setText(temp[0]);
+            txt_totalRep.setText(temp[1]);
+        }
+
+        if(Helper.timer2CurrentState){
+            txt_breakTimer.setVisibility(View.VISIBLE);
+            btt_start.setText("SKIP BREAK");
+            startTimer2(eLists, congratsAudio);
         }
 
         // Dialog
-        //
+        // **********************************************************************************************************************************
         dialog = new Dialog(TimerLayout.this);
         dialog.setContentView(R.layout.pop_up_select_workout);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.setCancelable(false);
+
         // Dialog Variables
         ImageView btt_cancel;
         ImageView btt_wk1, btt_wk2, btt_wk3, btt_wk4, btt_wk5, btt_wk6, btt_wk7;
@@ -189,6 +189,7 @@ public class TimerLayout extends AppCompatActivity {
         btt_wk5 = dialog.findViewById(R.id.wk_purple);
         btt_wk6 = dialog.findViewById(R.id.wk_orange);
         btt_wk7 = dialog.findViewById(R.id.wk_none);
+
         // Dialog OnClick listeners
         btt_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -315,15 +316,71 @@ public class TimerLayout extends AppCompatActivity {
                 }
             }
         });
-        //
+        // **********************************************************************************************************************************************
         // End Dialog
 
         // OnClick Listeners
         //
+        btt_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Helper.timerCurrentState){
+                    Helper.saveInstances(txt_totalSet.getText().toString(), txt_totalRep.getText().toString());
+                }
+                open_homeLayout();
+                transition_animation("left");
+            }
+        });
+
+        btt_setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Helper.timerCurrentState){
+                    Helper.saveInstances(txt_totalSet.getText().toString(), txt_totalRep.getText().toString());
+                }
+                open_settingLayout();
+            }
+        });
+
+        btt_report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Helper.timerCurrentState){
+                    Helper.saveInstances(txt_totalSet.getText().toString(), txt_totalRep.getText().toString());
+                }
+                open_reportLayout();
+                transition_animation("left");
+            }
+        });
+
+        btt_exercise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Helper.timerCurrentState){
+                    Helper.saveInstances(txt_totalSet.getText().toString(), txt_totalRep.getText().toString());
+                }
+                open_exerciseLayout();
+                transition_animation("left");
+            }
+        });
+
+        btt_schedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Helper.timerCurrentState){
+                    Helper.saveInstances(txt_totalSet.getText().toString(), txt_totalRep.getText().toString());
+                }
+                open_scheduleLayout();
+                transition_animation("left");
+            }
+        });
+
         btt_switch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.show();
+                if(!Helper.timerCurrentState){
+                    dialog.show();
+                }
             }
         });
 
@@ -345,45 +402,6 @@ public class TimerLayout extends AppCompatActivity {
             }
         });
 
-        btt_home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                open_homeLayout();
-                transition_animation("left");
-            }
-        });
-
-        btt_setting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                open_settingLayout();
-            }
-        });
-
-        btt_report.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                open_reportLayout();
-                transition_animation("left");
-            }
-        });
-
-        btt_exercise.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                open_exerciseLayout();
-                transition_animation("left");
-            }
-        });
-
-        btt_schedule.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                open_scheduleLayout();
-                transition_animation("left");
-            }
-        });
-
         txt_wkName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -401,39 +419,42 @@ public class TimerLayout extends AppCompatActivity {
                     eLists[0].setBackground(getResources().getDrawable(R.drawable.outline_filled_blue));
                     startTimer();
                 }
+                //int index = Helper.indexIndex;
                 if(!Helper.finished) {
                     try {
                         if (Helper.currentExeIndexRunning != 0) {
                             // setting up new view
                             for (int x = 0; x < eLists.length; x++) {
                                 eLists[x].setBackground(getResources().getDrawable(R.drawable.outline_black));
+                                //Helper.indexIndex = x;
                             }
                             // set specific to blue bg
                             eLists[Helper.currentExeIndexRunning].setBackground(getResources().getDrawable(R.drawable.outline_filled_blue));
                             txt_totalSet.setText("Set: " + String.valueOf(Helper.currentSetLists.get(Helper.currentExeIndexRunning) - Helper.currentSetIndexRunning));
-                            if(Helper.currentRepLists.get(Helper.currentExeIndexRunning) == 0){
+                            if (Helper.currentRepLists.get(Helper.currentExeIndexRunning) == 0) {
                                 txt_totalRep.setText("Time: " + String.valueOf(Helper.currentTimerRepLists.get(Helper.currentExeIndexRunning)) + "s");
-                            }else if (Helper.currentRepLists.get(Helper.currentExeIndexRunning) > 0){
+                            } else if (Helper.currentRepLists.get(Helper.currentExeIndexRunning) > 0) {
                                 txt_totalRep.setText("Rep: " + String.valueOf(Helper.currentRepLists.get(Helper.currentExeIndexRunning)));
                             }
                         }
-                        // update current exercise
-                        if (Helper.currentSetIndexRunning == Helper.currentSetLists.get(Helper.currentExeIndexRunning)) {
-                            Helper.currentExeIndexRunning += 1;
-                            // update current set
-                            Helper.currentSetIndexRunning = 0;
-                            //
-                        } else {
-                            if (Helper.switcher) {
-                                Helper.currentSetIndexRunning += 1;
+                            // update current exercise
+                            if (Helper.currentSetIndexRunning == Helper.currentSetLists.get(Helper.currentExeIndexRunning)) {
+                                Helper.currentExeIndexRunning += 1;
+                                // update current set
+                                Helper.currentSetIndexRunning = 0;
+                                //
+                            } else {
+                                if (Helper.switcher) {
+                                    Helper.currentSetIndexRunning += 1;
+                                }
                             }
-                        }
+
                     } catch (IndexOutOfBoundsException e) {
                         btt_start.setVisibility(View.INVISIBLE);
                         Helper.finished = true;
                         finished_txt.setVisibility(View.VISIBLE);
                         finished_img.setVisibility(View.VISIBLE);
-                        mediaPlayer3.start();
+                        congratsAudio.start();
                         finishedWorkout();
                         // setting up new view
                         for (int x = 0; x < eLists.length; x++) {
@@ -451,32 +472,19 @@ public class TimerLayout extends AppCompatActivity {
                         Helper.switcher = true;
                         Helper.timer2 = new Timer();
                         txt_breakTimer.setVisibility(View.VISIBLE);
-                        try {
-                            startTimer2(eLists, mediaPlayer3);
-                        }catch (IndexOutOfBoundsException e){
-                            btt_start.setVisibility(View.INVISIBLE);
-                            Helper.finished = true;
-                            finished_txt.setVisibility(View.VISIBLE);
-                            finished_img.setVisibility(View.VISIBLE);
-                            // setting up new view
-                            for (int x = 0; x < eLists.length; x++) {
-                                eLists[x].setVisibility(View.GONE);
-                            }
-                            //
-                            Helper.timerCurrentState = false;
-                            Helper.timerTask.cancel();
-                        }
+                        Helper.timer2CurrentState = true;
+                        startTimer2(eLists, congratsAudio);
                         btt_start.setText("SKIP BREAK");
                     }else{
                         Helper.switcher = false;
                         Helper.timerTask2.cancel();
                         txt_breakTimer.setText("01:00");
                         txt_breakTimer.setVisibility(View.GONE);
+                        Helper.timer2CurrentState = false;
                         Helper.time2 = getData2.getInt("restTimer", 60);
                         btt_start.setText("DONE");
                     }
                 }
-
             }
         });
 
@@ -505,7 +513,7 @@ public class TimerLayout extends AppCompatActivity {
                     btt_soundSwitch.setImageResource(R.drawable.ic_sound_on);
                 }
                 editData.apply();
-                mediaPlayer.start();
+                soundSwitchAudio.start();
             }
         });
 
@@ -611,6 +619,7 @@ public class TimerLayout extends AppCompatActivity {
         if(timeStringFormat.equalsIgnoreCase("00 : 00")){
             Helper.timerTask2.cancel();
             txt_breakTimer.setVisibility(View.GONE);
+            Helper.timer2CurrentState = false;
             try {
                 nextExerciseOrSet(eLists);
             }catch (IndexOutOfBoundsException e){
@@ -687,7 +696,6 @@ public class TimerLayout extends AppCompatActivity {
                         }
                     }
                 }
-
                 break;
             }
         }

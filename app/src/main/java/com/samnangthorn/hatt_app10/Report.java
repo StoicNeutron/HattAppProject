@@ -19,10 +19,10 @@ import com.google.android.gms.ads.initialization.OnInitializationCompleteListene
 public class Report extends AppCompatActivity {
 
     ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_cloudUpload;
-    private TextView txt_bmi_value, txt_bmiStatus, txt_updateWeightHeight;
+    private TextView txt_bmi_value, txt_bmiStatus;
     private ImageView btt_updateWeightHeight, btt_BMI_info;
     private AdView mAdView;
-    private Dialog dialog;
+    private Dialog dialog, dialog2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,22 +38,27 @@ public class Report extends AppCompatActivity {
         btt_cloudUpload = findViewById(R.id.btt_cloudUpload);
         txt_bmi_value = findViewById(R.id.txt_bmi_value);
         txt_bmiStatus = findViewById(R.id.txt_bmiStatus);
-        txt_updateWeightHeight = findViewById(R.id.txt_updateWeightHeight);
         btt_updateWeightHeight = findViewById(R.id.btt_updateWeightHeight);
         btt_BMI_info = findViewById(R.id.btt_BMI_info);
-
         txt_bmi_value.setText(Helper.tempBMI_value);
         txt_bmiStatus.setText(Helper.tempBMI_status);
         if(!Helper.tempBMI_status.equalsIgnoreCase("STANDARD FIT")){
             txt_bmiStatus.setTextColor(getColor(R.color.red_dark));
         }
 
-         // Dialog
+        // Dialog1
         //
         dialog = new Dialog(Report.this);
         dialog.setContentView(R.layout.popup_bmi_info);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.setCancelable(true);
+
+        // Dialog2
+        //
+        dialog2 = new Dialog(Report.this);
+        dialog2.setContentView(R.layout.popup_cloudfuncinfo);
+        dialog2.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog2.setCancelable(true);
 
         //Ads loading func
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
@@ -120,7 +125,12 @@ public class Report extends AppCompatActivity {
             }
         });
 
-
+        btt_cloudUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog2.show();
+            }
+        });
     }
 
     // methods

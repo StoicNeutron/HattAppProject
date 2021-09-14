@@ -45,8 +45,20 @@ public class Helper {
     public static boolean wkDesExpand = false;
     public static boolean soundOn = true;
     public static String currentDateString, currentWkNameString;
+    private static String instanceSet, instanceRep;
+    public static int indexIndex;
 
     // methods
+
+    public static void saveInstances(String set, String rep){
+        instanceSet = set;
+        instanceRep = rep;
+    }
+
+    public static String[] getInstances(){
+        String[] returnArray = new String[]{instanceSet, instanceRep};
+        return returnArray;
+    }
 
     public static void OrderDayName(int currentDatInt, TextView[] dNList){
         // Find index of current day
