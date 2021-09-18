@@ -137,6 +137,8 @@ public class RemoveWorkout extends AppCompatActivity {
                 }
                 editData.apply();
                 dialog.dismiss();
+                open_scheduleLayout();
+                finish();
             }
         });
 

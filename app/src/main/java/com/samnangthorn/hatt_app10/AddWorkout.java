@@ -258,12 +258,24 @@ public class AddWorkout extends AppCompatActivity implements RVAdapter.onExeClic
                                 newKey_W_num_e_num = newKey_W_num + "e" + String.valueOf(x);
                                 keyArray.add(newKey_W_num_e_num);
                                 editData.putString(newKey_W_num_e_num, eNameListedIn[x]);
-                                editData.putInt(newKey_W_num_e_num + "s", Integer.valueOf(sList[x].getText().toString()));
+                                try {
+                                    editData.putInt(newKey_W_num_e_num + "s", Integer.valueOf(sList[x].getText().toString()));
+                                }catch (Exception e){
+                                    editData.putInt(newKey_W_num_e_num + "s", 3);
+                                }
                                 if (cList[x].getText().toString().contains("REP")) {
-                                    editData.putInt(newKey_W_num_e_num + "r", Integer.parseInt(rList[x].getText().toString()));
+                                    try {
+                                        editData.putInt(newKey_W_num_e_num + "r", Integer.parseInt(rList[x].getText().toString()));
+                                    }catch (Exception e){
+                                        editData.putInt(newKey_W_num_e_num + "r", 8);
+                                    }
                                     editData.putString(newKey_W_num_e_num + "T", "sr");
                                 } else {
-                                    editData.putInt(newKey_W_num_e_num + "t", Integer.parseInt(rList[x].getText().toString()));
+                                    try{
+                                        editData.putInt(newKey_W_num_e_num + "t", Integer.parseInt(rList[x].getText().toString()));
+                                    }catch(Exception e) {
+                                        editData.putInt(newKey_W_num_e_num + "t", 8);
+                                    }
                                     editData.putString(newKey_W_num_e_num + "T", "st");
                                 }
                                 editData.apply();

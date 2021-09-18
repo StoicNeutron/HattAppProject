@@ -128,8 +128,8 @@ public class SignUp extends AppCompatActivity {
                                     User_data.put("user_name", Username);
                                     User_data.put("uid", UID);
                                     User_data.put("email_address", Email);
-                                    User_data.put("weight", "0");
-                                    User_data.put("height", "0");
+                                    User_data.put("weight", "60");
+                                    User_data.put("height", "1.80");
                                     User_data.put("unit", "NonUS");
                                     documentReference.set(User_data);
                                     // local data
@@ -138,8 +138,8 @@ public class SignUp extends AppCompatActivity {
                                     editData.putString("user_name", Username);
                                     editData.putString("email_address", Email);
                                     editData.putString("unit", "NonUS");
-                                    editData.putString("weight", "0");
-                                    editData.putString("height", "0");
+                                    editData.putString("weight", "60");
+                                    editData.putString("height", "1.80");
                                     editData.putString("MG", "false");
                                     editData.putString("AZ", "false");
                                     editData.putInt("MG_Index", 0);

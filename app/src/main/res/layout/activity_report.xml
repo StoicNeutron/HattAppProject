@@ -115,10 +115,12 @@
             android:layout_marginTop="20dp"
             android:text="Past Week Workout Record"
             android:textSize="18dp"
-            android:textColor="@color/blue"/>
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="invisible"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:text="(June 7 - June 13)"

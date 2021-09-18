@@ -240,7 +240,7 @@
                     android:layout_height="50dp"
                     android:inputType="number"
                     android:background="@drawable/outline_gray_dark"
-                    android:hint="1"
+                    android:hint="3"
                     android:gravity="center"
                     android:layout_weight="2"/>
                 <TextView
@@ -372,7 +372,7 @@
                     android:layout_height="50dp"
                     android:inputType="number"
                     android:background="@drawable/outline_gray_dark"
-                    android:hint="1"
+                    android:hint="3"
                     android:gravity="center"
                     android:layout_weight="2"/>
                 <TextView
@@ -504,7 +504,7 @@
                     android:layout_height="50dp"
                     android:inputType="number"
                     android:background="@drawable/outline_gray_dark"
-                    android:hint="1"
+                    android:hint="3"
                     android:gravity="center"
                     android:layout_weight="2"/>
                 <TextView
@@ -636,7 +636,7 @@
                     android:layout_height="50dp"
                     android:inputType="number"
                     android:background="@drawable/outline_gray_dark"
-                    android:hint="1"
+                    android:hint="3"
                     android:gravity="center"
                     android:layout_weight="2"/>
                 <TextView
@@ -769,7 +769,7 @@
                     android:layout_height="50dp"
                     android:inputType="number"
                     android:background="@drawable/outline_gray_dark"
-                    android:hint="1"
+                    android:hint="3"
                     android:gravity="center"
                     android:layout_weight="2"/>
                 <TextView
@@ -902,7 +902,7 @@
                     android:layout_height="50dp"
                     android:inputType="number"
                     android:background="@drawable/outline_gray_dark"
-                    android:hint="1"
+                    android:hint="3"
                     android:gravity="center"
                     android:layout_weight="2"/>
                 <TextView
@@ -1035,7 +1035,7 @@
                     android:layout_height="50dp"
                     android:inputType="number"
                     android:background="@drawable/outline_gray_dark"
-                    android:hint="1"
+                    android:hint="3"
                     android:gravity="center"
                     android:layout_weight="2"/>
                 <TextView
@@ -1168,7 +1168,7 @@
                     android:layout_height="50dp"
                     android:inputType="number"
                     android:background="@drawable/outline_gray_dark"
-                    android:hint="1"
+                    android:hint="3"
                     android:gravity="center"
                     android:layout_weight="2"/>
                 <TextView
@@ -1301,7 +1301,7 @@
                     android:layout_height="50dp"
                     android:inputType="number"
                     android:background="@drawable/outline_gray_dark"
-                    android:hint="1"
+                    android:hint="3"
                     android:gravity="center"
                     android:layout_weight="2"/>
                 <TextView
@@ -1434,7 +1434,7 @@
                     android:layout_height="50dp"
                     android:inputType="number"
                     android:background="@drawable/outline_gray_dark"
-                    android:hint="1"
+                    android:hint="3"
                     android:gravity="center"
                     android:layout_weight="2"/>
                 <TextView
@@ -1567,7 +1567,7 @@
                     android:layout_height="50dp"
                     android:inputType="number"
                     android:background="@drawable/outline_gray_dark"
-                    android:hint="1"
+                    android:hint="3"
                     android:gravity="center"
                     android:layout_weight="2"/>
                 <TextView
@@ -1700,7 +1700,7 @@
                     android:layout_height="50dp"
                     android:inputType="number"
                     android:background="@drawable/outline_gray_dark"
-                    android:hint="1"
+                    android:hint="3"
                     android:gravity="center"
                     android:layout_weight="2"/>
                 <TextView

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.rpc.Help;
 
@@ -77,6 +78,17 @@ public class TimerLayout extends AppCompatActivity {
         e11 = findViewById(R.id.e11);
         e12 = findViewById(R.id.e12);
 
+        if(!Helper.timerCurrentState){
+            Helper.currentExLists.clear();
+            Helper.currentSetLists.clear();
+            Helper.currentRepLists.clear();
+            Helper.currentTimerRepLists.clear();
+            Helper.currentSetIndexRunning = 0;
+            Helper.currentExeIndexRunning = 0;
+            Helper.switcher = false;
+            Helper.finished = false;
+            Helper.time = 0;
+        }
 
         MediaPlayer soundSwitchAudio = MediaPlayer.create(this, R.raw.sound_on);
         MediaPlayer congratsAudio = MediaPlayer.create(this, R.raw.congrate3);
@@ -324,54 +336,59 @@ public class TimerLayout extends AppCompatActivity {
         btt_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Helper.timerCurrentState){
-                    Helper.saveInstances(txt_totalSet.getText().toString(), txt_totalRep.getText().toString());
+                if(!Helper.timerCurrentState){
+                    open_homeLayout();
+                    transition_animation("left");
+                }else{
+                    Toast.makeText(TimerLayout.this, "Finish Workout Require!", Toast.LENGTH_SHORT).show();
                 }
-                open_homeLayout();
-                transition_animation("left");
             }
         });
 
         btt_setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Helper.timerCurrentState){
-                    Helper.saveInstances(txt_totalSet.getText().toString(), txt_totalRep.getText().toString());
+                if(!Helper.timerCurrentState){
+                    open_settingLayout();
+                }else{
+                    Toast.makeText(TimerLayout.this, "Finish Workout Require!", Toast.LENGTH_SHORT).show();
                 }
-                open_settingLayout();
             }
         });
 
         btt_report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Helper.timerCurrentState){
-                    Helper.saveInstances(txt_totalSet.getText().toString(), txt_totalRep.getText().toString());
+                if(!Helper.timerCurrentState){
+                    open_reportLayout();
+                    transition_animation("left");
+                }else{
+                    Toast.makeText(TimerLayout.this, "Finish Workout Require!", Toast.LENGTH_SHORT).show();
                 }
-                open_reportLayout();
-                transition_animation("left");
             }
         });
 
         btt_exercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Helper.timerCurrentState){
-                    Helper.saveInstances(txt_totalSet.getText().toString(), txt_totalRep.getText().toString());
+                if(!Helper.timerCurrentState){
+                    open_exerciseLayout();
+                    transition_animation("left");
+                }else{
+                    Toast.makeText(TimerLayout.this, "Finish Workout Require!", Toast.LENGTH_SHORT).show();
                 }
-                open_exerciseLayout();
-                transition_animation("left");
             }
         });
 
         btt_schedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Helper.timerCurrentState){
-                    Helper.saveInstances(txt_totalSet.getText().toString(), txt_totalRep.getText().toString());
+                if(!Helper.timerCurrentState){
+                    open_scheduleLayout();
+                    transition_animation("left");
+                }else{
+                    Toast.makeText(TimerLayout.this, "Finish Workout Require!", Toast.LENGTH_SHORT).show();
                 }
-                open_scheduleLayout();
-                transition_animation("left");
             }
         });
 

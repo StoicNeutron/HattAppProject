@@ -21,6 +21,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN2_3 = "status";
     private static final String COLUMN2_4 = "note";
     private static final String COLUMN_ID = "_ID";
+    private static final String COLUMN2_ID = "_ID";
     private static final String COLUMN_1 = "exercise_name";
     private static final String COLUMN_2 = "main_muscle_target";
     private static final String COLUMN_3 = "sub_muscle_target";
@@ -33,8 +34,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String query = " CREATE TABLE " + TABLE_NAME + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_1 + " TEXT, " + COLUMN_2 + " TEXT, " + COLUMN_3 + " TEXT, " + COLUMN_4 + " TEXT); ";
-        String query2 = " CREATE TABLE " + TABLE2_NAME + " (" + COLUMN2_1 + " TEXT, " + COLUMN2_2 + " TEXT, " + COLUMN2_3 + " TEXT, " + COLUMN2_4 + " TEXT); ";
+        String query = " CREATE TABLE " + TABLE_NAME + " (" + COLUMN_ID + " INTEGER, " + COLUMN_1 + " TEXT, " + COLUMN_2 + " TEXT, " + COLUMN_3 + " TEXT, " + COLUMN_4 + " TEXT); ";
+        String query2 = " CREATE TABLE " + TABLE2_NAME + " (" + COLUMN2_ID + " INTEGER, " + COLUMN2_1 + " TEXT, " + COLUMN2_2 + " TEXT, " + COLUMN2_3 + " TEXT, " + COLUMN2_4 + " TEXT); ";
         db.execSQL(query);
         db.execSQL(query2);
 
@@ -52,6 +53,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
+        cv.put(COLUMN_ID, 11);
         cv.put(COLUMN_1, exerciseName);
         cv.put(COLUMN_2, mainTarget);
         cv.put(COLUMN_3, subTarget);
@@ -70,6 +72,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
+        cv.put(COLUMN2_ID, 22);
         cv.put(COLUMN2_1, dateString);
         cv.put(COLUMN2_2, workoutName);
         cv.put(COLUMN2_3, status);
@@ -89,9 +92,21 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
+    public void clearAllExercise(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_ID + " = '" + 11 + "'";
+        db.execSQL(query);
+    }
+
     public void deleteThisWorkout(String dateString){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "DELETE FROM " + TABLE2_NAME + " WHERE " + COLUMN2_1 + " = '" + dateString + "'";
+        db.execSQL(query);
+    }
+
+    public void clearAllWorkout(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "DELETE FROM " + TABLE2_NAME + " WHERE " + COLUMN2_1 + " = '" + 22 + "'";
         db.execSQL(query);
     }
 

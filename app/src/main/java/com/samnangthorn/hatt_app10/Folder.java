@@ -90,6 +90,14 @@ public class Folder {
         }
     }
 
+    // Fill Up Miss Day (Date String)
+    public String getFillUpLastDateString(int Index){
+        String tempStr = this.lastDateActive.substring(3);
+        int temInt = Integer.valueOf(tempStr);
+        temInt = temInt + Index;
+        return this.lastDateActive.substring(0, 4) + temInt;
+    }
+
     // condition last week report must be true
     public String[] getLastWeekReport(){
         String[] returnArray = new String[7];
@@ -137,7 +145,6 @@ public class Folder {
                 }
             }
         }
-
         return returnInteger;
     }
 }

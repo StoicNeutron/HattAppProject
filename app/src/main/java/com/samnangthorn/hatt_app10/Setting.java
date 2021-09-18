@@ -22,17 +22,17 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Setting extends AppCompatActivity {
 
-    private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_facebook, btt_youtube;
+    private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_facebook, btt_youtube;
     private Button btt_signOut, btt_save;
     private EditText userName, weight, height, edt_restTime;
     private TextView email, txt_wUnit, txt_hUnit;
     private FirebaseAuth mAuth;
-    private RadioButton kg, lb;
-    private SharedPreferences getData;
-    private SharedPreferences.Editor editData;
     private FirebaseFirestore firebase_database;
+    private RadioButton kg, lb;
+    private SharedPreferences getData, getData2;
+    private SharedPreferences.Editor editData, editData2;
     private Dialog dialog;
-
+    private DataBaseHelper myDB;
     private String newUserName, newHeight, newWeight, newUnit;
 
     @Override
@@ -45,7 +45,6 @@ public class Setting extends AppCompatActivity {
         btt_exercise = findViewById(R.id.btt_exercise);
         btt_schedule = findViewById(R.id.btt_schedule);
         btt_timer = findViewById(R.id.btt_timer);
-        btt_setting = findViewById(R.id.btt_setting);
         btt_facebook = findViewById(R.id.btt_facebook);
         btt_youtube = findViewById(R.id.btt_youtube);
         btt_signOut = findViewById(R.id.btt_signOut);
@@ -60,11 +59,9 @@ public class Setting extends AppCompatActivity {
         txt_hUnit = findViewById(R.id.txt_hUnit);
         edt_restTime = findViewById(R.id.edt_restTime);
 
+        // Dialog
         dialog = new Dialog(Setting.this);
         dialog.setContentView(R.layout.pop_up_dialog);
-
-
-
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.setCancelable(false);
 
@@ -83,6 +80,13 @@ public class Setting extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mAuth.getInstance().signOut();
+                getData2 = getApplicationContext().getSharedPreferences("workout_data", MODE_PRIVATE);
+                editData2 = getData2.edit();
+                editData2.putInt("WT", 0);
+                editData2.apply();
+                myDB = new DataBaseHelper(Setting.this);
+                myDB.clearAllExercise();
+                myDB.clearAllWorkout();
                 open_setUpLayout();
                 finish();
             }
@@ -91,6 +95,7 @@ public class Setting extends AppCompatActivity {
         getData = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
         editData = getData.edit();
 
+        // Set Up View
         newUserName = getData.getString("user_name", "ERROR");
         userName.setText(newUserName);
         email.setText(getData.getString("email_address", "ERROR"));
@@ -111,6 +116,8 @@ public class Setting extends AppCompatActivity {
             txt_hUnit.setText(" F");
         }
 
+        // On Click Listeners
+        //
         btt_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

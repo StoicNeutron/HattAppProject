@@ -50,11 +50,12 @@ public class Home extends AppCompatActivity {
 
         tz = TimeZone.getDefault();
         realTime_data = Calendar.getInstance();
+        // raw date format
         String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(realTime_data.getTime());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
         String time = simpleDateFormat.format(realTime_data.getTime());
 
-
+        // convert to the needed format
         int n = 0;
         for(int x = 0; x < currentDate.length(); x++){
             if(currentDate.charAt(x) == 44){
@@ -129,7 +130,6 @@ public class Home extends AppCompatActivity {
         }else{
             BMI_number = Integer.valueOf(getData.getString("weight", "0")) / Math.pow(Double.valueOf(getData.getString("height", "0")), 2);
         }
-        //BMI_number = Math.round(BMI_number * 100)/ 100;
 
         txt_BMI_point.setText(String.valueOf("BMI: " + String.format("%.1f", BMI_number)));
         Helper.tempBMI_value = "BMI: " + String.format("%.1f", BMI_number);
@@ -154,13 +154,13 @@ public class Home extends AppCompatActivity {
         }
 
         // Folder Report
-        Folder folder = new Folder(this);
-        String monthTemp = String.valueOf(Helper.getCurrentMonth() + 1);
-        if(monthTemp.length() == 1){
-            monthTemp = "0" + monthTemp;
-        }
-        String temmp = Helper.getCurrentYear()+monthTemp+currentDay;
-        int test = folder.checkTotalDayInterval(temmp);
+        /*Folder folder = new Folder(this);
+        int num = folder.checkTotalDayInterval(Helper.currentDateString);
+        if(num < 7){
+            for(int x = 0; x < num; x++){
+                folder.addMiss(folder.getFillUpLastDateString(x), Helper.currentWkNameString);
+            }
+        }*/
 
 
         // OnClick Listeners
