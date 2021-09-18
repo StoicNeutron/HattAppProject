@@ -91,8 +91,8 @@ public class Home extends AppCompatActivity {
             //None
         }else{
             while(cursor.moveToNext()){
-                dateInfoList.add(cursor.getString(0));
-                dateWKNameList.add(cursor.getString(1));
+                dateInfoList.add(cursor.getString(1));
+                dateWKNameList.add(cursor.getString(2));
             }
         }
         // set up today workout name

@@ -113,8 +113,8 @@ public class TimerLayout extends AppCompatActivity {
             //None
         }else{
             while(cursor.moveToNext()){
-                dateInfoList.add(cursor.getString(0));
-                dateWKNameList.add(cursor.getString(1));
+                dateInfoList.add(cursor.getString(1));
+                dateWKNameList.add(cursor.getString(2));
             }
         }
         // set up text wk name when exist by schedule
