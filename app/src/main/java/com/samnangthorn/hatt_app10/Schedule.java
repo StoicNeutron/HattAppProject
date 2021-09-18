@@ -601,8 +601,8 @@ public class Schedule extends AppCompatActivity{
             //None
         }else{
             while(cursor.moveToNext()){
-                dateInfoList.add(cursor.getString(0));
-                dateWKNameList.add(cursor.getString(1));
+                dateInfoList.add(cursor.getString(1));
+                dateWKNameList.add(cursor.getString(2));
             }
         }
     }
@@ -610,7 +610,10 @@ public class Schedule extends AppCompatActivity{
     private void setEachDayWorkoutColor(TextView[] wkList){
         for(int x = 0; x < dateInfoList.size(); x++){
 
-            //monthInt = Integer.valueOf(Helper.getCurrentMonthString());
+            monthInt = Integer.valueOf(Helper.getCurrentMonthString());
+            String check = Helper.getCurrentMonthString();
+            String check2 = dateInfoList.get(x).substring(2, 4);
+            String check3 = dateInfoList.get(x).substring(2, 4);
             if(dateInfoList.get(x).substring(2, 4).equalsIgnoreCase(Helper.getCurrentMonthString())){
                 int caseNum = 99;
                 for(int n = 0; n < totalWorkoutNum; n++){
