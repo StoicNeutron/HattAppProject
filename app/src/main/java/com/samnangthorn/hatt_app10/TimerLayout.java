@@ -481,8 +481,8 @@ public class TimerLayout extends AppCompatActivity {
                         Helper.timerCurrentState = false;
                         Helper.timerTask.cancel();
                         // save data for report
-                        folder = new Folder(getApplicationContext());
-                        folder.addCompleted(Helper.currentDateString, Helper.currentWkNameString, Helper.time,Helper.currentExLists);
+                        /*folder = new Folder(getApplicationContext());
+                        folder.addCompleted(Helper.currentDateString, Helper.currentWkNameString, Helper.time,Helper.currentExLists);*/
                     }
 
                     if(!Helper.switcher){
