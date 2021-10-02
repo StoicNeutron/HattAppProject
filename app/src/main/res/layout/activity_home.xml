@@ -10,7 +10,7 @@
     <View
         android:id="@+id/view_top"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,8 +20,8 @@
         android:id="@+id/btt_setting"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/setting_gray" />
@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="60dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="80dp"
         app:layout_constraintBottom_toTopOf="@+id/view_bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +58,6 @@
             android:layout_marginTop="20dp"
             android:text="Welcome back! User"
             android:textSize="15dp"
-            android:textStyle="italic"
             android:textColor="@color/black"/>
 
         <LinearLayout
@@ -66,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
-            android:background="@drawable/outline_black"
+            android:background="@drawable/outline_black_fill_white"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:gravity="start">
@@ -159,7 +158,6 @@
             android:layout_marginTop="30dp"
             android:textColor="@color/black"
             android:text="Today's Workout"
-            android:textStyle="italic"
             android:textSize="15dp"/>
 
         <LinearLayout
@@ -167,7 +165,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
-            android:background="@drawable/outline_black"
+            android:background="@drawable/outline_black_fill_white"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:gravity="center">
@@ -205,7 +203,6 @@
             android:layout_marginTop="30dp"
             android:text="Weekly Report"
             android:textSize="15dp"
-            android:textStyle="italic"
             android:textColor="@color/black"/>
 
         <LinearLayout
@@ -213,7 +210,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
-            android:background="@drawable/outline_black"
+            android:background="@drawable/outline_black_fill_white"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:gravity="start">
@@ -251,7 +248,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/outline_black"
+            android:background="@drawable/outline_black_fill_white"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:gravity="start">
@@ -272,7 +269,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@drawable/outline_black"
+            android:background="@drawable/outline_black_fill_white"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:gravity="start">
@@ -467,10 +464,10 @@
 
     <ImageView
         android:id="@+id/logoView"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="15dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/hattapp_logo" />

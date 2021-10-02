@@ -11,7 +11,7 @@
     <View
         android:id="@+id/view_top"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,8 +21,8 @@
         android:id="@+id/btt_setting"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/setting_black" />
@@ -38,27 +38,13 @@
 
     <ImageView
         android:id="@+id/logoView"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="15dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/hattapp_logo" />
-
-    <View
-        android:id="@+id/view_borderline"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="19dp"
-        android:layout_marginEnd="19dp"
-        android:layout_marginBottom="79dp"
-        android:layout_marginTop="119dp"
-        android:background="@drawable/view_layout_black"
-        app:layout_constraintBottom_toTopOf="@+id/view_bottom"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_top" />
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -67,8 +53,8 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="80dp"
-        android:layout_marginTop="120dp"
-        android:background="@drawable/view_layout_white"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/outline_gray_dark"
         app:layout_constraintBottom_toTopOf="@+id/view_bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -345,27 +331,27 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
-                android:text="Version: 1.0\nApp Category: Fitness &amp; Health\nFounder &amp; Developer: Samnang Thorn\nAvailable on: (Android) Play Store"
+                android:text="Version: 1.1\nApp Category: Fitness &amp; Health\nFounder &amp; Developer: Samnang Thorn\nDeveloped by: Aesthetic Code\nAvailable on: (Android) Play Store"
                 android:fontFamily="@font/roboto"
                 android:textSize="12dp"
                 android:layout_gravity="start"/>
 
+            <Button
+                android:id="@+id/btt_save"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/button_bg_blue"
+                android:fontFamily="@font/roboto"
+                android:layout_gravity="end"
+                android:text="SAVE"
+                android:textColor="@color/black" />
+
 
         </LinearLayout>
     </ScrollView>
-
-    <Button
-        android:id="@+id/btt_save"
-        android:layout_width="70dp"
-        android:layout_height="30dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/button_bg_blue"
-        android:fontFamily="@font/roboto"
-        android:text="SAVE"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/scrollView"
-        app:layout_constraintEnd_toEndOf="@+id/scrollView" />
 
     <ImageView
         android:id="@+id/btt_home"
