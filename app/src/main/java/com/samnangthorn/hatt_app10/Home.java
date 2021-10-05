@@ -18,8 +18,8 @@ import java.util.TimeZone;
 
 public class Home extends AppCompatActivity {
 
-    private ImageView btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_goWK, btt_expandReport;
-    private TextView txt_day, txt_date, txt_time, txt_timeZone, txt_workoutName, txt_BMI_point, txt_bmiStatus;
+    private ImageView btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_expandReport;
+    private TextView txt_day, txt_date, txt_time, txt_timeZone, txt_workoutName, txt_BMI_point, txt_bmiStatus, btt_goWK;
     private Calendar realTime_data;
     private TimeZone tz;
     private DataBaseHelper myDB;
