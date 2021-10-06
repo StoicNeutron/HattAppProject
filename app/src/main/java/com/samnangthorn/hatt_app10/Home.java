@@ -18,7 +18,7 @@ import java.util.TimeZone;
 
 public class Home extends AppCompatActivity {
 
-    private ImageView btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_expandReport;
+    private ImageView btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting;
     private TextView txt_day, txt_date, txt_time, txt_timeZone, txt_workoutName, txt_BMI_point, txt_bmiStatus, btt_goWK;
     private Calendar realTime_data;
     private TimeZone tz;
@@ -46,7 +46,6 @@ public class Home extends AppCompatActivity {
         txt_BMI_point =  findViewById(R.id.txt_BMI_point);
         txt_bmiStatus = findViewById(R.id.txt_bmiStatus);
         btt_goWK = findViewById(R.id.btt_goWK);
-        btt_expandReport = findViewById(R.id.btt_expandReport);
 
         tz = TimeZone.getDefault();
         realTime_data = Calendar.getInstance();
@@ -133,7 +132,7 @@ public class Home extends AppCompatActivity {
 
         txt_BMI_point.setText(String.valueOf("BMI: " + String.format("%.1f", BMI_number)));
         Helper.tempBMI_value = "BMI: " + String.format("%.1f", BMI_number);
-        if(BMI_number < 17){
+        /*if(BMI_number < 17){
             txt_bmiStatus.setText("Current Condition: THIN");
             Helper.tempBMI_status = "TOO_THIN";
         }else if(BMI_number < 18.5){
@@ -151,7 +150,7 @@ public class Home extends AppCompatActivity {
         }else{
             txt_bmiStatus.setText("Current Condition: OBESE+");
             Helper.tempBMI_status = "OBESE+";
-        }
+        }*/
 
         // Folder Report
         /*Folder folder = new Folder(this);
@@ -212,12 +211,6 @@ public class Home extends AppCompatActivity {
             }
         });
 
-        btt_expandReport.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                open_reportLayout();
-            }
-        });
     }
 
     // methods

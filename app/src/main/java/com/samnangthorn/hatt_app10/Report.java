@@ -42,9 +42,9 @@ public class Report extends AppCompatActivity {
         btt_BMI_info = findViewById(R.id.btt_BMI_info);
         txt_bmi_value.setText(Helper.tempBMI_value);
         txt_bmiStatus.setText(Helper.tempBMI_status);
-        if(!Helper.tempBMI_status.equalsIgnoreCase("STANDARD FIT")){
+        /*if(!Helper.tempBMI_status.equalsIgnoreCase("STANDARD FIT")){
             txt_bmiStatus.setTextColor(getColor(R.color.red_dark));
-        }
+        }*/
 
         // Dialog1
         //
