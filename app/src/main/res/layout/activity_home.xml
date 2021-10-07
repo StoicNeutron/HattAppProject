@@ -233,25 +233,21 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/btt_moreDetail"
                 android:layout_weight="2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:text="MORE DETAIL"
-                android:textSize="16dp"
+                android:layout_marginEnd="10dp"
+                android:text="DETAIL"
+                android:textSize="18dp"
                 android:textStyle="bold"
-                android:textColor="@color/white"
                 android:background="@drawable/view_bg_blue"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:padding="15dp" />
+                android:padding="25dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:padding="10dp"
                 android:orientation="vertical"
                 android:layout_weight="1"
@@ -269,44 +265,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:text="Exercise Name"
-                    android:textSize="18dp"
                     android:gravity="center"
+                    android:textSize="18dp"
                     android:textColor="@color/black" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_target"
-                        android:layout_gravity="center" />
-
-                    <TextView
-                        android:id="@+id/txt_muscleTarget"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="Shoulder"
-                        android:textStyle="bold"
-                        android:textAllCaps="true"
-                        android:textSize="16dp" />
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_target"
-                        android:layout_gravity="center" />
-
-                </LinearLayout>
 
             </LinearLayout>
 
@@ -375,7 +338,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Body Mass Index"
-                    android:textColor="@color/white"
                     android:textStyle="bold"
                     android:layout_gravity="center"/>
 
@@ -438,9 +400,14 @@
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="10dp"
+                    android:padding="5dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/outline_fill_gray_dark"
                     android:textStyle="bold"
+                    android:textColor="@color/white"
                     android:text="1.1"
                     android:gravity="center"
                     android:textSize="20dp" />
@@ -467,7 +434,7 @@
                 <ImageView
 
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
+                    android:layout_height="45dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:textStyle="bold"
