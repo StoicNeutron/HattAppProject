@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
@@ -18,9 +19,10 @@ import com.google.android.gms.ads.initialization.OnInitializationCompleteListene
 
 public class Report extends AppCompatActivity {
 
-    ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_cloudUpload;
-    private TextView txt_bmi_value, txt_bmiStatus;
-    private ImageView btt_updateWeightHeight, btt_BMI_info;
+    ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting;
+    private TextView txt_bmi_value;
+    private LinearLayout btt_updateWeightHeight, btt_cloudUpload;
+    private ImageView btt_BMI_info;
     private AdView mAdView;
     private Dialog dialog, dialog2;
 
@@ -35,13 +37,10 @@ public class Report extends AppCompatActivity {
         btt_schedule = findViewById(R.id.btt_schedule);
         btt_timer = findViewById(R.id.btt_timer);
         btt_setting = findViewById(R.id.btt_setting);
-        btt_cloudUpload = findViewById(R.id.btt_cloudUpload);
         txt_bmi_value = findViewById(R.id.txt_bmi_value);
-        txt_bmiStatus = findViewById(R.id.txt_bmiStatus);
         btt_updateWeightHeight = findViewById(R.id.btt_updateWeightHeight);
         btt_BMI_info = findViewById(R.id.btt_BMI_info);
         txt_bmi_value.setText(Helper.tempBMI_value);
-        txt_bmiStatus.setText(Helper.tempBMI_status);
         /*if(!Helper.tempBMI_status.equalsIgnoreCase("STANDARD FIT")){
             txt_bmiStatus.setTextColor(getColor(R.color.red_dark));
         }*/
@@ -125,12 +124,12 @@ public class Report extends AppCompatActivity {
             }
         });
 
-        btt_cloudUpload.setOnClickListener(new View.OnClickListener() {
+        /*btt_cloudUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog2.show();
             }
-        });
+        });*/
     }
 
     // methods

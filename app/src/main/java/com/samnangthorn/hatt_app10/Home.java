@@ -44,7 +44,6 @@ public class Home extends AppCompatActivity {
         txt_timeZone = findViewById(R.id.txt_timeZone);
         txt_workoutName = findViewById(R.id.txt_workoutName);
         txt_BMI_point =  findViewById(R.id.txt_BMI_point);
-        txt_bmiStatus = findViewById(R.id.txt_bmiStatus);
         btt_goWK = findViewById(R.id.btt_goWK);
 
         tz = TimeZone.getDefault();

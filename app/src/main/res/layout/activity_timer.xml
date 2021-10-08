@@ -415,46 +415,59 @@
                 android:textSize="16dp"
                 android:background="@drawable/outline_black"/>
 
-            <TextView
-                android:id="@+id/finished_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="30dp"
-                android:visibility="gone"
-                android:text="Congratulation!\nOn Finishing Today's Workout."
-                android:textSize="22dp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_gravity="center"
-                android:gravity="center"/>
-
-            <ImageView
+            <LinearLayout
                 android:id="@+id/finished_img"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:visibility="gone"
-                android:src="@drawable/ic_cc_congrate"
-                android:layout_gravity="center"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:padding="10dp"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center"
+                android:background="@drawable/view_bg_blue_outline"
+                android:visibility="visible"
+                android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/finished_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="30dp"
+                    android:visibility="visible"
+                    android:text="Congratulation!\n"
+                    android:textSize="22dp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:gravity="center"/>
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_cc_congrate"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
 
     <TextView
         android:id="@+id/btt_start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:layout_width="140dp"
+        android:layout_height="70dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginEnd="10dp"
-        android:padding="20dp"
         android:background="@drawable/button_bg_blue"
+        android:padding="10dp"
         android:text="START"
-        android:textSize="18dp"
         android:textColor="@color/black"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/scrollView3"
-        app:layout_constraintEnd_toEndOf="@+id/scrollView3" />
+        app:layout_constraintEnd_toEndOf="@+id/scrollView3"
+        app:layout_constraintStart_toStartOf="@+id/scrollView3" />
 
 
     <ImageView
@@ -485,7 +498,7 @@
         android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/timer_gray" />
+        app:srcCompat="@drawable/timer_black" />
 
     <ImageView
         android:id="@+id/btt_exercise"
@@ -495,7 +508,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btt_home"
         app:layout_constraintStart_toEndOf="@+id/btt_report"
-        app:srcCompat="@drawable/dummbell_black" />
+        app:srcCompat="@drawable/dummbell_gray" />
 
     <ImageView
         android:id="@+id/btt_schedule"
