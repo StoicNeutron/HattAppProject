@@ -2,13 +2,17 @@ package com.samnangthorn.hatt_app10;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -16,11 +20,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-public class Home extends AppCompatActivity {
+public class Home extends AppCompatActivity implements RVAdapter.onExeClickListener{
 
     private ImageView btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting;
-    private TextView txt_day, txt_date, txt_time, txt_timeZone, txt_workoutName, txt_BMI_point, txt_bmiStatus, btt_goWK;
+    private TextView txt_day, txt_date, txt_time, txt_timeZone, txt_workoutName, txt_exerciseName, txt_BMI_point,exercise_detailBtt, txt_bmiStatus, btt_goWK;
     private Calendar realTime_data;
+    private LinearLayout BMI_btt, btt_GooglePlay;
     private TimeZone tz;
     private DataBaseHelper myDB;
     private ArrayList<String> dateInfoList = new ArrayList<String>();
@@ -45,6 +50,10 @@ public class Home extends AppCompatActivity {
         txt_workoutName = findViewById(R.id.txt_workoutName);
         txt_BMI_point =  findViewById(R.id.txt_BMI_point);
         btt_goWK = findViewById(R.id.btt_goWK);
+        txt_exerciseName = findViewById(R.id.txt_exerciseName);
+        exercise_detailBtt = findViewById(R.id.exercise_detailBtt);
+        BMI_btt = findViewById(R.id.BMI_btt);
+        btt_GooglePlay = findViewById(R.id.btt_GooglePlay);
 
         tz = TimeZone.getDefault();
         realTime_data = Calendar.getInstance();
@@ -81,6 +90,7 @@ public class Home extends AppCompatActivity {
         txt_date.setText(subDate);
         txt_time.setText(time);
         txt_timeZone.setText(tz.getID());
+        txt_exerciseName.setText(RAM.read_exerciseNameAt(RAM.randomIndex));
 
         // read from database to array list
         myDB = new DataBaseHelper(Home.this);
@@ -202,11 +212,55 @@ public class Home extends AppCompatActivity {
             }
         });
 
+        BMI_btt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                open_reportLayout();
+                transition_animation("left");
+            }
+        });
+
         btt_goWK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 open_timerLayout();
                 transition_animation("right");
+            }
+        });
+
+        txt_time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                open_scheduleLayout();
+                transition_animation("right");
+            }
+        });
+
+        txt_day.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                open_scheduleLayout();
+                transition_animation("right");
+            }
+        });
+
+        exercise_detailBtt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Home.this, DetailExercise.class);
+                intent.putExtra("eName", RAM.read_exerciseNameAt(RAM.randomIndex));
+                intent.putExtra("mTarget", RAM.read_mainMuscleAt(RAM.randomIndex));
+                intent.putExtra("sTarget", RAM.read_subMuscleAt(RAM.randomIndex));
+                intent.putExtra("des", RAM.read_exerciseDescriptionAt(RAM.randomIndex));
+                startActivity(intent);
+                transition_animation("left");
+            }
+        });
+
+        btt_GooglePlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openGooglePlay();
             }
         });
 
@@ -246,4 +300,26 @@ public class Home extends AppCompatActivity {
             overridePendingTransition(R.anim.sa_slide_in_left, R.anim.sa_slide_out_right);
         }
     }
+
+    @Override
+    public void onExeClick(int position, ArrayList<String> nameList) {
+
+        Intent intent = new Intent(this, DetailExercise.class);
+        intent.putExtra("eName", nameList.get(position));
+        intent.putExtra("mTarget", RAM.read_mainMuscleAt(RAM.read_exerciseName().indexOf(nameList.get(position))));
+        intent.putExtra("sTarget", RAM.read_subMuscleAt(RAM.read_exerciseName().indexOf(nameList.get(position))));
+        intent.putExtra("des", RAM.read_exerciseDescriptionAt(RAM.read_exerciseName().indexOf(nameList.get(position))));
+        startActivity(intent);
+    }
+
+    private void openGooglePlay(){
+        try{
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.samnangthorn.hatt_app10"));
+            startActivity(intent);
+        }catch(ActivityNotFoundException e){
+            Toast.makeText(Home.this, "Link Error!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
 }

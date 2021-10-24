@@ -58,7 +58,7 @@ public class TimerLayout extends AppCompatActivity {
         txt_totalSet = findViewById(R.id.txt_total_set);
         txt_totalRep = findViewById(R.id.txt_total_rep);
         finished_txt =  findViewById(R.id.finished_txt);
-        finished_img = findViewById(R.id.finished_img);
+
         txt_breakTimer = findViewById(R.id.txt_break_timer);
         tapTimer = findViewById(R.id.tap_timer);
         btt_expand = findViewById(R.id.btt_expand);

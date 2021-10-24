@@ -18,8 +18,7 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
     private ImageView btt_home, btt_report, btt_schedule, btt_timer, btt_setting, btt_addExercise, btt_goLeft, btt_goRight;
     private TextView btt_MG, btt_AZ, view_MG;
     private RecyclerView recyclerView;
-    private DataBaseHelper myDB;
-    private ArrayList<String> exerciseName, mainTarget, subTarget, dis, sortedArray;
+    private ArrayList<String>  sortedArray;
     private SearchView searchView;
     private SharedPreferences getData;
     private SharedPreferences.Editor editData;
@@ -44,19 +43,11 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
         searchView = findViewById(R.id.search_bar);
 
         // initialization
-        myDB = new DataBaseHelper(Exercise.this);
         getData = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
         editData = getData.edit();
-        exerciseName = new ArrayList<String>();
-        mainTarget = new ArrayList<String>();
-        subTarget = new ArrayList<String>();
-        dis = new ArrayList<String>();
-
-        // query the database to ArrayList
-        transferToArrayList();
 
         // setup recycle view
-        RVAdapter rvAdapter = new RVAdapter(this, exerciseName, this);
+        RVAdapter rvAdapter = new RVAdapter(this, RAM.read_exerciseName(), this);
         recyclerView.setAdapter(rvAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -129,9 +120,9 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
 
                     // filter corresponding exercises to the following Muscle Group
                     ArrayList<String> tempArray = new ArrayList<String>();
-                    for(int x = 0; x < exerciseName.size(); x++){
-                        if(mainTarget.get(x).toLowerCase().contains(Helper.muscleGroup_List[getData.getInt("MG_Index", 0)])){
-                            tempArray.add(exerciseName.get(x));
+                    for(int x = 0; x < RAM.read_exerciseName().size(); x++){
+                        if(RAM.read_mainMuscleAt(x).toLowerCase().contains(Helper.muscleGroup_List[getData.getInt("MG_Index", 0)])){
+                            tempArray.add(RAM.read_exerciseNameAt(x));
                         }
                     }
                     // update recycle view
@@ -147,7 +138,7 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
                     editData.putString("MG", "false");
 
                     // update recycle view
-                    RVAdapter rvAdapter = new RVAdapter(getApplicationContext(), exerciseName, Exercise.this::onExeClick);
+                    RVAdapter rvAdapter = new RVAdapter(getApplicationContext(), RAM.read_exerciseName(), Exercise.this::onExeClick);
                     recyclerView.setAdapter(rvAdapter);
                 }
                 // update sp key value
@@ -170,9 +161,9 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
 
                 // check sp if AZ function is off then switch on
                 if(getData.getString("AZ", "ERROR").equalsIgnoreCase("false")){
-                    String[] eNameList = new String[exerciseName.size()];
-                    for(int x = 0; x < exerciseName.size(); x++){
-                        eNameList[x] = exerciseName.get(x);
+                    String[] eNameList = new String[RAM.read_exerciseName().size()];
+                    for(int x = 0; x < RAM.read_exerciseName().size(); x++){
+                        eNameList[x] = RAM.read_exerciseNameAt(x);
                     }
                     // Bubble sort
                     for(int x = 0; x < eNameList.length; x++){
@@ -201,7 +192,7 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
                     // check sp if AZ function is on then switch off
                 }else if(getData.getString("AZ", "ERROR").equalsIgnoreCase("true")){
                     // update recycle view
-                    RVAdapter rvAdapter = new RVAdapter(getApplicationContext(), exerciseName, Exercise.this::onExeClick);
+                    RVAdapter rvAdapter = new RVAdapter(getApplicationContext(), RAM.read_exerciseName(), Exercise.this::onExeClick);
                     recyclerView.setAdapter(rvAdapter);
 
                     // update sp key value
@@ -235,9 +226,9 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
 
                 // query part
                 ArrayList<String> tempArray = new ArrayList<String>();
-                for(int x = 0; x < exerciseName.size(); x++){
-                    if(exerciseName.get(x).toLowerCase().contains(newText.toLowerCase())){
-                        tempArray.add(exerciseName.get(x));
+                for(int x = 0; x < RAM.read_exerciseName().size(); x++){
+                    if(RAM.read_exerciseNameAt(x).toLowerCase().contains(newText.toLowerCase())){
+                        tempArray.add(RAM.read_exerciseNameAt(x));
                     }
                 }
                 // update recycle view
@@ -263,9 +254,9 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
                 // filter corresponding exercises to the following Muscle Group
                 ArrayList<String> tempArray = new ArrayList<String>();
                 tempArray.clear();
-                for(int x = 0; x < exerciseName.size(); x++){
-                    if(mainTarget.get(x).toLowerCase().equalsIgnoreCase(Helper.muscleGroup_List[index])){
-                        tempArray.add(exerciseName.get(x));
+                for(int x = 0; x < RAM.read_exerciseName().size(); x++){
+                    if(RAM.read_mainMuscleAt(x).toLowerCase().equalsIgnoreCase(Helper.muscleGroup_List[index])){
+                        tempArray.add(RAM.read_exerciseNameAt(x));
                     }
                 }
                 // update recycle view
@@ -292,9 +283,9 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
 
                 // filter corresponding exercises to the following Muscle Group
                 ArrayList<String> tempArray = new ArrayList<String>();
-                for(int x = 0; x < exerciseName.size(); x++){
-                    if(mainTarget.get(x).toLowerCase().equalsIgnoreCase(Helper.muscleGroup_List[index])){
-                        tempArray.add(exerciseName.get(x));
+                for(int x = 0; x < RAM.read_exerciseName().size(); x++){
+                    if(RAM.read_mainMuscleAt(x).toLowerCase().equalsIgnoreCase(Helper.muscleGroup_List[index])){
+                        tempArray.add(RAM.read_exerciseNameAt(x));
                     }
                 }
                 // update recycle view
@@ -339,7 +330,7 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
     private void open_addExerciseLayout() {
         Intent intent = new Intent(this, AddExercise.class);
         Helper.exerciseNameArray.clear();
-        Helper.exerciseNameArray = exerciseName;
+        Helper.exerciseNameArray = RAM.read_exerciseName();
         startActivity(intent);
     }
 
@@ -351,28 +342,14 @@ public class Exercise extends AppCompatActivity implements RVAdapter.onExeClickL
         }
     }
 
-    private void transferToArrayList(){
-        Cursor cursor = myDB.readAllAtr();
-        if(cursor.getCount() == 0){
-            //None
-        }else{
-            while(cursor.moveToNext()){
-                exerciseName.add(cursor.getString(1));
-                mainTarget.add(cursor.getString(2));
-                subTarget.add(cursor.getString(3));
-                dis.add(cursor.getString(4));
-            }
-        }
-    }
-
     @Override
     public void onExeClick(int position, ArrayList<String> nameList) {
 
         Intent intent = new Intent(this, DetailExercise.class);
         intent.putExtra("eName", nameList.get(position));
-        intent.putExtra("mTarget", mainTarget.get(exerciseName.indexOf(nameList.get(position))));
-        intent.putExtra("sTarget", subTarget.get(exerciseName.indexOf(nameList.get(position))));
-        intent.putExtra("des", dis.get(exerciseName.indexOf(nameList.get(position))));
+        intent.putExtra("mTarget", RAM.read_mainMuscleAt(RAM.read_exerciseName().indexOf(nameList.get(position))));
+        intent.putExtra("sTarget", RAM.read_subMuscleAt(RAM.read_exerciseName().indexOf(nameList.get(position))));
+        intent.putExtra("des", RAM.read_exerciseDescriptionAt(RAM.read_exerciseName().indexOf(nameList.get(position))));
         startActivity(intent);
     }
 }

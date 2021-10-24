@@ -233,6 +233,7 @@
             android:gravity="center">
 
             <TextView
+                android:id="@+id/exercise_detailBtt"
                 android:layout_weight="2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -326,6 +327,7 @@
             android:gravity="center">
 
             <LinearLayout
+                android:id="@+id/BMI_btt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
@@ -381,6 +383,7 @@
             android:gravity="center">
 
             <LinearLayout
+                android:id="@+id/btt_GooglePlay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
@@ -394,6 +397,7 @@
                     android:layout_height="wrap_content"
                     android:text="Latest Version Available"
                     android:textStyle="bold"
+                    android:textColor="@color/white"
                     android:layout_gravity="center"/>
 
                 <TextView
