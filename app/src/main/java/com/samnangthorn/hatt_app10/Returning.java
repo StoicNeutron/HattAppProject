@@ -19,7 +19,6 @@ public class Returning extends AppCompatActivity {
     private Button b1, b2, b3, b4, b5, b6, b7, b8;
     private ImageView logo;
     private Animation logo_motion, motion2, motion3, motion4;
-    private DataBaseHelper myDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +50,6 @@ public class Returning extends AppCompatActivity {
 
         TouchLayout = findViewById(R.id.touchLayout);
 
-        // query exercises_DATA from the database to RAM
-        myDB = new DataBaseHelper(Returning.this);
-        transferToArrayList();
-        // range of random int (0 - ArrayList size)
-        RAM.randomIndex = (int) (Math.random() * (RAM.getList_length()));
-
         TouchLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -73,7 +66,7 @@ public class Returning extends AppCompatActivity {
                 b6.startAnimation(motion4);
                 b7.startAnimation(motion4);
                 b8.startAnimation(motion4);
-                open_homeLayout();
+                open_ProcessingLayout();
                 finish();
                 return false;
             }
@@ -82,22 +75,8 @@ public class Returning extends AppCompatActivity {
 
     // method
 
-    private void transferToArrayList(){
-        Cursor cursor = myDB.readAllAtr();
-        if(cursor.getCount() == 0){
-            //None
-        }else{
-            while(cursor.moveToNext()){
-                RAM.write_exerciseName(cursor.getString(1));
-                RAM.write_mainMuscle(cursor.getString(2));
-                RAM.write_subMuscle(cursor.getString(3));
-                RAM.write_exerciseDescription(cursor.getString(4));
-            }
-        }
-    }
-
-    private void open_homeLayout() {
-        Intent intent = new Intent(this, Home.class);
+    private void open_ProcessingLayout() {
+        Intent intent = new Intent(this, Processing.class);
         startActivity(intent);
     }
 }

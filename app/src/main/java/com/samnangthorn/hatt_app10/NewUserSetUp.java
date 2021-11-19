@@ -18,7 +18,7 @@ public class NewUserSetUp extends AppCompatActivity {
             myDB.addExercise(Helper.eName_List[x], Helper.mTarget_List[x], Helper.sTarget_List[x], Helper.des_List[x]);
         }
 
-        Intent intent = new Intent(this, Home.class);
+        Intent intent = new Intent(this, Processing.class);
         startActivity(intent);
 
     }
