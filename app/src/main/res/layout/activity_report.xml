@@ -429,7 +429,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:textColor="@color/orange"
+                        android:textColor="@color/black"
                         android:text="Top 3 Favorite Exercises"
                         android:textSize="18dp"
                         android:textStyle="bold"/>
@@ -447,7 +447,7 @@
                             android:text="1st"
                             android:textSize="16dp"
                             android:textStyle="bold"
-                            android:textColor="@color/blue"/>
+                            android:textColor="@color/black"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -455,7 +455,7 @@
                             android:text="NO DATA"
                             android:layout_gravity="center"
                             android:textSize="16dp"
-                            android:textColor="@color/white"/>
+                            android:textColor="@color/black"/>
 
                     </LinearLayout>
                     <LinearLayout
@@ -471,7 +471,7 @@
                             android:text="2nd"
                             android:textSize="16dp"
                             android:textStyle="bold"
-                            android:textColor="@color/blue"/>
+                            android:textColor="@color/black"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -479,7 +479,7 @@
                             android:text="NO DATA"
                             android:layout_gravity="center"
                             android:textSize="16dp"
-                            android:textColor="@color/white"/>
+                            android:textColor="@color/black"/>
 
                     </LinearLayout>
                     <LinearLayout
@@ -495,7 +495,7 @@
                             android:text="3rd"
                             android:textSize="16dp"
                             android:textStyle="bold"
-                            android:textColor="@color/blue"/>
+                            android:textColor="@color/black"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -503,7 +503,7 @@
                             android:text="NO DATA"
                             android:layout_gravity="center"
                             android:textSize="16dp"
-                            android:textColor="@color/white"/>
+                            android:textColor="@color/black"/>
 
                     </LinearLayout>
 
@@ -524,7 +524,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:text="Top 3 Favorite Workouts"
-                        android:textColor="@color/orange"
+                        android:textColor="@color/black"
                         android:textSize="18dp"
                         android:textStyle="bold" />
 
@@ -540,7 +540,7 @@
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:text="1st"
-                            android:textColor="@color/blue"
+                            android:textColor="@color/black"
                             android:textSize="16dp"
                             android:textStyle="bold" />
 
@@ -550,7 +550,7 @@
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
                             android:text="NO DATA"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="16dp" />
 
                     </LinearLayout>
@@ -567,7 +567,7 @@
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:text="2nd"
-                            android:textColor="@color/blue"
+                            android:textColor="@color/black"
                             android:textSize="16dp"
                             android:textStyle="bold" />
 
@@ -577,7 +577,7 @@
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
                             android:text="NO DATA"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="16dp" />
 
                     </LinearLayout>
@@ -594,7 +594,7 @@
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:text="3rd"
-                            android:textColor="@color/blue"
+                            android:textColor="@color/black"
                             android:textSize="16dp"
                             android:textStyle="bold" />
 
@@ -604,7 +604,7 @@
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
                             android:text="NO DATA"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="16dp" />
 
                     </LinearLayout>

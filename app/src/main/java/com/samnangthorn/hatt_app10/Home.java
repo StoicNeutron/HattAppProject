@@ -23,9 +23,9 @@ import java.util.TimeZone;
 public class Home extends AppCompatActivity implements RVAdapter.onExeClickListener{
 
     private ImageView btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting;
-    private TextView txt_day, txt_date, txt_time, txt_timeZone, txt_workoutName, txt_exerciseName, txt_BMI_point,exercise_detailBtt, txt_bmiStatus, btt_goWK;
+    private TextView txt_day, txt_date, txt_time, txt_timeZone, txt_workoutName, txt_exerciseName, txt_BMI_point,exercise_detailBtt, txt_bmiStatus, btt_goWK, BMI_btt;
     private Calendar realTime_data;
-    private LinearLayout BMI_btt, btt_GooglePlay;
+    private LinearLayout btt_GooglePlay;
     private TimeZone tz;
     private DataBaseHelper myDB;
     private ArrayList<String> dateInfoList = new ArrayList<String>();
