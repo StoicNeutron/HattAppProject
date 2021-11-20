@@ -1,11 +1,9 @@
 package com.samnangthorn.hatt_app10;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -13,12 +11,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.TimeZone;
 
 public class Home extends AppCompatActivity implements RVAdapter.onExeClickListener{
 
@@ -26,8 +20,6 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
     private TextView txt_day, txt_date, txt_time, txt_timeZone, txt_workoutName, txt_exerciseName, txt_BMI_point,exercise_detailBtt, txt_bmiStatus, btt_goWK, BMI_btt;
     private Calendar realTime_data;
     private LinearLayout btt_GooglePlay;
-    private TimeZone tz;
-    private DataBaseHelper myDB;
     private ArrayList<String> dateInfoList = new ArrayList<String>();
     private ArrayList<String> dateWKNameList = new ArrayList<String>();
     private SharedPreferences getData;
@@ -55,56 +47,15 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
         BMI_btt = findViewById(R.id.BMI_btt);
         btt_GooglePlay = findViewById(R.id.btt_GooglePlay);
 
-        tz = TimeZone.getDefault();
-        realTime_data = Calendar.getInstance();
-        // raw date format
-        String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(realTime_data.getTime());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
-        String time = simpleDateFormat.format(realTime_data.getTime());
-
-        // convert to the needed format
-        int n = 0;
-        for(int x = 0; x < currentDate.length(); x++){
-            if(currentDate.charAt(x) == 44){
-                n = x;
-                break;
-            }
-        }
-        String nameofDay = currentDate.substring(0, n);
-        Helper.setCurrentDayNameString(nameofDay);
-        String subDate = currentDate.substring(n+1, currentDate.length());
-        String year = subDate.substring(subDate.length()-2);
-        // Update Helper class
-        Helper.setCurrentYear(year);
-        String month = "";
-        for(int x = 1; x < subDate.length(); x++){
-            if(subDate.charAt(x) != 32){
-                month += subDate.charAt(x);
-            }else{
-                break;
-            }
-        }
-        Helper.setCurrentMonth(month);
-
-        txt_day.setText(nameofDay);
-        txt_date.setText(subDate);
-        txt_time.setText(time);
-        txt_timeZone.setText(tz.getID());
+        // setting up views
+        txt_day.setText(Helper.getCurrentDayNameString());
+        txt_date.setText(Helper.subDate);
+        txt_time.setText(Helper.timeString);
+        txt_timeZone.setText(Helper.timeZone.getID());
         txt_exerciseName.setText(RAM.read_exerciseNameAt(RAM.randomIndex));
 
-        // read from database to array list
-        myDB = new DataBaseHelper(Home.this);
-        Cursor cursor = myDB.readAllDate();
-        if(cursor.getCount() == 0){
-            //None
-        }else{
-            while(cursor.moveToNext()){
-                dateInfoList.add(cursor.getString(1));
-                dateWKNameList.add(cursor.getString(2));
-            }
-        }
         // set up today workout name
-        int currentDay = Integer.parseInt(Helper.getCurrentDay(currentDate));
+        int currentDay = Integer.parseInt(Helper.getCurrentDay(Helper.currentDate));
         for(int x = 0; x < dateInfoList.size(); x++){
             if(dateInfoList.get(x).substring(2).equalsIgnoreCase(Helper.getCurrentMonthString() + currentDay)){
                 txt_workoutName.setText(dateWKNameList.get(x));
@@ -112,21 +63,7 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
                 txt_workoutName.setText("REST DAY!");
             }
         }
-        //
-        //
-        Helper.currentDayInteger = currentDay;
-        String yearString = "ERROR";
-        String monthString = "ERROR";
-        String dateString = "ERROR";
-        for(int x = 0; x < dateInfoList.size(); x++) {
-            yearString = Helper.getCurrentYear();
-            monthString = Helper.getCurrentMonthString();
-            dateString = String.valueOf(Helper.currentDayInteger);
-            if (dateString.length() == 1) {
-                dateString = "0" + dateString;
-            }
-        }
-        Helper.currentDateString = yearString + monthString + dateString;
+
         // set up BMI point
         getData = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
         editData = getData.edit();
@@ -141,35 +78,6 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
 
         txt_BMI_point.setText(String.valueOf("BMI: " + String.format("%.1f", BMI_number)));
         Helper.tempBMI_value = "BMI: " + String.format("%.1f", BMI_number);
-        /*if(BMI_number < 17){
-            txt_bmiStatus.setText("Current Condition: THIN");
-            Helper.tempBMI_status = "TOO_THIN";
-        }else if(BMI_number < 18.5){
-            txt_bmiStatus.setText("Current Condition: UNDER_WEIGHT");
-            Helper.tempBMI_status = "UNDER_WEIGHT";
-        }else if(BMI_number < 25){
-            txt_bmiStatus.setText("Current Condition: STANDARD FIT");
-            Helper.tempBMI_status = "STANDARD FIT";
-        }else if(BMI_number < 30){
-            txt_bmiStatus.setText("Current Condition: OVER_WEIGHT");
-            Helper.tempBMI_status = "OVER_WEIGHT";
-        }else if(BMI_number < 40){
-            txt_bmiStatus.setText("Current Condition: OBESE");
-            Helper.tempBMI_status = "OBESE";
-        }else{
-            txt_bmiStatus.setText("Current Condition: OBESE+");
-            Helper.tempBMI_status = "OBESE+";
-        }*/
-
-        // Folder Report
-        /*Folder folder = new Folder(this);
-        int num = folder.checkTotalDayInterval(Helper.currentDateString);
-        if(num < 7){
-            for(int x = 0; x < num; x++){
-                folder.addMiss(folder.getFillUpLastDateString(x), Helper.currentWkNameString);
-            }
-        }*/
-
 
         // OnClick Listeners
         //
@@ -320,6 +228,4 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
             Toast.makeText(Home.this, "Link Error!", Toast.LENGTH_SHORT).show();
         }
     }
-
-
 }

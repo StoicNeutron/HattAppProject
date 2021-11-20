@@ -2,6 +2,9 @@ package com.samnangthorn.hatt_app10;
 
 import java.util.ArrayList;
 
+/*
+Temp class for storing database data for fast access
+ */
 public class RAM {
 
     // exercise_DB
@@ -10,7 +13,11 @@ public class RAM {
     private static ArrayList<String> subMuscle_List = new ArrayList<String>();
     private static ArrayList<String> exerciseDescription_List = new ArrayList<String>();
     public static int randomIndex;
+    // schedule_DB
+    private static ArrayList<String> dateInfoList = new ArrayList<String>();
+    private static ArrayList<String> dateWKNameList = new ArrayList<String>();
 
+    // exercise_DB
     // write methods (input and update)
     public static void write_exerciseName(String eName){
         exerciseName_List.add(eName);
@@ -27,7 +34,17 @@ public class RAM {
     public static void write_exerciseDescription(String des){
         exerciseDescription_List.add(des);
     }
+    // schedule_DB
+    // write methods (input and update)
+    public static void write_dateInfoList(String inputDateInfo){
+        dateInfoList.add(inputDateInfo);
+    }
 
+    public static void write_dateWKNameList(String inputDateWKNameList){
+        dateWKNameList.add(inputDateWKNameList);
+    }
+
+    // exercise_DB
     // read methods (access and view)
     public static ArrayList read_exerciseName(){
         return exerciseName_List;
@@ -59,6 +76,12 @@ public class RAM {
 
     public static String read_exerciseDescriptionAt(int index){
         return exerciseDescription_List.get(index);
+    }
+
+    // schedule_DB
+    // read methods (access and view)
+    public static int read_dateInfoList_size(){
+        return dateInfoList.size();
     }
 
     // other methods
