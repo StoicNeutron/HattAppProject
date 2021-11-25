@@ -16,6 +16,8 @@ public class RAM {
     // schedule_DB
     private static ArrayList<String> dateInfoList = new ArrayList<String>();
     private static ArrayList<String> dateWKNameList = new ArrayList<String>();
+    private static ArrayList<String> statusList = new ArrayList<String>();
+    private static ArrayList<String> noteList = new ArrayList<String>();
 
     // exercise_DB
     // write methods (input and update)
@@ -34,15 +36,18 @@ public class RAM {
     public static void write_exerciseDescription(String des){
         exerciseDescription_List.add(des);
     }
+
     // schedule_DB
     // write methods (input and update)
-    public static void write_dateInfoList(String inputDateInfo){
+    public static void write_dateInfo(String inputDateInfo){
         dateInfoList.add(inputDateInfo);
     }
 
-    public static void write_dateWKNameList(String inputDateWKNameList){
-        dateWKNameList.add(inputDateWKNameList);
-    }
+    public static void write_dateWKName(String inputDateWKNameList){ dateWKNameList.add(inputDateWKNameList); }
+
+    public static void write_status(String status){ statusList.add(status); }
+
+    public static void write_note(String note){ noteList.add(note); }
 
     // exercise_DB
     // read methods (access and view)
@@ -82,6 +87,12 @@ public class RAM {
     // read methods (access and view)
     public static int read_dateInfoList_size(){
         return dateInfoList.size();
+    }
+    public static ArrayList<String> get_dateInfoList_arrayList(){
+        return dateInfoList;
+    }
+    public static ArrayList<String> get_dateWKNameList_arrayList(){
+        return dateWKNameList;
     }
 
     // other methods

@@ -19,7 +19,7 @@ public class Processing extends AppCompatActivity {
     private DataBaseHelper myDB;
     private Button p1,p2,p3;
     private TimeZone timezone;
-    private Calendar realTime_data;
+    private Calendar date_n_time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,66 +30,29 @@ public class Processing extends AppCompatActivity {
         p2 = findViewById(R.id.p2);
         p3 = findViewById(R.id.p3);
 
+        // p1
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 // query exercises_DATA from the database to RAM
+                // query schedule_DATA from the database to RAM
                 myDB = new DataBaseHelper(Processing.this);
+                // store to RAM class
+                transferExercisesDataToArrayList();
+                transferScheduleDataToArrayList();
                 // range of random int (0 - ArrayList size)
                 RAM.randomIndex = (int) (Math.random() * (RAM.getList_length()));
-                // store to RAM class
-                transferToArrayList();
 
-                // read from database to array list
-                myDB = new DataBaseHelper(Processing.this);
-                Cursor cursor = myDB.readAllDate();
-                if(cursor.getCount() == 0){
-                    //None
-                }else{
-                    while(cursor.moveToNext()){
-                        RAM.write_dateInfoList(cursor.getString(1));
-                        RAM.write_dateWKNameList(cursor.getString(2));
-                    }
-                }
                 p1.setBackground(getDrawable(R.drawable.button_bg_blue));
 
+                // p2
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        // retrieve date and time data
-                        timezone = TimeZone.getDefault();
-                        Helper.timeZone = timezone;
-                        realTime_data = Calendar.getInstance();
+                        // gathering and store (date and time) data
+                        storing_date_time_timeZone_toHelperClass();
                         // raw date format
-                        String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(realTime_data.getTime());
-                        Helper.currentDate = currentDate;
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
-                        String time = simpleDateFormat.format(realTime_data.getTime());
-                        Helper.timeString = time;
-                        // convert to the needed format
-                        int n = 0;
-                        for(int x = 0; x < currentDate.length(); x++){
-                            if(currentDate.charAt(x) == 44){
-                                n = x;
-                                break;
-                            }
-                        }
-                        String nameOfDay = currentDate.substring(0, n);
-                        Helper.setCurrentDayNameString(nameOfDay);
-                        String subDate = currentDate.substring(n+1, currentDate.length());
-                        Helper.subDate = subDate;
-                        String year = subDate.substring(subDate.length()-2);
-                        // Update Helper class
-                        Helper.setCurrentYear(year);
-                        String month = "";
-                        for(int x = 1; x < subDate.length(); x++){
-                            if(subDate.charAt(x) != 32){
-                                month += subDate.charAt(x);
-                            }else{
-                                break;
-                            }
-                        }
-                        Helper.setCurrentMonth(month);
+
                         p2.setBackground(getDrawable(R.drawable.button_bg_blue));
 
                         Helper.currentDayInteger = Integer.parseInt(Helper.getCurrentDay(Helper.currentDate));;
@@ -106,6 +69,7 @@ public class Processing extends AppCompatActivity {
                         }
                         Helper.currentDateString = yearString + monthString + dateString;
 
+                        //p3
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
@@ -114,17 +78,17 @@ public class Processing extends AppCompatActivity {
                                 finish();
 
                             }
-                        },600);
+                        },400);
                     }
-                },600);
+                },400);
             }
-        },600);
+        },400);
 
     }
 
     // method
 
-    private void transferToArrayList(){
+    private void transferExercisesDataToArrayList(){
         Cursor cursor = myDB.readAllAtr();
         if(cursor.getCount() == 0){
             //None
@@ -136,6 +100,57 @@ public class Processing extends AppCompatActivity {
                 RAM.write_exerciseDescription(cursor.getString(4));
             }
         }
+    }
+
+    private void transferScheduleDataToArrayList(){
+        Cursor cursor = myDB.readAllDate();
+        if(cursor.getCount() == 0){
+            //None
+        }else{
+            while(cursor.moveToNext()){
+                RAM.write_dateInfo(cursor.getString(1));
+                RAM.write_dateWKName(cursor.getString(2));
+                RAM.write_status(cursor.getString(3));
+                RAM.write_note(cursor.getString(4));
+            }
+        }
+    }
+
+    private void storing_date_time_timeZone_toHelperClass(){
+        timezone = TimeZone.getDefault();
+        Helper.timeZone = timezone;
+        date_n_time = Calendar.getInstance();
+        String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(date_n_time.getTime());
+        Helper.currentDate = currentDate;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
+        String time = simpleDateFormat.format(date_n_time.getTime());
+        Helper.timeString = time;
+        // convert to the needed format
+        //start//
+        int n = 0;
+        for(int x = 0; x < currentDate.length(); x++){
+            if(currentDate.charAt(x) == 44){
+                n = x;
+                break;
+            }
+        }
+        String nameOfDay = currentDate.substring(0, n);
+        Helper.currentDayNameString = nameOfDay;
+        String subDate = currentDate.substring(n+1);
+        Helper.subDate = subDate;
+        String yearString = subDate.substring(subDate.length()-2);
+        Helper.currentYear = yearString;
+        //end//
+
+        String month = "";
+        for(int x = 1; x < subDate.length(); x++){
+            if(subDate.charAt(x) != 32){
+                month += subDate.charAt(x);
+            }else{
+                break;
+            }
+        }
+        Helper.currentMonth = month;
     }
 
     private void open_HomeLayout() {

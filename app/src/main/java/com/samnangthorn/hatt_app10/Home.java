@@ -47,20 +47,22 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
         BMI_btt = findViewById(R.id.BMI_btt);
         btt_GooglePlay = findViewById(R.id.btt_GooglePlay);
 
-        // setting up views
+        // setting up date, time and timezone views
         txt_day.setText(Helper.getCurrentDayNameString());
         txt_date.setText(Helper.subDate);
         txt_time.setText(Helper.timeString);
         txt_timeZone.setText(Helper.timeZone.getID());
+        // setting up discover new exercise view
         txt_exerciseName.setText(RAM.read_exerciseNameAt(RAM.randomIndex));
-
         // set up today workout name
         int currentDay = Integer.parseInt(Helper.getCurrentDay(Helper.currentDate));
-        for(int x = 0; x < dateInfoList.size(); x++){
-            if(dateInfoList.get(x).substring(2).equalsIgnoreCase(Helper.getCurrentMonthString() + currentDay)){
-                txt_workoutName.setText(dateWKNameList.get(x));
+        for(int x = 0; x < RAM.get_dateInfoList_arrayList().size(); x++){
+            if(RAM.get_dateInfoList_arrayList().get(x).substring(2).equalsIgnoreCase(Helper.getCurrentMonthString() + currentDay)){
+                txt_workoutName.setText(RAM.get_dateWKNameList_arrayList().get(x));
             }else{
-                txt_workoutName.setText("REST DAY!");
+                if(txt_workoutName.getText().toString().equalsIgnoreCase("REST DAY!")){
+                    txt_workoutName.setText("REST DAY!");
+                }
             }
         }
 

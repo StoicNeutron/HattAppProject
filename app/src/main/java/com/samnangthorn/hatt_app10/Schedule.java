@@ -2,7 +2,6 @@ package com.samnangthorn.hatt_app10;
 
 import androidx.annotation.IdRes;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
