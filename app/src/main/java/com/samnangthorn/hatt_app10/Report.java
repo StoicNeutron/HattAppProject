@@ -11,11 +11,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.ads.nativetemplates.NativeTemplateStyle;
+import com.google.android.ads.nativetemplates.TemplateView;
+import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.nativead.NativeAd;
 
 public class Report extends AppCompatActivity {
 
@@ -66,10 +70,38 @@ public class Report extends AppCompatActivity {
             }
         });
 
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-        //
+        //MobileAds.initialize(this);
+        AdLoader adLoader = new AdLoader.Builder(Report.this, "ca-app-pub-9354138576649544/6820371324")
+                .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
+                    @Override
+                    public void onNativeAdLoaded(NativeAd nativeAd) {
+                        NativeTemplateStyle styles = new
+                                NativeTemplateStyle.Builder().withMainBackgroundColor(null).build();
+                        TemplateView template = findViewById(R.id.my_template);
+                        template.setStyles(styles);
+                        template.setNativeAd(nativeAd);
+
+                    }
+                })
+                .build();
+
+        adLoader.loadAd(new AdRequest.Builder().build());
+
+        AdLoader adLoader2 = new AdLoader.Builder(Report.this, "ca-app-pub-9354138576649544/1664263478")
+                .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
+                    @Override
+                    public void onNativeAdLoaded(NativeAd nativeAd2) {
+                        NativeTemplateStyle styles = new
+                                NativeTemplateStyle.Builder().withMainBackgroundColor(null).build();
+                        TemplateView template = findViewById(R.id.my_template2);
+                        template.setStyles(styles);
+                        template.setNativeAd(nativeAd2);
+
+                    }
+                })
+                .build();
+
+        adLoader2.loadAd(new AdRequest.Builder().build());
 
         btt_home.setOnClickListener(new View.OnClickListener() {
             @Override

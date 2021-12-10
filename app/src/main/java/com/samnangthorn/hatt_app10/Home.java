@@ -1,29 +1,48 @@
 package com.samnangthorn.hatt_app10;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.ads.nativetemplates.NativeTemplateStyle;
+import com.google.android.ads.nativetemplates.TemplateView;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.OnUserEarnedRewardListener;
+import com.google.android.gms.ads.nativead.NativeAd;
+import com.google.android.gms.ads.nativead.NativeAdOptions;
+import com.google.android.gms.ads.rewarded.RewardItem;
+import com.google.android.gms.ads.rewarded.RewardedAd;
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Home extends AppCompatActivity implements RVAdapter.onExeClickListener{
 
     private ImageView btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting;
-    private TextView txt_day, txt_date, txt_time, txt_timeZone, txt_workoutName, txt_exerciseName, txt_BMI_point,exercise_detailBtt, txt_bmiStatus, btt_goWK, BMI_btt;
-    private Calendar realTime_data;
-    private LinearLayout btt_GooglePlay;
-    private ArrayList<String> dateInfoList = new ArrayList<String>();
-    private ArrayList<String> dateWKNameList = new ArrayList<String>();
+    private TextView txt_day, txt_date, txt_time, txt_timeZone, txt_workoutName, txt_exerciseName, txt_BMI_point,exercise_detailBtt, txt_bmiStatus, btt_goWK, BMI_btt, userName;
+    private LinearLayout btt_GooglePlay, btt_cloudSave, btt_website;
     private SharedPreferences getData;
     private SharedPreferences.Editor editData;
+    private RewardedAd mRewardedAd;
+    private final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +65,11 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
         exercise_detailBtt = findViewById(R.id.exercise_detailBtt);
         BMI_btt = findViewById(R.id.BMI_btt);
         btt_GooglePlay = findViewById(R.id.btt_GooglePlay);
+        btt_cloudSave = findViewById(R.id.btt_cloudSave);
+        userName = findViewById(R.id.userName);
+        btt_website = findViewById(R.id.btt_website);
+
+
 
         // setting up date, time and timezone views
         txt_day.setText(Helper.getCurrentDayNameString());
@@ -56,12 +80,17 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
         txt_exerciseName.setText(RAM.read_exerciseNameAt(RAM.randomIndex));
         // set up today workout name
         int currentDay = Integer.parseInt(Helper.getCurrentDay(Helper.currentDate));
+        String currentDayString = String.valueOf(currentDay);
+        if(currentDay < 10){
+            currentDayString = "0" + currentDayString;
+        }
         for(int x = 0; x < RAM.get_dateInfoList_arrayList().size(); x++){
-            if(RAM.get_dateInfoList_arrayList().get(x).substring(2).equalsIgnoreCase(Helper.getCurrentMonthString() + currentDay)){
+            System.out.println("peaks :" + Helper.getCurrentMonthString() + currentDay);
+            if(RAM.get_dateInfoList_arrayList().get(x).substring(2).equalsIgnoreCase(Helper.getCurrentMonthString() + currentDayString)){
                 txt_workoutName.setText(RAM.get_dateWKNameList_arrayList().get(x));
             }else{
                 if(txt_workoutName.getText().toString().equalsIgnoreCase("REST DAY!")){
-                    txt_workoutName.setText("REST DAY!");
+                    txt_workoutName.setText("REST DAY");
                 }
             }
         }
@@ -69,6 +98,7 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
         // set up BMI point
         getData = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
         editData = getData.edit();
+        userName.setText(getData.getString("user_name", "User"));
         double BMI_number;
         // case unit is lb and inches
         if(getData.getString("unit", "ERROR").equalsIgnoreCase("US")){
@@ -80,6 +110,66 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
 
         txt_BMI_point.setText(String.valueOf("BMI: " + String.format("%.1f", BMI_number)));
         Helper.tempBMI_value = "BMI: " + String.format("%.1f", BMI_number);
+
+        //Ads Loader
+        /*AdLoader adLoader = new AdLoader.Builder(this, "ca-app-pub-9354138576649544/6539393625")
+                .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
+                    @Override
+                    public void onNativeAdLoaded(NativeAd nativeAd) {
+                        // Show the ad.
+                        //ColorDrawable background = null;
+                        NativeTemplateStyle styles = new NativeTemplateStyle.Builder().withMainBackgroundColor(null).build();
+                        TemplateView template = findViewById(R.id.my_template);
+                        template.setStyles(styles);
+                        template.setNativeAd(nativeAd);
+                    }
+                })
+                .withAdListener(new AdListener() {
+                    @Override
+                    public void onAdFailedToLoad(LoadAdError adError) {
+
+                    }
+                })
+                .withNativeAdOptions(new NativeAdOptions.Builder()
+                        // Methods in the NativeAdOptions.Builder class can be
+                        // used here to specify individual options settings.
+                        .build())
+                .build();*/
+        // End of Ads loader
+        MobileAds.initialize(this);
+        AdLoader adLoader = new AdLoader.Builder(Home.this, "ca-app-pub-9354138576649544/6539393625")
+                .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
+                    @Override
+                    public void onNativeAdLoaded(NativeAd nativeAd) {
+                        NativeTemplateStyle styles = new
+                                NativeTemplateStyle.Builder().withMainBackgroundColor(null).build();
+                        TemplateView template = findViewById(R.id.my_template);
+                        template.setStyles(styles);
+                        template.setNativeAd(nativeAd);
+
+                    }
+                })
+                .build();
+
+        adLoader.loadAd(new AdRequest.Builder().build());
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        RewardedAd.load(this, "ca-app-pub-3940256099942544/5224354917",
+                adRequest, new RewardedAdLoadCallback() {
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error.
+                        Log.d(TAG, loadAdError.getMessage());
+                        mRewardedAd = null;
+                    }
+
+                    @Override
+                    public void onAdLoaded(@NonNull RewardedAd rewardedAd) {
+                        mRewardedAd = rewardedAd;
+                        Log.d(TAG, "Ad was loaded.");
+                    }
+                });
 
         // OnClick Listeners
         //
@@ -174,6 +264,34 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
             }
         });
 
+        btt_cloudSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (mRewardedAd != null) {
+                    Activity activityContext = Home.this;
+                    mRewardedAd.show(activityContext, new OnUserEarnedRewardListener() {
+                        @Override
+                        public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
+                            // Handle the reward.
+                            Log.d(TAG, "The user earned the reward.");
+                            int rewardAmount = rewardItem.getAmount();
+                            String rewardType = rewardItem.getType();
+                        }
+                    });
+                } else {
+                    Log.d(TAG, "The rewarded ad wasn't ready yet.");
+                }
+            }
+        });
+
+        btt_website.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openGooglePlay();
+            }
+        });
+
     }
 
     // methods
@@ -225,6 +343,15 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
     private void openGooglePlay(){
         try{
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.samnangthorn.hatt_app10"));
+            startActivity(intent);
+        }catch(ActivityNotFoundException e){
+            Toast.makeText(Home.this, "Link Error!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void openWebsite(){
+        try{
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://samnangthorn.website/hattapp"));
             startActivity(intent);
         }catch(ActivityNotFoundException e){
             Toast.makeText(Home.this, "Link Error!", Toast.LENGTH_SHORT).show();
