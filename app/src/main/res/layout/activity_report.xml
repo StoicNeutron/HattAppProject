@@ -761,7 +761,7 @@
                 android:padding="10dp"
                 android:orientation="vertical"
                 android:layout_weight="1"
-                android:background="@drawable/view_bg_blue">
+                android:background="@drawable/button_home_blue">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -790,7 +790,7 @@
                 android:padding="10dp"
                 android:orientation="vertical"
                 android:layout_weight="1"
-                android:background="@drawable/view_bg_blue">
+                android:background="@drawable/button_home_green">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -818,7 +818,7 @@
                 android:layout_marginStart="5dp"
                 android:orientation="vertical"
                 android:layout_weight="1"
-                android:background="@drawable/view_bg_blue">
+                android:background="@drawable/button_home_purple">
 
                 <TextView
                     android:layout_width="wrap_content"

@@ -36,9 +36,9 @@ import java.util.Calendar;
 
 public class Home extends AppCompatActivity implements RVAdapter.onExeClickListener{
 
-    private ImageView btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting;
+    private ImageView btt_setting;
     private TextView txt_day, txt_date, txt_time, txt_timeZone, txt_workoutName, txt_exerciseName, txt_BMI_point,exercise_detailBtt, txt_bmiStatus, btt_goWK, BMI_btt, userName;
-    private LinearLayout btt_GooglePlay, btt_cloudSave, btt_website;
+    private LinearLayout btt_GooglePlay, btt_cloudSave, btt_website, btt_report, btt_exercise, btt_schedule, btt_timer;
     private SharedPreferences getData;
     private SharedPreferences.Editor editData;
     private RewardedAd mRewardedAd;

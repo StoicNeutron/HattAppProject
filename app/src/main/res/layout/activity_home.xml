@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@color/white"
     tools:context=".Home">
 
     <View
         android:id="@+id/view_top"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@color/white"
+        android:background="@color/white_opt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -61,19 +61,9 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_user" />
 
-    <View
-        android:id="@+id/view_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="45dp"
         android:layout_marginTop="100dp"
         app:layout_constraintBottom_toTopOf="@+id/view_bottom"
         app:layout_constraintEnd_toEndOf="parent"
@@ -172,166 +162,192 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:layout_marginTop="20dp"
-            android:orientation="horizontal"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:gravity="center">
+            android:layout_marginBottom="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="vertical"
+            android:background="@drawable/outline_gray_dark"
+            android:padding="3dp"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:padding="10dp"
+                android:layout_height="200dp"
                 android:orientation="vertical"
-                android:layout_weight="1"
-                android:background="@drawable/outline_gray_dark">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Today's Workout"
-                    android:textStyle="bold"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:id="@+id/txt_workoutName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:textAllCaps="true"
-                    android:text="REST DAY!"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:textSize="18dp"
-                    android:textColor="@color/black" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/btt_goWK"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="3"
-                android:background="@drawable/view_bg_blue"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="START"
-                android:textSize="18dp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/exercise_detailBtt"
-                android:layout_weight="3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="10dp"
-                android:text="DETAIL"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                android:background="@drawable/view_bg_blue"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:padding="10dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:orientation="vertical"
-                android:layout_weight="1"
-                android:background="@drawable/outline_gray_dark">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Discover new Exercises"
-                    android:textStyle="bold"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:id="@+id/txt_exerciseName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="Exercise Name"
-                    android:textAllCaps="true"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:textSize="18dp"
-                    android:textColor="@color/black" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:gravity="center">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/outline_gray_dark"
-                android:orientation="vertical"
+                android:background="@drawable/today_workout_bg"
                 android:padding="10dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Body Mass Index"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/txt_BMI_point"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:gravity="center"
-                    android:text="21.2"
-                    android:textAllCaps="true"
-                    android:textColor="@color/black"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="SCHEDULE TODAY'S WORKOUT"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txt_workoutName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:textAllCaps="true"
+                        android:text="REST DAY"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:textSize="22dp"
+                        android:textColor="@color/white"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp"
+                        android:layout_marginEnd="50dp"
+                        android:textColor="@color/white"
+                        android:gravity="center"
+                        android:textSize="12dp"
+                        android:text="No workout assign for Today! Head to Schedule Layout to assign and mange workout."/>
+
+                    <Button
+                        android:id="@+id/btt_goWK"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:background="@drawable/view_bg_blue"
+                        android:text="GO"/>
+
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/BMI_btt"
-                android:layout_weight="3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="DETAIL"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                android:background="@drawable/view_bg_blue"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:padding="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="250dp"
+                android:background="@drawable/outline_gray_dark"
+                android:layout_marginEnd="10dp"
+                android:padding="3dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/dis_bg"
+                    android:padding="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="70dp"
+                        android:text="DISCOVERY\nNEW EXERCISE"
+                        android:gravity="end"
+                        android:textColor="@color/white"
+                        android:layout_gravity="end"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/txt_exerciseName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="65dp"
+                        android:textAllCaps="true"
+                        android:text="EXERCISE NAME"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:layout_gravity="center"/>
+
+                    <Button
+                        android:id="@+id/exercise_detailBtt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:background="@drawable/view_bg_blue"
+                        android:text="VIEW"/>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="250dp"
+                android:layout_marginStart="10dp"
+                android:padding="3dp"
+                android:background="@drawable/outline_gray_dark"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:gravity="end"
+                    android:background="@drawable/bmi_bg">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="YOUR\nBODY MASS INDEX"
+                        android:layout_marginTop="10dp"
+                        android:textAlignment="viewEnd"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"/>
+
+                    <TextView
+                        android:id="@+id/txt_BMI_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="115dp"
+                        android:text="18.3"
+                        android:layout_gravity="center_horizontal"
+                        android:textStyle="bold"
+                        android:textSize="22dp"
+                        android:textColor="@color/white"/>
+
+                    <Button
+                        android:id="@+id/BMI_btt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:background="@drawable/view_bg_blue"
+                        android:text="DETAIL"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -339,23 +355,128 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:padding="20dp"
             android:orientation="horizontal"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:gravity="center">
+            android:background="@color/white_opt"
+            android:gravity="center_horizontal">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:id="@+id/btt_report"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:padding="3dp"
                 android:orientation="vertical"
+                android:padding="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/outline_gray_dark">
+                android:background="@color/orange">
 
-                <com.google.android.ads.nativetemplates.TemplateView android:id="@+id/my_template"
-                app:gnt_template_type="@layout/gnt_small_template_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                <ImageView
+
+                    android:layout_gravity="center"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:textStyle="bold"
+                    android:src="@drawable/report_pic"
+                    android:gravity="center"
+                    android:textSize="18dp"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Report"
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:textAlignment="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btt_exercise"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:layout_weight="1"
+                android:background="@color/purple_200">
+
+                <ImageView
+
+                    android:layout_gravity="center"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:textStyle="bold"
+                    android:src="@drawable/dumbbell_pic"
+                    android:gravity="center"
+                    android:textSize="18dp"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Exercises"
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:textAlignment="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btt_schedule"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:layout_weight="1"
+                android:background="@color/yellow_opt">
+
+                <ImageView
+
+                    android:layout_gravity="center"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:textStyle="bold"
+                    android:src="@drawable/calendar_pic"
+                    android:gravity="center"
+                    android:textSize="18dp"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Schedule"
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:textAlignment="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btt_timer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:layout_weight="1"
+                android:background="@color/teal_200">
+
+                <ImageView
+
+                    android:layout_gravity="center"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:textStyle="bold"
+                    android:src="@drawable/timmer_pic"
+                    android:gravity="center"
+                    android:textSize="18dp"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Timmer"
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:textAlignment="center"/>
 
             </LinearLayout>
 
@@ -365,15 +486,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
             android:padding="10dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/outline_gray_dark">
+
+            android:background="@color/white">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
                 android:orientation="horizontal"
                 android:gravity="center">
 
@@ -381,18 +502,18 @@
                     android:id="@+id/btt_GooglePlay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
-                    android:padding="5dp"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:padding="3dp"
+                    android:layout_marginStart="16dp"
                     android:orientation="vertical"
                     android:layout_weight="1"
-                    android:background="@drawable/view_bg_blue">
+                    android:background="@drawable/button_home_blue">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="RATE US ON"
-                        android:textSize="10dp"
+                        android:text="CHECK UPDATE"
+                        android:textSize="8dp"
                         android:textColor="@color/white"
                         android:textStyle="bold"
                         android:layout_gravity="center"/>
@@ -400,11 +521,11 @@
                     <ImageView
 
                         android:layout_width="match_parent"
-                        android:layout_height="35dp"
+                        android:layout_height="30dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:textStyle="bold"
-                        android:src="@drawable/ic_playstore"
+                        android:src="@drawable/ic_update_hw"
                         android:gravity="center"
                         android:textSize="18dp"
                         android:textColor="@color/white" />
@@ -415,18 +536,18 @@
                     android:id="@+id/btt_website"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:padding="5dp"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="18dp"
+                    android:padding="3dp"
+                    android:layout_marginStart="18dp"
                     android:orientation="vertical"
                     android:layout_weight="1"
-                    android:background="@drawable/view_bg_blue">
+                    android:background="@drawable/button_home_green">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="WEBSITE"
-                        android:textSize="10dp"
+                        android:textSize="8dp"
                         android:textColor="@color/white"
                         android:textStyle="bold"
                         android:layout_gravity="center"/>
@@ -434,7 +555,7 @@
                     <ImageView
 
                         android:layout_width="match_parent"
-                        android:layout_height="35dp"
+                        android:layout_height="30dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:textStyle="bold"
@@ -449,18 +570,18 @@
                     android:id="@+id/btt_cloudSave"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:padding="5dp"
-                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="16dp"
+                    android:padding="3dp"
+                    android:layout_marginStart="20dp"
                     android:orientation="vertical"
                     android:layout_weight="1"
-                    android:background="@drawable/view_bg_blue">
+                    android:background="@drawable/button_home_purple">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="CLOUD SAVE"
-                        android:textSize="10dp"
+                        android:textSize="8dp"
                         android:textColor="@color/white"
                         android:textStyle="bold"
                         android:layout_gravity="center"/>
@@ -468,7 +589,7 @@
                     <ImageView
 
                         android:layout_width="match_parent"
-                        android:layout_height="35dp"
+                        android:layout_height="30dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:textStyle="bold"
@@ -479,6 +600,24 @@
 
                 </LinearLayout>
 
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:padding="3dp"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:background="@drawable/outline_gray_dark">
+
+                <com.google.android.ads.nativetemplates.TemplateView android:id="@+id/my_template"
+                    app:gnt_template_type="@layout/gnt_small_template_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
             </LinearLayout>
 
         </LinearLayout>
@@ -488,55 +627,5 @@
 
 
     </ScrollView>
-
-    <ImageView
-        android:id="@+id/btt_home"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/home_black" />
-
-    <ImageView
-        android:id="@+id/btt_report"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginStart="25dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/report_gray" />
-
-    <ImageView
-        android:id="@+id/btt_timer"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/timer_gray" />
-
-    <ImageView
-        android:id="@+id/btt_exercise"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btt_home"
-        app:layout_constraintStart_toEndOf="@+id/btt_report"
-        app:srcCompat="@drawable/dummbell_gray" />
-
-    <ImageView
-        android:id="@+id/btt_schedule"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btt_timer"
-        app:layout_constraintStart_toEndOf="@+id/btt_home"
-        app:srcCompat="@drawable/schedule_gray" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

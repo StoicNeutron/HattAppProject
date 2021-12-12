@@ -190,11 +190,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
-                    android:background="@drawable/outline_black"
+                    android:background="@drawable/button_home_blue"
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="CHOOSE WORKOUT"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="18dp" />
 
                 <ImageView
@@ -425,7 +425,7 @@
                 android:layout_marginTop="30dp"
                 android:layout_gravity="center"
                 android:background="@drawable/view_bg_blue_outline"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:orientation="vertical">
 
                 <TextView
