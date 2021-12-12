@@ -104,6 +104,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
+    public void updateStatusOfAtt(String dateString){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN2_3, "C");
+        db.update(TABLE2_NAME, contentValues, "date = ?", new String[] { dateString });
+    }
+
     public void clearAllWorkout(){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "DELETE FROM " + TABLE2_NAME + " WHERE " + COLUMN2_1 + " = '" + 22 + "'";

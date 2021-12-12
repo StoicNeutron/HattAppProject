@@ -37,7 +37,7 @@ import java.util.Calendar;
 public class Home extends AppCompatActivity implements RVAdapter.onExeClickListener{
 
     private ImageView btt_setting;
-    private TextView txt_day, txt_date, txt_time, txt_timeZone, txt_workoutName, txt_exerciseName, txt_BMI_point,exercise_detailBtt, txt_bmiStatus, btt_goWK, BMI_btt, userName;
+    private TextView txt_day, txt_date, txt_time, txt_timeZone, txt_workoutName, txt_exerciseName, txt_BMI_point,exercise_detailBtt, greetingTxt, btt_goWK, BMI_btt, userName, txt_wk_DES;
     private LinearLayout btt_GooglePlay, btt_cloudSave, btt_website, btt_report, btt_exercise, btt_schedule, btt_timer;
     private SharedPreferences getData;
     private SharedPreferences.Editor editData;
@@ -68,6 +68,8 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
         btt_cloudSave = findViewById(R.id.btt_cloudSave);
         userName = findViewById(R.id.userName);
         btt_website = findViewById(R.id.btt_website);
+        greetingTxt = findViewById(R.id.greetingTxt);
+        txt_wk_DES = findViewById(R.id.txt_wk_DES);
 
 
 
@@ -76,6 +78,10 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
         txt_date.setText(Helper.subDate);
         txt_time.setText(Helper.timeString);
         txt_timeZone.setText(Helper.timeZone.getID());
+        // setting up welcome message
+        if(Helper.timeString.contains("PM")){
+            greetingTxt.setText("Good Evening,");
+        }
         // setting up discover new exercise view
         txt_exerciseName.setText(RAM.read_exerciseNameAt(RAM.randomIndex));
         // set up today workout name
@@ -88,8 +94,14 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
             System.out.println("peaks :" + Helper.getCurrentMonthString() + currentDay);
             if(RAM.get_dateInfoList_arrayList().get(x).substring(2).equalsIgnoreCase(Helper.getCurrentMonthString() + currentDayString)){
                 txt_workoutName.setText(RAM.get_dateWKNameList_arrayList().get(x));
+                if(RAM.get_statusList_arrayList().get(x).equalsIgnoreCase("IC")){
+                    txt_wk_DES.setText("Status: Not yet Complete. Let finish this workout and get closer to your Goals.");
+                }else{
+                    txt_wk_DES.setText("Congratulation! You have finished your Today's Workout. That's another step closer to your Goals.");
+                    btt_goWK.setVisibility(View.GONE);
+                }
             }else{
-                if(txt_workoutName.getText().toString().equalsIgnoreCase("REST DAY!")){
+                if(txt_workoutName.getText().toString().equalsIgnoreCase("REST DAY")){
                     txt_workoutName.setText("REST DAY");
                 }
             }
@@ -108,8 +120,8 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
             BMI_number = Integer.valueOf(getData.getString("weight", "0")) / Math.pow(Double.valueOf(getData.getString("height", "0")), 2);
         }
 
-        txt_BMI_point.setText(String.valueOf("BMI: " + String.format("%.1f", BMI_number)));
-        Helper.tempBMI_value = "BMI: " + String.format("%.1f", BMI_number);
+        txt_BMI_point.setText(String.valueOf(String.format("%.1f", BMI_number)));
+        Helper.tempBMI_value = String.format("%.1f", BMI_number);
 
         //Ads Loader
         /*AdLoader adLoader = new AdLoader.Builder(this, "ca-app-pub-9354138576649544/6539393625")
@@ -223,7 +235,11 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
         btt_goWK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                open_timerLayout();
+                if(txt_workoutName.getText().toString().equalsIgnoreCase("REST DAY")){
+                    open_scheduleLayout();
+                }else{
+                    open_timerLayout();
+                }
                 transition_animation("right");
             }
         });

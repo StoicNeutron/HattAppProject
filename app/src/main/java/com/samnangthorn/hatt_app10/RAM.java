@@ -94,6 +94,9 @@ public class RAM {
     public static ArrayList<String> get_dateWKNameList_arrayList(){
         return dateWKNameList;
     }
+    public static ArrayList<String> get_statusList_arrayList(){
+        return statusList;
+    }
 
     // other methods
     public static int getList_length(){

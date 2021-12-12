@@ -53,13 +53,13 @@
 
     <ImageView
         android:id="@+id/btt_setting"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="45dp"
-        android:layout_marginEnd="20dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_user" />
+        app:srcCompat="@drawable/profile_men" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -187,7 +187,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="SCHEDULE TODAY'S WORKOUT"
+                        android:text="YOUR TODAY'S WORKOUT"
                         android:textColor="@color/white"
                         android:textStyle="bold"/>
 
@@ -212,6 +212,7 @@
                         android:textColor="@color/white"/>
 
                     <TextView
+                        android:id="@+id/txt_wk_DES"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="50dp"
@@ -264,8 +265,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="70dp"
-                        android:text="DISCOVERY\nNEW EXERCISE"
+                        android:layout_marginTop="10dp"
+                        android:text="DISCOVER\nNEW EXERCISE"
                         android:gravity="end"
                         android:textColor="@color/white"
                         android:layout_gravity="end"
@@ -275,9 +276,10 @@
                         android:id="@+id/txt_exerciseName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="65dp"
+                        android:layout_marginTop="115dp"
                         android:textAllCaps="true"
                         android:text="EXERCISE NAME"
+                        android:textSize="18dp"
                         android:textStyle="bold"
                         android:textColor="@color/white"
                         android:layout_gravity="center"/>
@@ -331,8 +333,9 @@
                         android:layout_marginTop="115dp"
                         android:text="18.3"
                         android:layout_gravity="center_horizontal"
+                        android:textAllCaps="true"
                         android:textStyle="bold"
-                        android:textSize="22dp"
+                        android:textSize="18dp"
                         android:textColor="@color/white"/>
 
                     <Button

@@ -26,9 +26,9 @@ import java.util.TimerTask;
 
 public class TimerLayout extends AppCompatActivity {
 
-    private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_soundSwitch, btt_switch, finished_img, btt_expand;
+    private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_soundSwitch, btt_switch, btt_expand;
     private TextView e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, txt_totalTimer, txt_breakTimer, btt_start, txt_wkName, finished_txt, txt_wkDesTitle, txt_totalSet, txt_totalRep, txt_wkDes;
-    private LinearLayout tapTimer;
+    private LinearLayout tapTimer, finished_img;
     private SharedPreferences getData, getData2;
     private SharedPreferences.Editor editData, editData2;
     private Dialog dialog;
@@ -58,6 +58,7 @@ public class TimerLayout extends AppCompatActivity {
         txt_totalSet = findViewById(R.id.txt_total_set);
         txt_totalRep = findViewById(R.id.txt_total_rep);
         finished_txt =  findViewById(R.id.finished_txt);
+        finished_img = findViewById(R.id.finished_img);
 
         txt_breakTimer = findViewById(R.id.txt_break_timer);
         tapTimer = findViewById(R.id.tap_timer);
@@ -120,7 +121,7 @@ public class TimerLayout extends AppCompatActivity {
         // set up text wk name when exist by schedule
         if( Helper.currentWkNameString == null) {
             for (int x = 0; x < dateInfoList.size(); x++) {
-                if (dateInfoList.get(x).equalsIgnoreCase(Helper.currentDateString)) {
+                if (dateInfoList.get(x).equalsIgnoreCase(Helper.currentDateString) && RAM.get_statusList_arrayList().get(x).equalsIgnoreCase("IC")) {
                     txt_wkName.setText(dateWKNameList.get(x));
                 }
             }
@@ -477,6 +478,8 @@ public class TimerLayout extends AppCompatActivity {
                         for (int x = 0; x < eLists.length; x++) {
                             eLists[x].setVisibility(View.GONE);
                         }
+                        System.out.println("cococo: " + Helper.currentDateString);
+                        myDB.updateStatusOfAtt(Helper.currentDateString);
                         //
                         Helper.timerCurrentState = false;
                         Helper.timerTask.cancel();

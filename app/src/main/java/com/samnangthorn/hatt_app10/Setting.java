@@ -13,19 +13,25 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.ads.nativetemplates.NativeTemplateStyle;
+import com.google.android.ads.nativetemplates.TemplateView;
+import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.nativead.NativeAd;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Setting extends AppCompatActivity {
 
     private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_facebook, btt_youtube;
-    private Button btt_signOut, btt_save;
-    private EditText userName, weight, height, edt_restTime;
-    private TextView email, txt_wUnit, txt_hUnit;
+    private EditText userName;
+    private LinearLayout weight, height, edt_restTime, btt_signOut, unit;
+    private TextView email, txt_restTime, txt_wUnit, txt_hUnit;
     private FirebaseAuth mAuth;
     private FirebaseFirestore firebase_database;
     private RadioButton kg, lb;
@@ -50,14 +56,13 @@ public class Setting extends AppCompatActivity {
         btt_signOut = findViewById(R.id.btt_signOut);
         userName = findViewById(R.id.txt_userName);
         email = findViewById(R.id.txt_userEmail);
-        kg = findViewById(R.id.kg_unit);
-        lb = findViewById(R.id.lb_unit);
         weight = findViewById(R.id.edt_weight);
         height = findViewById(R.id.edt_height);
-        btt_save = findViewById(R.id.btt_save);
-        txt_wUnit = findViewById(R.id.txt_wUnit);
-        txt_hUnit = findViewById(R.id.txt_hUnit);
+        //txt_wUnit = findViewById(R.id.txt_wUnit);
+        //txt_hUnit = findViewById(R.id.txt_hUnit);
         edt_restTime = findViewById(R.id.edt_restTime);
+        txt_restTime = findViewById(R.id.txt_restTime);
+        unit = findViewById(R.id.unit);
 
         // Dialog
         dialog = new Dialog(Setting.this);
@@ -100,13 +105,13 @@ public class Setting extends AppCompatActivity {
         userName.setText(newUserName);
         email.setText(getData.getString("email_address", "ERROR"));
         newWeight = getData.getString("weight", "ERROR");
-        weight.setText(newWeight);
+        //weight.setText(newWeight);
         newHeight = getData.getString("height", "ERROR");
-        height.setText(newHeight);
-        edt_restTime.setText(String.valueOf(getData.getInt("restTimer", 60)));
+        //height.setText(newHeight);
+        txt_restTime.setText(String.valueOf(getData.getInt("restTimer", 60)));
 
         newUnit = getData.getString("unit", "ERROR");
-        if(newUnit.equalsIgnoreCase("NonUS")){
+        /*if(newUnit.equalsIgnoreCase("NonUS")){
             kg.setChecked(true);
             txt_wUnit.setText(" KG");
             txt_hUnit.setText(" M");
@@ -114,7 +119,23 @@ public class Setting extends AppCompatActivity {
             lb.setChecked(true);
             txt_wUnit.setText(" LB");
             txt_hUnit.setText(" F");
-        }
+        }*/
+
+        AdLoader adLoader = new AdLoader.Builder(Setting.this, "ca-app-pub-9354138576649544/5121073006")
+                .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
+                    @Override
+                    public void onNativeAdLoaded(NativeAd nativeAd) {
+                        NativeTemplateStyle styles = new
+                                NativeTemplateStyle.Builder().withMainBackgroundColor(null).build();
+                        TemplateView template = findViewById(R.id.my_template);
+                        template.setStyles(styles);
+                        template.setNativeAd(nativeAd);
+
+                    }
+                })
+                .build();
+
+        adLoader.loadAd(new AdRequest.Builder().build());
 
         // On Click Listeners
         //
@@ -174,7 +195,14 @@ public class Setting extends AppCompatActivity {
             }
         });
 
-        btt_save.setOnClickListener(new View.OnClickListener() {
+        unit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        /*btt_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 boolean saveCondition = false;
@@ -215,9 +243,9 @@ public class Setting extends AppCompatActivity {
                     Toast.makeText(Setting.this, "Saved!", Toast.LENGTH_SHORT).show();
                 }
             }
-        });
+        });*/
 
-        kg.setOnClickListener(new View.OnClickListener() {
+        /*kg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 txt_wUnit.setText(" KG");
@@ -231,7 +259,7 @@ public class Setting extends AppCompatActivity {
                 txt_wUnit.setText(" LB");
                 txt_hUnit.setText(" F");
             }
-        });
+        });*/
     }
 
     // methods
