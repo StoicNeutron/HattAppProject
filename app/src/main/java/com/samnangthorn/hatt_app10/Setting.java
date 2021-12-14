@@ -31,7 +31,7 @@ public class Setting extends AppCompatActivity {
     private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_facebook, btt_youtube;
     private EditText userName;
     private LinearLayout weight, height, edt_restTime, btt_signOut, unit;
-    private TextView email, txt_restTime, txt_wUnit, txt_hUnit;
+    private TextView email, txt_restTime, txt_unit, txt_wUnit, txt_hUnit;
     private FirebaseAuth mAuth;
     private FirebaseFirestore firebase_database;
     private RadioButton kg, lb;
@@ -39,7 +39,7 @@ public class Setting extends AppCompatActivity {
     private SharedPreferences.Editor editData, editData2;
     private Dialog dialog;
     private DataBaseHelper myDB;
-    private String newUserName, newHeight, newWeight, newUnit;
+    private String newUserName, newHeight, newWeight, Unit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +63,7 @@ public class Setting extends AppCompatActivity {
         edt_restTime = findViewById(R.id.edt_restTime);
         txt_restTime = findViewById(R.id.txt_restTime);
         unit = findViewById(R.id.unit);
+        txt_unit = findViewById(R.id.txt_unit);
 
         // Dialog
         dialog = new Dialog(Setting.this);
@@ -110,16 +111,12 @@ public class Setting extends AppCompatActivity {
         //height.setText(newHeight);
         txt_restTime.setText(String.valueOf(getData.getInt("restTimer", 60)));
 
-        newUnit = getData.getString("unit", "ERROR");
-        /*if(newUnit.equalsIgnoreCase("NonUS")){
-            kg.setChecked(true);
-            txt_wUnit.setText(" KG");
-            txt_hUnit.setText(" M");
-        }else{
-            lb.setChecked(true);
-            txt_wUnit.setText(" LB");
-            txt_hUnit.setText(" F");
-        }*/
+        Unit = getData.getString("unit", "ERROR");
+        if(Unit.equalsIgnoreCase("NonUS")) {
+            txt_unit.setText("KG-M");
+        }else if(Unit.equalsIgnoreCase("US")){
+            txt_unit.setText("LB-FT");
+        }
 
         AdLoader adLoader = new AdLoader.Builder(Setting.this, "ca-app-pub-9354138576649544/5121073006")
                 .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
@@ -198,7 +195,19 @@ public class Setting extends AppCompatActivity {
         unit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if(Unit.equalsIgnoreCase("NonUS")) {
+                    editData.putString("unit", "US");
+                    editData.apply();
+                    Toast.makeText(Setting.this, "US Unit Switched", Toast.LENGTH_SHORT).show();
+                    Unit = "US";
+                    txt_unit.setText("LB-FT");
+                }else if(Unit.equalsIgnoreCase("US")){
+                    editData.putString("unit", "NonUS");
+                    editData.apply();
+                    Toast.makeText(Setting.this, "NonUS Unit Switched", Toast.LENGTH_SHORT).show();
+                    Unit = "NonUS";
+                    txt_unit.setText("KG-M");
+                }
             }
         });
 
