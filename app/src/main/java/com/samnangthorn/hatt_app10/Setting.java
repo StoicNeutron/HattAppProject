@@ -1,23 +1,22 @@
 package com.samnangthorn.hatt_app10;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.ads.nativetemplates.NativeTemplateStyle;
 import com.google.android.ads.nativetemplates.TemplateView;
 import com.google.android.gms.ads.AdLoader;
@@ -28,18 +27,18 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Setting extends AppCompatActivity {
 
-    private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_facebook, btt_youtube;
-    private EditText userName;
-    private LinearLayout weight, height, edt_restTime, btt_signOut, unit;
-    private TextView email, txt_restTime, txt_unit, txt_wUnit, txt_hUnit;
+    private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_facebook, btt_youtube, profilePic;
+    private EditText txt_userName;
+    private Button save_btt;
+    private LinearLayout weight, height, edt_restTime, btt_signOut, unit, edt_weight, edt_height;
+    private TextView email, txt_restTime, txt_unit, txt_the_weight, txt_the_height;
     private FirebaseAuth mAuth;
     private FirebaseFirestore firebase_database;
-    private RadioButton kg, lb;
     private SharedPreferences getData, getData2;
     private SharedPreferences.Editor editData, editData2;
-    private Dialog dialog;
+    private Dialog logOut_dialog, weight_dialog, height_dialog, restTime_dialog, profile_dialog;
     private DataBaseHelper myDB;
-    private String newUserName, newHeight, newWeight, Unit;
+    private String newUserName, newHeight, newWeight, Unit, profileMen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,31 +53,40 @@ public class Setting extends AppCompatActivity {
         btt_facebook = findViewById(R.id.btt_facebook);
         btt_youtube = findViewById(R.id.btt_youtube);
         btt_signOut = findViewById(R.id.btt_signOut);
-        userName = findViewById(R.id.txt_userName);
         email = findViewById(R.id.txt_userEmail);
         weight = findViewById(R.id.edt_weight);
         height = findViewById(R.id.edt_height);
-        //txt_wUnit = findViewById(R.id.txt_wUnit);
-        //txt_hUnit = findViewById(R.id.txt_hUnit);
         edt_restTime = findViewById(R.id.edt_restTime);
         txt_restTime = findViewById(R.id.txt_restTime);
         unit = findViewById(R.id.unit);
         txt_unit = findViewById(R.id.txt_unit);
+        edt_weight = findViewById(R.id.edt_weight);
+        edt_height = findViewById(R.id.edt_height);
+        txt_userName = findViewById(R.id.txt_userName);
+        profilePic = findViewById(R.id.profilePic);
+        txt_the_weight = findViewById(R.id.txt_the_weight);
+        txt_the_height = findViewById(R.id.txt_the_height);
+        save_btt = findViewById(R.id.save_btt);
 
-        // Dialog
-        dialog = new Dialog(Setting.this);
-        dialog.setContentView(R.layout.pop_up_dialog);
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.setCancelable(false);
+        getData = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
+        editData = getData.edit();
+        Unit = getData.getString("unit", "ERROR");
+        profileMen = getData.getString("profileMen", "true");
+
+        // Logout Dialog
+        logOut_dialog = new Dialog(Setting.this);
+        logOut_dialog.setContentView(R.layout.pop_up_dialog);
+        logOut_dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        logOut_dialog.setCancelable(false);
 
         TextView btt_cancel, btt_logout;
-        btt_cancel = dialog.findViewById(R.id.pop_btt_cancel);
-        btt_logout = dialog.findViewById(R.id.pop_btt_logout);
+        btt_cancel = logOut_dialog.findViewById(R.id.pop_btt_cancel);
+        btt_logout = logOut_dialog.findViewById(R.id.pop_btt_logout);
 
         btt_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
+                logOut_dialog.dismiss();
             }
         });
 
@@ -98,20 +106,223 @@ public class Setting extends AppCompatActivity {
             }
         });
 
-        getData = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
-        editData = getData.edit();
+        // Weight Dialog
+        weight_dialog = new Dialog(Setting.this);
+        weight_dialog.setContentView(R.layout.weight_picker);
+        weight_dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        weight_dialog.setCancelable(false);
+
+        TextView btt_weightDialog_cancel, btt_weightDialog_save;
+        NumberPicker WeightPicker1, WeightPicker2, WeightPicker3;
+        btt_weightDialog_cancel = weight_dialog.findViewById(R.id.btt_cancel2);
+        btt_weightDialog_save = weight_dialog.findViewById(R.id.btt_save);
+        WeightPicker1 = weight_dialog.findViewById(R.id.WeightPicker1);
+        WeightPicker2 = weight_dialog.findViewById(R.id.WeightPicker2);
+        WeightPicker3 = weight_dialog.findViewById(R.id.WeightPicker3);
+
+        btt_weightDialog_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                weight_dialog.dismiss();
+            }
+        });
+
+        btt_weightDialog_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                int inputWeight1 = WeightPicker1.getValue()*100;
+                int inputWeight2 = WeightPicker2.getValue()*10;
+                int inputWeight3 = WeightPicker3.getValue();
+                String newWeight = String.valueOf(inputWeight1 + inputWeight2 + inputWeight3);
+                editData.putString("weight", newWeight);
+                editData.apply();
+                newWeight = getData.getString("weight", "ERROR");
+                txt_the_weight.setText(newWeight);
+                Toast.makeText(Setting.this, "Saved", Toast.LENGTH_SHORT).show();
+                weight_dialog.dismiss();
+            }
+        });
+
+        if(Unit.equalsIgnoreCase("NonUS")) {
+            WeightPicker1.setMaxValue(2);
+            WeightPicker1.setMinValue(0);
+            WeightPicker1.setValue(0);
+        }else if(Unit.equalsIgnoreCase("US")){
+            WeightPicker1.setMaxValue(6);
+            WeightPicker1.setMinValue(0);
+            WeightPicker1.setValue(1);
+        }
+        WeightPicker2.setMaxValue(9);
+        WeightPicker3.setMaxValue(9);
+
+        // Height Dialog
+        height_dialog = new Dialog(Setting.this);
+        height_dialog.setContentView(R.layout.height_picker);
+        height_dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        height_dialog.setCancelable(false);
+
+        TextView btt_heightDialog_cancel, btt_heightDialog_save;
+        NumberPicker Height_picker1, Height_picker2, Height_picker3;
+        btt_heightDialog_cancel = height_dialog.findViewById(R.id.btt_cancel3);
+        btt_heightDialog_save = height_dialog.findViewById(R.id.btt_save3);
+        Height_picker1 = height_dialog.findViewById(R.id.Height_picker1);
+        Height_picker2 = height_dialog.findViewById(R.id.Height_picker2);
+        Height_picker3 = height_dialog.findViewById(R.id.Height_Picker3);
+
+        btt_heightDialog_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                height_dialog.dismiss();
+            }
+        });
+
+        btt_heightDialog_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                int inputHeight1 = Height_picker1.getValue();
+                int inputHeight2 = Height_picker2.getValue()*10;
+                int inputHeight3 = Height_picker3.getValue();
+                inputHeight2 = inputHeight2 + inputHeight3;
+                String newHeight = String.valueOf(inputHeight1 + "."+ inputHeight2);
+                editData.putString("height", newHeight);
+                editData.apply();
+                txt_the_height.setText(newHeight);
+                Toast.makeText(Setting.this, "Saved", Toast.LENGTH_SHORT).show();
+                weight_dialog.dismiss();
+            }
+        });
+
+        if(Unit.equalsIgnoreCase("NonUS")) {
+            Height_picker1.setMaxValue(2);
+            Height_picker1.setMinValue(0);
+            Height_picker1.setValue(1);
+        }else if(Unit.equalsIgnoreCase("US")){
+            Height_picker1.setMaxValue(8);
+            Height_picker1.setMinValue(1);
+            Height_picker1.setValue(5);
+        }
+        Height_picker2.setMaxValue(9);
+        Height_picker3.setMaxValue(9);
+
+        // Rest time Dialog
+        restTime_dialog = new Dialog(Setting.this);
+        restTime_dialog.setContentView(R.layout.rest_time_picker);
+        restTime_dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        restTime_dialog.setCancelable(false);
+
+        TextView btt_restTimeDialog_cancel, btt_restTimeDialog_save;
+        NumberPicker timePicker1, timePicker2, timePicker3;
+        btt_restTimeDialog_cancel = restTime_dialog.findViewById(R.id.btt_cancel4);
+        btt_restTimeDialog_save = restTime_dialog.findViewById(R.id.btt_save4);
+        timePicker1 = restTime_dialog.findViewById(R.id.timePicker1);
+        timePicker2 = restTime_dialog.findViewById(R.id.timePicker2);
+        timePicker3 = restTime_dialog.findViewById(R.id.timePicker3);
+
+        btt_restTimeDialog_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                restTime_dialog.dismiss();
+            }
+        });
+
+        btt_restTimeDialog_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                int inputTime1 = timePicker1.getValue()*100;
+                int inputTime2 = timePicker2.getValue()*10;
+                int inputTime3 = timePicker3.getValue();
+                String newHeight = String.valueOf(inputTime1 + inputTime2 + inputTime3);
+                editData.putString("height", newHeight);
+                editData.apply();
+                txt_restTime.setText(newHeight);
+                Toast.makeText(Setting.this, "Saved", Toast.LENGTH_SHORT).show();
+                restTime_dialog.dismiss();
+            }
+        });
+
+        timePicker1.setMaxValue(9);
+        timePicker2.setMaxValue(9);
+        timePicker3.setMaxValue(9);
+
+        // Profile Dialog
+        profile_dialog = new Dialog(Setting.this);
+        profile_dialog.setContentView(R.layout.profile_picker);
+        profile_dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        profile_dialog.setCancelable(false);
+
+        TextView btt_profileDialog_cancel, btt_profileDialog_save;
+        ImageView img1, img2;
+        btt_profileDialog_cancel = profile_dialog.findViewById(R.id.btt_cancel4);
+        btt_profileDialog_save = profile_dialog.findViewById(R.id.btt_save4);
+        img1 = profile_dialog.findViewById(R.id.img1);
+        img2 = profile_dialog.findViewById(R.id.img2);
+
+        btt_profileDialog_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                profile_dialog.dismiss();
+            }
+        });
+
+        btt_profileDialog_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(profileMen.equalsIgnoreCase("true")){
+                    editData.putString("profileMen", "true");
+                    profilePic.setImageResource(R.drawable.profile_men);
+                }else{
+                    editData.putString("profileMen", "false");
+                    profilePic.setImageResource(R.drawable.profile_women);
+                }
+                editData.apply();
+                Toast.makeText(Setting.this, "Saved", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        img1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                img1.setBackground(getDrawable(R.drawable.button_home_blue));
+                img2.setBackground(null);
+                profileMen = "true";
+            }
+        });
+
+        img2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                img2.setBackground(getDrawable(R.drawable.button_home_blue));
+                img1.setBackground(null);
+                profileMen = "false";
+            }
+        });
 
         // Set Up View
         newUserName = getData.getString("user_name", "ERROR");
-        userName.setText(newUserName);
+        txt_userName.setText(newUserName);
         email.setText(getData.getString("email_address", "ERROR"));
         newWeight = getData.getString("weight", "ERROR");
+        txt_the_weight.setText(newWeight);
         //weight.setText(newWeight);
         newHeight = getData.getString("height", "ERROR");
+        txt_the_height.setText(newHeight);
         //height.setText(newHeight);
         txt_restTime.setText(String.valueOf(getData.getInt("restTimer", 60)));
+        //profile
+        if(profileMen.equalsIgnoreCase("true")){
+            editData.putString("profileMen", "true");
+            profilePic.setImageResource(R.drawable.profile_men);
+        }else{
+            editData.putString("profileMen", "false");
+            profilePic.setImageResource(R.drawable.profile_women);
+        }
 
-        Unit = getData.getString("unit", "ERROR");
+
         if(Unit.equalsIgnoreCase("NonUS")) {
             txt_unit.setText("KG-M");
         }else if(Unit.equalsIgnoreCase("US")){
@@ -188,7 +399,25 @@ public class Setting extends AppCompatActivity {
         btt_signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.show();
+                logOut_dialog.show();
+            }
+        });
+
+        edt_weight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Unit = getData.getString("unit", "ERROR");
+                weight_dialog.show();
+            }
+        });
+
+        edt_height.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Unit = getData.getString("unit", "ERROR");
+                height_dialog.show();
             }
         });
 
@@ -211,64 +440,39 @@ public class Setting extends AppCompatActivity {
             }
         });
 
-        /*btt_save.setOnClickListener(new View.OnClickListener() {
+        edt_restTime.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                boolean saveCondition = false;
+            public void onClick(View view) {
 
-                if (!(userName.getText().toString().equals(getData.getString("user_name", "ERROR")))) {
-                    newUserName = userName.getText().toString();
-                    saveCondition = true;
-                }
-                if (!(height.getText().toString().equals(getData.getString("Height", "ERROR")))) {
-                    newHeight = height.getText().toString();
-                    saveCondition = true;
-                }
-                if (!(weight.getText().toString().equals(getData.getString("Weight", "ERROR")))) {
-                    newWeight = weight.getText().toString();
-                    saveCondition = true;
-                }
-
-                if (!(kg.isChecked() && getData.getString("unit", "ERROR").equalsIgnoreCase("NonUS"))) {
-                    saveCondition = true;
-                }
-                if (!(lb.isChecked() && getData.getString("unit", "ERROR").equalsIgnoreCase("US"))) {
-                    saveCondition = true;
-                }
-                if (saveCondition) {
-                    String unit;
-                    if (kg.isChecked()) {
-                        newUnit = "NonUS";
-                    } else {
-                        newUnit = "US";
-                    }
-                    // update local data
-                    editData.putString("user_name", newUserName);
-                    editData.putString("unit", newUnit);
-                    editData.putString("weight", newWeight);
-                    editData.putString("height", newHeight);
-                    editData.putInt("restTimer", Integer.parseInt(edt_restTime.getText().toString()));
-                    editData.apply();
-                    Toast.makeText(Setting.this, "Saved!", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });*/
-
-        /*kg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                txt_wUnit.setText(" KG");
-                txt_hUnit.setText(" M");
+                restTime_dialog.show();
             }
         });
 
-        lb.setOnClickListener(new View.OnClickListener() {
+        profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                txt_wUnit.setText(" LB");
-                txt_hUnit.setText(" F");
+            public void onClick(View view) {
+
+                profile_dialog.show();
             }
-        });*/
+        });
+
+        txt_userName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                save_btt.setVisibility(View.VISIBLE);
+            }
+        });
+
+        save_btt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String newUserName = txt_userName.getText().toString();
+                editData.putString("user_name", newUserName);
+                editData.apply();
+                Toast.makeText(Setting.this, "Saved", Toast.LENGTH_SHORT).show();
+                save_btt.setVisibility(View.GONE);
+            }
+        });
     }
 
     // methods

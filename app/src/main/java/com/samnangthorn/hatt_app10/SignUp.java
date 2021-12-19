@@ -144,6 +144,7 @@ public class SignUp extends AppCompatActivity {
                                     editData.putString("AZ", "false");
                                     editData.putInt("MG_Index", 0);
                                     editData.putString("UID", UID);
+                                    editData.putBoolean("profileMen", true);
                                     editData.apply();
                                     open_NewUserSetUpLayout();
                                     finish();
