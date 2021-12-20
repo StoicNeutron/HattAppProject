@@ -114,10 +114,10 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
         double BMI_number;
         // case unit is lb and inches
         if(getData.getString("unit", "ERROR").equalsIgnoreCase("US")){
-            BMI_number = Integer.valueOf(getData.getString("weight", "0")) / Math.pow(Double.valueOf(getData.getString("height", "0")), 2) * 703;
+            BMI_number = Double.valueOf(getData.getString("weight_US", "0")) / Math.pow(Double.valueOf(getData.getString("height_US", "0")), 2) * 703;
         // case unit is kg and meters
         }else{
-            BMI_number = Integer.valueOf(getData.getString("weight", "0")) / Math.pow(Double.valueOf(getData.getString("height", "0")), 2);
+            BMI_number = Double.valueOf(getData.getString("weight_NonUS", "0")) / Math.pow(Double.valueOf(getData.getString("height_NonUS", "0")), 2);
         }
 
         txt_BMI_point.setText(String.valueOf(String.format("%.1f", BMI_number)));

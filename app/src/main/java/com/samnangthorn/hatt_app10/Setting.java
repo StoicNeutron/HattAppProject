@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -38,7 +37,7 @@ public class Setting extends AppCompatActivity {
     private SharedPreferences.Editor editData, editData2;
     private Dialog logOut_dialog, weight_dialog, height_dialog, restTime_dialog, profile_dialog;
     private DataBaseHelper myDB;
-    private String newUserName, newHeight, newWeight, Unit, profileMen;
+    private String newUserName, newHeight, newWeight, newTime, Unit, profileMen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,11 +133,21 @@ public class Setting extends AppCompatActivity {
                 int inputWeight1 = WeightPicker1.getValue()*100;
                 int inputWeight2 = WeightPicker2.getValue()*10;
                 int inputWeight3 = WeightPicker3.getValue();
-                String newWeight = String.valueOf(inputWeight1 + inputWeight2 + inputWeight3);
-                editData.putString("weight", newWeight);
+                if(Unit.equalsIgnoreCase("US")){
+                    String newWeight_US = String.valueOf(inputWeight1 + inputWeight2 + inputWeight3);
+                    editData.putString("weight_US", newWeight_US);
+                    double newWeight_NonUS = ((inputWeight1 + inputWeight2 + inputWeight3)/2.205);
+                    editData.putString("weight_NonUS", String.valueOf(newWeight_NonUS));
+                    txt_the_weight.setText(newWeight_US);
+                }else{
+                    String newWeight_NonUS = String.valueOf(inputWeight1 + inputWeight2 + inputWeight3);
+                    editData.putString("weight_NonUS", newWeight_NonUS);
+                    double newWeight_US = ((inputWeight1 + inputWeight2 + inputWeight3)*2.205);
+                    editData.putString("weight_NonUS", String.valueOf(newWeight_US));
+                    txt_the_weight.setText(newWeight_NonUS);
+                }
+
                 editData.apply();
-                newWeight = getData.getString("weight", "ERROR");
-                txt_the_weight.setText(newWeight);
                 Toast.makeText(Setting.this, "Saved", Toast.LENGTH_SHORT).show();
                 weight_dialog.dismiss();
             }
@@ -182,13 +191,25 @@ public class Setting extends AppCompatActivity {
             public void onClick(View v) {
 
                 int inputHeight1 = Height_picker1.getValue();
-                int inputHeight2 = Height_picker2.getValue()*10;
+                int inputHeight2 = Height_picker2.getValue();
                 int inputHeight3 = Height_picker3.getValue();
-                inputHeight2 = inputHeight2 + inputHeight3;
-                String newHeight = String.valueOf(inputHeight1 + "."+ inputHeight2);
-                editData.putString("height", newHeight);
+                if(Unit.equalsIgnoreCase("US")){
+                    // save as inches
+                    int inputHeight_US = (inputHeight1*12) + (inputHeight2*10 + inputHeight3);
+                    editData.putString("height_US", String.valueOf(inputHeight_US));
+                    double inputHeight_NonUS = inputHeight_US/39.37;
+                    editData.putString("height_NonUS", String.valueOf(inputHeight_NonUS));
+                    txt_the_height.setText(inputHeight1 + "." + ((inputHeight2*10) + inputHeight3));
+                }else{
+                    // save as meters
+                    String inputHeight_NonUS = inputHeight1 + "."+ (inputHeight2*10) + inputHeight3;
+                    editData.putString("height_NonUS", inputHeight_NonUS);
+                    double inputHeight_US = Double.valueOf(inputHeight_NonUS)*39.37;
+                    editData.putString("height_US", String.valueOf(inputHeight_US));
+                    txt_the_height.setText(inputHeight_NonUS);
+                }
+
                 editData.apply();
-                txt_the_height.setText(newHeight);
                 Toast.makeText(Setting.this, "Saved", Toast.LENGTH_SHORT).show();
                 weight_dialog.dismiss();
             }
@@ -234,10 +255,10 @@ public class Setting extends AppCompatActivity {
                 int inputTime1 = timePicker1.getValue()*100;
                 int inputTime2 = timePicker2.getValue()*10;
                 int inputTime3 = timePicker3.getValue();
-                String newHeight = String.valueOf(inputTime1 + inputTime2 + inputTime3);
-                editData.putString("height", newHeight);
+                String newTime = String.valueOf(inputTime1 + inputTime2 + inputTime3);
+                editData.putString("rest_time", newTime);
                 editData.apply();
-                txt_restTime.setText(newHeight);
+                txt_restTime.setText(newTime);
                 Toast.makeText(Setting.this, "Saved", Toast.LENGTH_SHORT).show();
                 restTime_dialog.dismiss();
             }
@@ -312,7 +333,8 @@ public class Setting extends AppCompatActivity {
         newHeight = getData.getString("height", "ERROR");
         txt_the_height.setText(newHeight);
         //height.setText(newHeight);
-        txt_restTime.setText(String.valueOf(getData.getInt("restTimer", 60)));
+        newTime = getData.getString("rest_time", "60");
+        txt_restTime.setText(newTime);
         //profile
         if(profileMen.equalsIgnoreCase("true")){
             editData.putString("profileMen", "true");
