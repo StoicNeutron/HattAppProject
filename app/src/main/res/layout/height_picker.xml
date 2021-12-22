@@ -39,7 +39,7 @@
             android:showDividers="middle" />
 
         <TextView
-            android:id="@+id/txt_unitID"
+            android:id="@+id/ftOrM"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
