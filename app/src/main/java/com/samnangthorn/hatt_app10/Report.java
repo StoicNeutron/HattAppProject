@@ -24,7 +24,7 @@ import com.google.android.gms.ads.nativead.NativeAd;
 public class Report extends AppCompatActivity {
 
     ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting;
-    private TextView txt_bmi_value;
+    private TextView txt_bmi_value, bmiResult;
     private LinearLayout btt_updateWeightHeight, btt_cloudUpload;
     private ImageView btt_BMI_info;
     private AdView mAdView;
@@ -45,6 +45,7 @@ public class Report extends AppCompatActivity {
         btt_updateWeightHeight = findViewById(R.id.btt_updateWeightHeight);
         btt_BMI_info = findViewById(R.id.btt_BMI_info);
         txt_bmi_value.setText(Helper.tempBMI_value);
+        bmiResult = findViewById(R.id.bmiResult);
         /*if(!Helper.tempBMI_status.equalsIgnoreCase("STANDARD FIT")){
             txt_bmiStatus.setTextColor(getColor(R.color.red_dark));
         }*/
@@ -156,6 +157,13 @@ public class Report extends AppCompatActivity {
             }
         });
 
+        bmiResult.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                open_bmiResult();
+            }
+        });
+
         /*btt_cloudUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -188,6 +196,11 @@ public class Report extends AppCompatActivity {
 
     public void open_timerLayout() {
         Intent intent = new Intent(this, TimerLayout.class);
+        startActivity(intent);
+    }
+
+    public void open_bmiResult() {
+        Intent intent = new Intent(this, BMI_detail.class);
         startActivity(intent);
     }
 
