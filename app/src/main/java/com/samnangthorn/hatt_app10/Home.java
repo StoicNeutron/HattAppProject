@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,8 +13,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,9 +33,14 @@ import com.google.android.gms.ads.nativead.NativeAdOptions;
 import com.google.android.gms.ads.rewarded.RewardItem;
 import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Home extends AppCompatActivity implements RVAdapter.onExeClickListener{
 
@@ -43,6 +51,10 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
     private SharedPreferences.Editor editData;
     private RewardedAd mRewardedAd;
     private final String TAG = "MainActivity";
+    private String UID;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore firebase_database;
+    private Dialog cloudSave_dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -183,6 +195,63 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
                     }
                 });
 
+        cloudSave_dialog = new Dialog(Home.this);
+        cloudSave_dialog.setContentView(R.layout.cloud_save_opt);
+        cloudSave_dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        cloudSave_dialog.setCancelable(false);
+
+        TextView bttCancel, bttProceed;
+        bttCancel = cloudSave_dialog.findViewById(R.id.btt_cancel);
+        bttProceed = cloudSave_dialog.findViewById(R.id.btt_proceed);
+
+        bttCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cloudSave_dialog.dismiss();
+            }
+        });
+
+        bttProceed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (mRewardedAd != null) {
+                    Activity activityContext = Home.this;
+                    mRewardedAd.show(activityContext, new OnUserEarnedRewardListener() {
+                        @Override
+                        public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
+                            // Handle the reward.
+                            Log.d(TAG, "The user earned the reward.");
+                            int rewardAmount = rewardItem.getAmount();
+                            String rewardType = rewardItem.getType();
+                        }
+                    });
+                } else {
+                    Log.d(TAG, "The rewarded ad wasn't ready yet.");
+                }
+
+                // Remote data
+                mAuth = FirebaseAuth.getInstance();
+                firebase_database = FirebaseFirestore.getInstance();
+                UID = mAuth.getCurrentUser().getUid();
+                DocumentReference documentReference = firebase_database.collection("User").document(UID);
+                // localData_sharePreference
+                Map<String, Object> User_data = new HashMap<>();
+                User_data.put("user_name", getData.getString("user_name", "error"));
+                User_data.put("weight_US", getData.getString("weight_US", "error"));
+                User_data.put("weight_NonUS", getData.getString("weight_NonUS", "error"));
+                User_data.put("height_US", getData.getString("height_US", "error"));
+                User_data.put("height_NonUS", getData.getString("height_NonUS", "error"));
+                User_data.put("profileMen", getData.getString("profileMen", "true"));
+                User_data.put("unit", getData.getString("unit", "US"));
+                //
+                documentReference.update(User_data);
+                // saving to cloud
+                Toast.makeText(Home.this, "Save to Cloud Successful", Toast.LENGTH_SHORT).show();
+                cloudSave_dialog.dismiss();
+            }
+        });
+
         // OnClick Listeners
         //
         btt_setting.setOnClickListener(new View.OnClickListener() {
@@ -283,21 +352,7 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
         btt_cloudSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (mRewardedAd != null) {
-                    Activity activityContext = Home.this;
-                    mRewardedAd.show(activityContext, new OnUserEarnedRewardListener() {
-                        @Override
-                        public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
-                            // Handle the reward.
-                            Log.d(TAG, "The user earned the reward.");
-                            int rewardAmount = rewardItem.getAmount();
-                            String rewardType = rewardItem.getType();
-                        }
-                    });
-                } else {
-                    Log.d(TAG, "The rewarded ad wasn't ready yet.");
-                }
+                cloudSave_dialog.show();
             }
         });
 
