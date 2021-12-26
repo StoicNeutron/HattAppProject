@@ -296,7 +296,8 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
         BMI_btt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                open_reportLayout();
+                Intent intent = new Intent(Home.this , BMI_detail.class);
+                startActivity(intent);
                 transition_animation("left");
             }
         });

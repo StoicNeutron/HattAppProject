@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,8 @@ import com.google.android.gms.ads.nativead.NativeAd;
 public class Report extends AppCompatActivity {
 
     ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting;
-    private TextView txt_bmi_value, bmiResult;
+    private View bar_mon, bar_tue, bar_wed, bar_thu, bar_fri, bar_sat, bar_sun;
+    private TextView txt_bmi_value, bmiResult, txt_PWeekDate;
     private LinearLayout btt_updateWeightHeight, btt_cloudUpload;
     private ImageView btt_BMI_info;
     private AdView mAdView;
@@ -46,9 +48,28 @@ public class Report extends AppCompatActivity {
         btt_BMI_info = findViewById(R.id.btt_BMI_info);
         txt_bmi_value.setText(Helper.tempBMI_value);
         bmiResult = findViewById(R.id.bmiResult);
-        /*if(!Helper.tempBMI_status.equalsIgnoreCase("STANDARD FIT")){
-            txt_bmiStatus.setTextColor(getColor(R.color.red_dark));
-        }*/
+        bar_mon = findViewById(R.id.bar_mon);
+        bar_tue = findViewById(R.id.bar_tue);
+        bar_wed = findViewById(R.id.bar_wed);
+        bar_thu = findViewById(R.id.bar_thu);
+        bar_fri = findViewById(R.id.bar_fri);
+        bar_sat = findViewById(R.id.bar_sat);
+        bar_sun = findViewById(R.id.bar_sun);
+        txt_PWeekDate = findViewById(R.id.txt_PWeekDate);
+
+        // Status of previous week completion
+        for(int x = 0; x< RAM.get_dateInfoList_arrayList().size(); x++){
+            if(RAM.get_dateInfoList_arrayList().get(x).equalsIgnoreCase("DATE STRING HERE")){
+                if(RAM.get_statusList_arrayList().get(x).equalsIgnoreCase("C")){
+
+                    // Later
+                }else{
+
+                    // Later
+                }
+            }
+        }
+
 
         // Dialog1
         //
@@ -210,5 +231,9 @@ public class Report extends AppCompatActivity {
         }else if(leftOrRight.equalsIgnoreCase("left")){
             overridePendingTransition(R.anim.sa_slide_in_left, R.anim.sa_slide_out_right);
         }
+    }
+
+    public void getPWeekRange(String currentDateString){
+
     }
 }
