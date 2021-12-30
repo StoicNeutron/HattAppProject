@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +66,7 @@ public class Report extends AppCompatActivity {
         co6 = findViewById(R.id.co6);
         co7 = findViewById(R.id.co7);
         TextView[] coList = new TextView[]{co1, co2, co3, co4, co5, co6, co7};
+        View[] barList = new View[]{bar_mon, bar_tue, bar_wed, bar_thu, bar_fri, bar_sat, bar_sun};
         String[] dateStringList = new String[7];
 
         int starInt = 7;
@@ -80,8 +82,9 @@ public class Report extends AppCompatActivity {
 
 
         // Status of previous week completion
+        int coListPointer = 6;
         for(int x = 0; x< RAM.get_dateInfoList_arrayList().size(); x++){
-            if(RAM.get_dateInfoList_arrayList().get(x).equalsIgnoreCase(Helper.currentDateString)){
+            if(RAM.get_dateInfoList_arrayList().get(x).equalsIgnoreCase(dateStringList[coListPointer])){
                 if(RAM.get_statusList_arrayList().get(x).equalsIgnoreCase("C")){
 
                     // Later
@@ -207,12 +210,6 @@ public class Report extends AppCompatActivity {
             }
         });
 
-        /*btt_cloudUpload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog2.show();
-            }
-        });*/
     }
 
     // methods
