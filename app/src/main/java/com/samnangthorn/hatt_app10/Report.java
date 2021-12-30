@@ -65,8 +65,10 @@ public class Report extends AppCompatActivity {
         co7 = findViewById(R.id.co7);
         TextView[] coList = new TextView[]{co1, co2, co3, co4, co5, co6, co7};
 
+        int starInt = 7;
         for(int x = 0; x < coList.length; x++){
-            getPWeekRange(coList, x);
+            getPWeekRange(coList, x, starInt);
+            starInt--;
         }
 
         /*int currentDayNum = Helper.currentDayInteger;
@@ -290,17 +292,16 @@ public class Report extends AppCompatActivity {
         }
     }
 
-    public String getPWeekRange(TextView[] coList, int index){
+    public String getPWeekRange(TextView[] coList, int index, int starInt){
 
         int currentDayNum = Helper.currentDayInteger;
-        int starInt = 7;
 
         if((currentDayNum-starInt)<=0){
             if(Helper.getTotalDayOfPreMonth(Helper.getPreMonth(Helper.currentMonth))-(starInt-currentDayNum) == 21 || Helper.getTotalDayOfPreMonth(Helper.getPreMonth(Helper.currentMonth))-(starInt-currentDayNum) == 31){
                 coList[index].setText(String.valueOf(Helper.getTotalDayOfPreMonth(Helper.getPreMonth(Helper.currentMonth))-(starInt-currentDayNum))+"st");
-            }else if(Helper.getTotalDayOfPreMonth(Helper.getPreMonth(Helper.currentMonth))-(1-currentDayNum) == 22){
+            }else if(Helper.getTotalDayOfPreMonth(Helper.getPreMonth(Helper.currentMonth))-(starInt-currentDayNum) == 22){
                 coList[index].setText(String.valueOf(Helper.getTotalDayOfPreMonth(Helper.getPreMonth(Helper.currentMonth))-(starInt-currentDayNum))+"nd");
-            }else if(Helper.getTotalDayOfPreMonth(Helper.getPreMonth(Helper.currentMonth))-(1-currentDayNum) == 23){
+            }else if(Helper.getTotalDayOfPreMonth(Helper.getPreMonth(Helper.currentMonth))-(starInt-currentDayNum) == 23){
                 coList[index].setText(String.valueOf(Helper.getTotalDayOfPreMonth(Helper.getPreMonth(Helper.currentMonth))-(starInt-currentDayNum))+"rd");
             }else{
                 coList[index].setText(String.valueOf(Helper.getTotalDayOfPreMonth(Helper.getPreMonth(Helper.currentMonth))-(starInt-currentDayNum))+"th");
@@ -308,15 +309,15 @@ public class Report extends AppCompatActivity {
         }else{
             if(currentDayNum-starInt == 1 || currentDayNum-starInt == 21 || currentDayNum-starInt == 31){
                 coList[index].setText(String.valueOf(currentDayNum-starInt)+"st");
-            }else if(currentDayNum-1 == 2 || currentDayNum-1 == 22){
+            }else if(currentDayNum-1 == 2 || currentDayNum-starInt == 22){
                 coList[index].setText(String.valueOf(currentDayNum-starInt)+"nd");
-            }else if(currentDayNum-1 == 3 || currentDayNum-1 == 23){
+            }else if(currentDayNum-1 == 3 || currentDayNum-starInt == 23){
                 coList[index].setText(String.valueOf(currentDayNum-starInt)+"rd");
             }else{
                 coList[index].setText(String.valueOf(currentDayNum-starInt)+"th");
             }
         }
-        starInt--;
+
         return null;
     }
 }
