@@ -287,6 +287,18 @@ public class Helper {
         return returnInt;
     }
 
+    public static int getMonthIntOf(String monthString) {
+        int returnInt = 0;
+        for (int x = 0; x < monthList.length; x++){
+            if (monthString.equalsIgnoreCase(monthList[x])){
+                // debug test
+                returnInt = x;
+                break;
+            }
+        }
+        return returnInt;
+    }
+
     public static String getCurrentMonthString(){
         String returnString = "ERROR";
         for (int x = 0; x < monthList.length; x++){

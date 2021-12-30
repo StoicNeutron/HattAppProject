@@ -103,7 +103,7 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
             currentDayString = "0" + currentDayString;
         }
         for(int x = 0; x < RAM.get_dateInfoList_arrayList().size(); x++){
-            System.out.println("peaks :" + Helper.getCurrentMonthString() + currentDay);
+
             if(RAM.get_dateInfoList_arrayList().get(x).substring(2).equalsIgnoreCase(Helper.getCurrentMonthString() + currentDayString)){
                 txt_workoutName.setText(RAM.get_dateWKNameList_arrayList().get(x));
                 if(RAM.get_statusList_arrayList().get(x).equalsIgnoreCase("IC")){

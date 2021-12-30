@@ -31,6 +31,7 @@ public class Report extends AppCompatActivity {
     private ImageView btt_BMI_info;
     private AdView mAdView;
     private Dialog dialog, dialog2;
+    private String dateRangeString = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,57 +65,19 @@ public class Report extends AppCompatActivity {
         co6 = findViewById(R.id.co6);
         co7 = findViewById(R.id.co7);
         TextView[] coList = new TextView[]{co1, co2, co3, co4, co5, co6, co7};
+        String[] dateStringList = new String[7];
 
         int starInt = 7;
+
         for(int x = 0; x < coList.length; x++){
-            getPWeekRange(coList, x, starInt);
+            dateStringList[x] = getPWeekRange(coList, x, starInt, dateRangeString);
+            dateRangeString = getPWeekRangeString(coList, x, starInt, dateRangeString);
+            System.out.println("kcg: " + dateStringList[x]);
             starInt--;
         }
+        dateRangeString = "( " + dateRangeString + " )";
+        txt_PWeekDate.setText(dateRangeString);
 
-        /*int currentDayNum = Helper.currentDayInteger;
-        if((currentDayNum-7)<=0){
-            co1.setText(String.valueOf(Helper.getTotalDayOfPreMonth(Helper.getPreMonth(Helper.currentMonth))-(7-currentDayNum))+"th");
-        }else{
-            co1.setText(String.valueOf(currentDayNum-7));
-        }
-        if((currentDayNum-6)<=0){
-            co2.setText(String.valueOf(Helper.getTotalDayOfPreMonth(Helper.getPreMonth(Helper.currentMonth))-(6-currentDayNum))+"th");
-        }else{
-            co2.setText(String.valueOf(currentDayNum-6));
-        }
-        if((currentDayNum-5)<=0){
-            co3.setText(String.valueOf(Helper.getTotalDayOfPreMonth(Helper.getPreMonth(Helper.currentMonth))-(5-currentDayNum))+"th");
-        }else{
-            co3.setText(String.valueOf(currentDayNum-5));
-        }
-        if((currentDayNum-4)<=0){
-            co4.setText(String.valueOf(Helper.getTotalDayOfPreMonth(Helper.getPreMonth(Helper.currentMonth))-(4-currentDayNum))+"th");
-        }else{
-            co4.setText(String.valueOf(currentDayNum-4));
-        }
-        if((currentDayNum-3)<=0){
-            co5.setText(String.valueOf(Helper.getTotalDayOfPreMonth(Helper.getPreMonth(Helper.currentMonth))-(3-currentDayNum))+"th");
-        }else{
-            co5.setText(String.valueOf(currentDayNum-3)+"th");
-        }
-        if((currentDayNum-2)<=0){
-            co6.setText(String.valueOf(Helper.getTotalDayOfPreMonth(Helper.getPreMonth(Helper.currentMonth))-(2-currentDayNum))+"th");
-        }else{
-            co6.setText(String.valueOf(currentDayNum-2)+"th");
-        }
-        if((currentDayNum-1)<=0){
-            co7.setText(String.valueOf(Helper.getTotalDayOfPreMonth(Helper.getPreMonth(Helper.currentMonth))-(1-currentDayNum))+"th");
-        }else{
-            if(currentDayNum-1 == 1 || currentDayNum-1 == 21 || currentDayNum-1 == 31){
-                co7.setText(String.valueOf(currentDayNum-1)+"st");
-            }else if(currentDayNum-1 == 2 || currentDayNum-1 == 22){
-                co7.setText(String.valueOf(currentDayNum-1)+"nd");
-            }else if(currentDayNum-1 == 3 || currentDayNum-1 == 23){
-                co7.setText(String.valueOf(currentDayNum-1)+"rd");
-            }else{
-                co7.setText(String.valueOf(currentDayNum-1)+"th");
-            }
-        }*/
 
         // Status of previous week completion
         for(int x = 0; x< RAM.get_dateInfoList_arrayList().size(); x++){
@@ -292,9 +255,10 @@ public class Report extends AppCompatActivity {
         }
     }
 
-    public String getPWeekRange(TextView[] coList, int index, int starInt){
+    public String getPWeekRange(TextView[] coList, int index, int starInt, String dateRangeString){
 
         int currentDayNum = Helper.currentDayInteger;
+        String resultDateString = "";
 
         if((currentDayNum-starInt)<=0){
             if(Helper.getTotalDayOfPreMonth(Helper.getPreMonth(Helper.currentMonth))-(starInt-currentDayNum) == 21 || Helper.getTotalDayOfPreMonth(Helper.getPreMonth(Helper.currentMonth))-(starInt-currentDayNum) == 31){
@@ -306,6 +270,16 @@ public class Report extends AppCompatActivity {
             }else{
                 coList[index].setText(String.valueOf(Helper.getTotalDayOfPreMonth(Helper.getPreMonth(Helper.currentMonth))-(starInt-currentDayNum))+"th");
             }
+
+            if(Helper.getTotalDayOfPreMonth(Helper.getPreMonth(Helper.currentMonth))-(starInt-currentDayNum) < 10){
+                resultDateString = Helper.getCurrentYear() + String.valueOf(Helper.getThisMonthIndex(Helper.getPreMonth(Helper.getCurrentMonthName()))) + "0" + String.valueOf(Helper.getTotalDayOfPreMonth(Helper.getPreMonth(Helper.currentMonth))-(starInt-currentDayNum));
+            }else{
+                resultDateString = Helper.getCurrentYear() + String.valueOf(Helper.getThisMonthIndex(Helper.getPreMonth(Helper.getCurrentMonthName()))) + String.valueOf(Helper.getTotalDayOfPreMonth(Helper.getPreMonth(Helper.currentMonth))-(starInt-currentDayNum));
+            }
+
+            if(index == 0){
+                dateRangeString = Helper.getPreMonth(Helper.getCurrentMonthName() + " " + String.valueOf(Helper.getTotalDayOfPreMonth(Helper.getPreMonth(Helper.currentMonth))-(starInt-currentDayNum)));
+            }
         }else{
             if(currentDayNum-starInt == 1 || currentDayNum-starInt == 21 || currentDayNum-starInt == 31){
                 coList[index].setText(String.valueOf(currentDayNum-starInt)+"st");
@@ -316,8 +290,44 @@ public class Report extends AppCompatActivity {
             }else{
                 coList[index].setText(String.valueOf(currentDayNum-starInt)+"th");
             }
+
+            if(currentDayNum-starInt < 10){
+                resultDateString = Helper.getCurrentYear() + String.valueOf(Helper.getThisMonthIndex(Helper.getCurrentMonthName())) + "0" + String.valueOf(currentDayNum-starInt);
+            }else{
+                resultDateString = Helper.getCurrentYear() + String.valueOf(Helper.getThisMonthIndex(Helper.getCurrentMonthName())) + String.valueOf(currentDayNum-starInt);
+            }
+
+            if(index == 0){
+                dateRangeString = Helper.getCurrentMonthName() + " " + String.valueOf(currentDayNum-starInt);
+            }else if(index == 6){
+                dateRangeString = dateRangeString + " - " + Helper.getCurrentMonthName() + " " + String.valueOf(currentDayNum-starInt);
+            }
         }
 
-        return null;
+        return resultDateString;
+
+    }
+
+    public String getPWeekRangeString(TextView[] coList, int index, int starInt, String dateRangeString){
+
+        int currentDayNum = Helper.currentDayInteger;
+        String resultDateString = "";
+
+        if((currentDayNum-starInt)<=0){
+
+            if(index == 0){
+                dateRangeString = Helper.getPreMonth(Helper.getCurrentMonthName() + " " + String.valueOf(Helper.getTotalDayOfPreMonth(Helper.getPreMonth(Helper.currentMonth))-(starInt-currentDayNum)));
+            }
+        }else{
+
+            if(index == 0){
+                dateRangeString = Helper.getCurrentMonthName() + " " + String.valueOf(currentDayNum-starInt);
+            }else if(index == 6){
+                dateRangeString = dateRangeString + " - " + Helper.getCurrentMonthName() + " " + String.valueOf(currentDayNum-starInt);
+            }
+        }
+
+        return dateRangeString;
+
     }
 }
