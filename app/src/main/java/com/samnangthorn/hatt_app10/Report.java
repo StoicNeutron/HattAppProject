@@ -82,15 +82,16 @@ public class Report extends AppCompatActivity {
 
 
         // Status of previous week completion
-        int coListPointer = 6;
-        for(int x = 0; x< RAM.get_dateInfoList_arrayList().size(); x++){
-            if(RAM.get_dateInfoList_arrayList().get(x).equalsIgnoreCase(dateStringList[coListPointer])){
-                if(RAM.get_statusList_arrayList().get(x).equalsIgnoreCase("C")){
-
-                    // Later
-                }else{
-
-                    // Later
+        for(int x = 0; x< dateStringList.length; x++){
+            for(int y = 0; y < RAM.get_dateInfoList_arrayList().size(); y++){
+                System.out.println("cj: " + dateStringList[x] + " : " + RAM.get_dateInfoList_arrayList().get(y));
+                if(dateStringList[x].equalsIgnoreCase(RAM.get_dateInfoList_arrayList().get(y))){
+                    if(RAM.get_statusList_arrayList().get(y).equalsIgnoreCase("C")){
+                        barList[x].setBackgroundColor(getColor(R.color.green));
+                    }else{
+                        barList[x].setBackgroundColor(getColor(R.color.red));
+                    }
+                    break;
                 }
             }
         }
