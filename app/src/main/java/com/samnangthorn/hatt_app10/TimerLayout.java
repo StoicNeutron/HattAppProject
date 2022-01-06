@@ -1,7 +1,6 @@
 package com.samnangthorn.hatt_app10;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,23 +13,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.rpc.Help;
-
-import org.w3c.dom.Text;
-
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class TimerLayout extends AppCompatActivity {
 
-    private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, btt_soundSwitch, btt_switch, btt_expand;
+    private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_setting, btt_soundSwitch, btt_switch, btt_expand;
     private TextView e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, txt_totalTimer, txt_breakTimer, btt_start, txt_wkName, finished_txt, txt_wkDesTitle, txt_totalSet, txt_totalRep, txt_wkDes;
     private LinearLayout tapTimer, finished_img;
     private SharedPreferences getData, getData2;
-    private SharedPreferences.Editor editData, editData2;
+    private SharedPreferences.Editor editData;
     private Dialog dialog;
     private DataBaseHelper myDB;
     private ArrayList<String> dateInfoList = new ArrayList<String>();
@@ -44,11 +37,11 @@ public class TimerLayout extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer);
 
+        // find view by ID
         btt_home = findViewById(R.id.btt_home);
         btt_report = findViewById(R.id.btt_report);
         btt_exercise = findViewById(R.id.btt_exercise);
         btt_schedule = findViewById(R.id.btt_schedule);
-        btt_timer = findViewById(R.id.btt_timer);
         btt_setting = findViewById(R.id.btt_setting);
         btt_soundSwitch = findViewById(R.id.btt_soundSwitch);
         txt_totalTimer = findViewById(R.id.txt_totalTimer);
@@ -59,7 +52,6 @@ public class TimerLayout extends AppCompatActivity {
         txt_totalRep = findViewById(R.id.txt_total_rep);
         finished_txt =  findViewById(R.id.finished_txt);
         finished_img = findViewById(R.id.finished_img);
-
         txt_breakTimer = findViewById(R.id.txt_break_timer);
         tapTimer = findViewById(R.id.tap_timer);
         btt_expand = findViewById(R.id.btt_expand);
@@ -96,7 +88,6 @@ public class TimerLayout extends AppCompatActivity {
         getData = getApplicationContext().getSharedPreferences("workout_data", MODE_PRIVATE);
         editData = getData.edit();
         getData2 = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
-        editData2 = getData2.edit();
 
         // Helper Lists
         TextView[] eLists = new TextView[]{e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12};
@@ -478,14 +469,11 @@ public class TimerLayout extends AppCompatActivity {
                         for (int x = 0; x < eLists.length; x++) {
                             eLists[x].setVisibility(View.GONE);
                         }
-                        System.out.println("cococo: " + Helper.currentDateString);
+
                         myDB.updateStatusOfAtt(Helper.currentDateString);
                         //
                         Helper.timerCurrentState = false;
                         Helper.timerTask.cancel();
-                        // save data for report
-                        /*folder = new Folder(getApplicationContext());
-                        folder.addCompleted(Helper.currentDateString, Helper.currentWkNameString, Helper.time,Helper.currentExLists);*/
                     }
 
                     if(!Helper.switcher){
@@ -722,7 +710,7 @@ public class TimerLayout extends AppCompatActivity {
     }
 
     private void finishedWorkout(){
-        myDB.deleteThisWorkout("210905");
-        myDB.addDate("210905", txt_wkName.getText().toString(), "C", "Added Note");
+        myDB.deleteThisWorkout(Helper.currentDateString);
+        myDB.addDate(Helper.currentDateString, txt_wkName.getText().toString(), "C", "Added Note");
     }
 }

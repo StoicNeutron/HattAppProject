@@ -1,18 +1,14 @@
 package com.samnangthorn.hatt_app10;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Dialog;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.google.android.ads.nativetemplates.NativeTemplateStyle;
 import com.google.android.ads.nativetemplates.TemplateView;
 import com.google.android.gms.ads.AdLoader;
@@ -28,9 +24,8 @@ public class Report extends AppCompatActivity {
     ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting;
     private View bar_mon, bar_tue, bar_wed, bar_thu, bar_fri, bar_sat, bar_sun;
     private TextView txt_bmi_value, bmiResult, txt_PWeekDate, co1, co2, co3, co4, co5, co6, co7;
-    private LinearLayout btt_updateWeightHeight, btt_cloudUpload;
+    private LinearLayout btt_updateWeightHeight, btt_set_goal;
     private ImageView btt_BMI_info;
-    private AdView mAdView;
     private Dialog dialog, dialog2;
     private String dateRangeString = "";
 
@@ -58,6 +53,7 @@ public class Report extends AppCompatActivity {
         bar_sat = findViewById(R.id.bar_sat);
         bar_sun = findViewById(R.id.bar_sun);
         txt_PWeekDate = findViewById(R.id.txt_PWeekDate);
+        btt_set_goal = findViewById(R.id.btt_set_goal);
         co1 = findViewById(R.id.co1);
         co2 = findViewById(R.id.co2);
         co3 = findViewById(R.id.co3);
@@ -65,6 +61,7 @@ public class Report extends AppCompatActivity {
         co5 = findViewById(R.id.co5);
         co6 = findViewById(R.id.co6);
         co7 = findViewById(R.id.co7);
+
         TextView[] coList = new TextView[]{co1, co2, co3, co4, co5, co6, co7};
         View[] barList = new View[]{bar_mon, bar_tue, bar_wed, bar_thu, bar_fri, bar_sat, bar_sun};
         String[] dateStringList = new String[7];
@@ -74,7 +71,6 @@ public class Report extends AppCompatActivity {
         for(int x = 0; x < coList.length; x++){
             dateStringList[x] = getPWeekRange(coList, x, starInt, dateRangeString);
             dateRangeString = getPWeekRangeString(coList, x, starInt, dateRangeString);
-            System.out.println("kcg: " + dateStringList[x]);
             starInt--;
         }
         dateRangeString = "( " + dateRangeString + " )";
@@ -84,7 +80,6 @@ public class Report extends AppCompatActivity {
         // Status of previous week completion
         for(int x = 0; x< dateStringList.length; x++){
             for(int y = 0; y < RAM.get_dateInfoList_arrayList().size(); y++){
-                System.out.println("cj: " + dateStringList[x] + " : " + RAM.get_dateInfoList_arrayList().get(y));
                 if(dateStringList[x].equalsIgnoreCase(RAM.get_dateInfoList_arrayList().get(y))){
                     if(RAM.get_statusList_arrayList().get(y).equalsIgnoreCase("C")){
                         barList[x].setBackgroundColor(getColor(R.color.green));
@@ -211,6 +206,13 @@ public class Report extends AppCompatActivity {
             }
         });
 
+        btt_set_goal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                open_setGoalLayout();
+            }
+        });
+
     }
 
     // methods
@@ -242,6 +244,11 @@ public class Report extends AppCompatActivity {
 
     public void open_bmiResult() {
         Intent intent = new Intent(this, BMI_detail.class);
+        startActivity(intent);
+    }
+
+    public void open_setGoalLayout() {
+        Intent intent = new Intent(this, SetGoal.class);
         startActivity(intent);
     }
 

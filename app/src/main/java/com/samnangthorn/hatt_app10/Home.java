@@ -2,13 +2,11 @@ package com.samnangthorn.hatt_app10;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,29 +14,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.ads.nativetemplates.NativeTemplateStyle;
 import com.google.android.ads.nativetemplates.TemplateView;
-import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.OnUserEarnedRewardListener;
 import com.google.android.gms.ads.nativead.NativeAd;
-import com.google.android.gms.ads.nativead.NativeAdOptions;
 import com.google.android.gms.ads.rewarded.RewardItem;
 import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -82,8 +74,6 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
         btt_website = findViewById(R.id.btt_website);
         greetingTxt = findViewById(R.id.greetingTxt);
         txt_wk_DES = findViewById(R.id.txt_wk_DES);
-
-
 
         // setting up date, time and timezone views
         txt_day.setText(Helper.getCurrentDayNameString());
@@ -136,30 +126,7 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
         Helper.tempBMI_value = String.format("%.1f", BMI_number);
 
         //Ads Loader
-        /*AdLoader adLoader = new AdLoader.Builder(this, "ca-app-pub-9354138576649544/6539393625")
-                .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
-                    @Override
-                    public void onNativeAdLoaded(NativeAd nativeAd) {
-                        // Show the ad.
-                        //ColorDrawable background = null;
-                        NativeTemplateStyle styles = new NativeTemplateStyle.Builder().withMainBackgroundColor(null).build();
-                        TemplateView template = findViewById(R.id.my_template);
-                        template.setStyles(styles);
-                        template.setNativeAd(nativeAd);
-                    }
-                })
-                .withAdListener(new AdListener() {
-                    @Override
-                    public void onAdFailedToLoad(LoadAdError adError) {
-
-                    }
-                })
-                .withNativeAdOptions(new NativeAdOptions.Builder()
-                        // Methods in the NativeAdOptions.Builder class can be
-                        // used here to specify individual options settings.
-                        .build())
-                .build();*/
-        // End of Ads loader
+        //
         MobileAds.initialize(this);
         AdLoader adLoader = new AdLoader.Builder(Home.this, "ca-app-pub-9354138576649544/6539393625")
                 .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
@@ -222,33 +189,31 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
                         public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
                             // Handle the reward.
                             Log.d(TAG, "The user earned the reward.");
-                            int rewardAmount = rewardItem.getAmount();
-                            String rewardType = rewardItem.getType();
+
+                            // Remote data
+                            mAuth = FirebaseAuth.getInstance();
+                            firebase_database = FirebaseFirestore.getInstance();
+                            UID = mAuth.getCurrentUser().getUid();
+                            DocumentReference documentReference = firebase_database.collection("User").document(UID);
+                            // localData_sharePreference
+                            Map<String, Object> User_data = new HashMap<>();
+                            User_data.put("user_name", getData.getString("user_name", "error"));
+                            User_data.put("weight_US", getData.getString("weight_US", "error"));
+                            User_data.put("weight_NonUS", getData.getString("weight_NonUS", "error"));
+                            User_data.put("height_US", getData.getString("height_US", "error"));
+                            User_data.put("height_NonUS", getData.getString("height_NonUS", "error"));
+                            User_data.put("profileMen", getData.getString("profileMen", "true"));
+                            User_data.put("unit", getData.getString("unit", "US"));
+                            //
+                            documentReference.update(User_data);
+                            // saving to cloud
+                            Toast.makeText(Home.this, "Save to Cloud Successful", Toast.LENGTH_SHORT).show();
+                            cloudSave_dialog.dismiss();
                         }
                     });
                 } else {
                     Log.d(TAG, "The rewarded ad wasn't ready yet.");
                 }
-
-                // Remote data
-                mAuth = FirebaseAuth.getInstance();
-                firebase_database = FirebaseFirestore.getInstance();
-                UID = mAuth.getCurrentUser().getUid();
-                DocumentReference documentReference = firebase_database.collection("User").document(UID);
-                // localData_sharePreference
-                Map<String, Object> User_data = new HashMap<>();
-                User_data.put("user_name", getData.getString("user_name", "error"));
-                User_data.put("weight_US", getData.getString("weight_US", "error"));
-                User_data.put("weight_NonUS", getData.getString("weight_NonUS", "error"));
-                User_data.put("height_US", getData.getString("height_US", "error"));
-                User_data.put("height_NonUS", getData.getString("height_NonUS", "error"));
-                User_data.put("profileMen", getData.getString("profileMen", "true"));
-                User_data.put("unit", getData.getString("unit", "US"));
-                //
-                documentReference.update(User_data);
-                // saving to cloud
-                Toast.makeText(Home.this, "Save to Cloud Successful", Toast.LENGTH_SHORT).show();
-                cloudSave_dialog.dismiss();
             }
         });
 
@@ -360,7 +325,7 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
         btt_website.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openGooglePlay();
+                openWebsite();
             }
         });
 

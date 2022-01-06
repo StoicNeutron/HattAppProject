@@ -329,7 +329,7 @@ public class Helper {
     }
 
     public static String getPreMonth(String theCurrentMonth){
-        String preMonth = "ERROR";
+        String preMonth = "December";
         for (int i = 0; i < monthList.length; i++){
             if(monthList[i].equalsIgnoreCase(theCurrentMonth)){
                 if(i > 0){
@@ -343,7 +343,7 @@ public class Helper {
     }
 
     public static String getThisMonthIndex(String theCurrentMonth){
-        String IndexString = "ERROR";
+        String IndexString = "11";
         for (int i = 0; i < monthList.length; i++){
             if(monthList[i].equalsIgnoreCase(theCurrentMonth)){
                 if(i < 10){

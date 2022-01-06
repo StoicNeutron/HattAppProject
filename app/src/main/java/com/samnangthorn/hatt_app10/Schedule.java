@@ -36,7 +36,6 @@ public class Schedule extends AppCompatActivity{
     private int currentDay;
     private int totalWorkoutNum;
     private int monthInt;
-    private Dialog dialog;
     private String currentDayNum;
     private DataBaseHelper myDB;
     private ArrayList<String> dateInfoList = new ArrayList<String>();
@@ -113,7 +112,6 @@ public class Schedule extends AppCompatActivity{
         }
 
         realTime_data = Calendar.getInstance();
-        String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(realTime_data.getTime());
         currentDay = Helper.currentDayInteger;
         daysList[currentDay-1].setTextSize(19f);
 

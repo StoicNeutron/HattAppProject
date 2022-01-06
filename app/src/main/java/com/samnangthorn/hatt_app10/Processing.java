@@ -2,12 +2,16 @@ package com.samnangthorn.hatt_app10;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Button;
+import android.widget.Toast;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.TimeZone;
 
@@ -73,6 +77,7 @@ public class Processing extends AppCompatActivity {
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
+
                                 p3.setBackground(getDrawable(R.drawable.button_bg_blue));
                                 open_HomeLayout();
                                 finish();

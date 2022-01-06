@@ -137,6 +137,11 @@ public class AddExercise extends AppCompatActivity {
                 // add new exercise into the database
                 if(addCondition){
                     myDB.addExercise(exerciseName, mainTarget, subTarget, dis);
+                    // Update RAM
+                    RAM.write_exerciseName(exerciseName);
+                    RAM.write_mainMuscle(mainTarget);
+                    RAM.write_subMuscle(subTarget);
+                    RAM.write_exerciseDescription(dis);
                     Toast.makeText(AddExercise.this, "Added", Toast.LENGTH_SHORT).show();
                     open_exerciseLayout();
                     finish();
