@@ -183,10 +183,18 @@ public class PopUp_chooseWK extends AppCompatActivity {
                         // db part
                         for(int x = 0; x < primeKeyStringLists.size(); x++){
                             myDB.addDate(primeKeyStringLists.get(x), txtList[currentSelect].getText().toString(), "IC", "");
+                            RAM.write_dateInfo(primeKeyStringLists.get(x));
+                            RAM.write_dateWKName(txtList[currentSelect].getText().toString());
+                            RAM.write_status("IC");
+                            RAM.write_note("");
                         }
                     // just a single day
                     }else{
                         myDB.addDate(primeKeyString, txtList[currentSelect].getText().toString(), "IC", "");
+                        RAM.write_dateInfo(primeKeyString);
+                        RAM.write_dateWKName(txtList[currentSelect].getText().toString());
+                        RAM.write_status("IC");
+                        RAM.write_note("");
                     }
                     open_scheduleLayout();
                 }

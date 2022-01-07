@@ -627,6 +627,7 @@ public class TimerLayout extends AppCompatActivity {
         if(timeStringFormat.equalsIgnoreCase("00 : 00")){
             Helper.timerTask2.cancel();
             txt_breakTimer.setVisibility(View.GONE);
+            btt_start.setText("DONE");
             Helper.timer2CurrentState = false;
             try {
                 nextExerciseOrSet(eLists);
