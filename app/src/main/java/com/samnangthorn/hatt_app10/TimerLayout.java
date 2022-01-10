@@ -20,7 +20,7 @@ import java.util.TimerTask;
 public class TimerLayout extends AppCompatActivity {
 
     private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_setting, btt_soundSwitch, btt_switch, btt_expand;
-    private TextView e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, txt_totalTimer, txt_breakTimer, btt_start, txt_wkName, finished_txt, txt_wkDesTitle, txt_totalSet, txt_totalRep, txt_wkDes;
+    private TextView e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, txt_totalTimer, txt_breakTimer, btt_start, txt_wkName, finished_txt, txt_wkDesTitle, txt_totalSet, txt_totalRep, txt_wkDes, txtFinishWKName, txtTotalTime;
     private LinearLayout tapTimer, finished_img;
     private SharedPreferences getData, getData2;
     private SharedPreferences.Editor editData;
@@ -30,6 +30,7 @@ public class TimerLayout extends AppCompatActivity {
     private ArrayList<String> dateWKNameList = new ArrayList<String>();
     private ArrayList<String> wkLists = new ArrayList<String>();
     private Folder folder;
+    private boolean lockSelectWK;
     private int trigger1, trigger2, trigger3, trigger4, trigger5, trigger6, trigger7, IntKey;
 
     @Override
@@ -57,6 +58,8 @@ public class TimerLayout extends AppCompatActivity {
         btt_expand = findViewById(R.id.btt_expand);
         txt_wkDes = findViewById(R.id.txt_wkDes);
         txt_wkDesTitle = findViewById(R.id.txt_wkDesTitle);
+        txtFinishWKName = findViewById(R.id.txtFinishWKName);
+        txtTotalTime = findViewById(R.id.txtTotalTime);
         e0 = findViewById(R.id.e0);
         e1 = findViewById(R.id.e1);
         e2 = findViewById(R.id.e2);
@@ -387,7 +390,10 @@ public class TimerLayout extends AppCompatActivity {
         btt_switch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!Helper.timerCurrentState){
+                if(!Helper.timerCurrentState && !lockSelectWK){
+                    dialog.show();
+                }
+                if(!Helper.timerCurrentState && !lockSelectWK){
                     dialog.show();
                 }
             }
@@ -414,7 +420,10 @@ public class TimerLayout extends AppCompatActivity {
         txt_wkName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.show();
+
+                if(!Helper.timerCurrentState && !lockSelectWK){
+                    dialog.show();
+                }
             }
         });
 
@@ -463,6 +472,10 @@ public class TimerLayout extends AppCompatActivity {
                         Helper.finished = true;
                         finished_txt.setVisibility(View.VISIBLE);
                         finished_img.setVisibility(View.VISIBLE);
+                        txtFinishWKName.setText(txt_wkName.getText().toString());
+                        txtTotalTime.setText(txt_totalTimer.getText().toString());
+                        lockSelectWK = true;
+                        //
                         congratsAudio.start();
                         finishedWorkout();
                         // setting up new view
@@ -634,8 +647,10 @@ public class TimerLayout extends AppCompatActivity {
             }catch (IndexOutOfBoundsException e){
                 btt_start.setVisibility(View.INVISIBLE);
                 Helper.finished = true;
-                finished_txt.setVisibility(View.VISIBLE);
                 finished_img.setVisibility(View.VISIBLE);
+                txtFinishWKName.setText(txt_wkName.getText().toString());
+                txtTotalTime.setText(txt_totalTimer.getText().toString());
+                lockSelectWK = true;
                 mediaPlayer3.start();
                 // setting up new view
                 for (int x = 0; x < eLists.length; x++) {
