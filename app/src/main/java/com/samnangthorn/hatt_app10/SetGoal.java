@@ -3,13 +3,21 @@ package com.samnangthorn.hatt_app10;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 public class SetGoal extends AppCompatActivity {
 
-    ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting;
+    private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting;
+    private EditText edtWeight, edtDeadliftPr, edtBenchPressPr, edtCardioRunPr, edtSquatPr;
+    private LinearLayout btt_saveGoal;
+    private SharedPreferences getData;
+    private SharedPreferences.Editor editData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +30,15 @@ public class SetGoal extends AppCompatActivity {
         btt_schedule = findViewById(R.id.btt_schedule);
         btt_timer = findViewById(R.id.btt_timer);
         btt_setting = findViewById(R.id.btt_setting);
+        btt_saveGoal = findViewById(R.id.btt_saveGoal);
+        edtWeight = findViewById(R.id.edtWeight);
+        edtDeadliftPr = findViewById(R.id.edtDeadliftPr);
+        edtBenchPressPr = findViewById(R.id.edtBenchPressPr);
+        edtCardioRunPr = findViewById(R.id.edtCardioRunPr);
+        edtSquatPr = findViewById(R.id.edtSquatPr);
 
+        getData = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
+        editData = getData.edit();
 
 
         // set on click listeners
@@ -64,6 +80,20 @@ public class SetGoal extends AppCompatActivity {
             public void onClick(View v) {
                 open_timerLayout();
                 transition_animation("right");
+            }
+        });
+
+        btt_saveGoal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                editData.putString("WeightGoal", edtWeight.getText().toString());
+                editData.putString("DeadLiftPR", edtWeight.getText().toString());
+                editData.putString("BenchPressPR", edtWeight.getText().toString());
+                editData.putString("aMileRunPR", edtWeight.getText().toString());
+                editData.putString("SquatPR", edtWeight.getText().toString());
+                editData.apply();
+                Toast.makeText(SetGoal.this, "Saved", Toast.LENGTH_SHORT).show();
             }
         });
     }

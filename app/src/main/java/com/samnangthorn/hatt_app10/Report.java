@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.android.ads.nativetemplates.NativeTemplateStyle;
 import com.google.android.ads.nativetemplates.TemplateView;
 import com.google.android.gms.ads.AdLoader;
@@ -24,7 +26,7 @@ public class Report extends AppCompatActivity {
     ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting;
     private View bar_mon, bar_tue, bar_wed, bar_thu, bar_fri, bar_sat, bar_sun;
     private TextView txt_bmi_value, bmiResult, txt_PWeekDate, co1, co2, co3, co4, co5, co6, co7;
-    private LinearLayout btt_updateWeightHeight, btt_set_goal;
+    private LinearLayout btt_set_goal, btt_progress, bttRecommend;
     private ImageView btt_BMI_info;
     private Dialog dialog, dialog2;
     private String dateRangeString = "";
@@ -41,7 +43,6 @@ public class Report extends AppCompatActivity {
         btt_timer = findViewById(R.id.btt_timer);
         btt_setting = findViewById(R.id.btt_setting);
         txt_bmi_value = findViewById(R.id.txt_bmi_value);
-        btt_updateWeightHeight = findViewById(R.id.btt_updateWeightHeight);
         btt_BMI_info = findViewById(R.id.btt_BMI_info);
         txt_bmi_value.setText(Helper.tempBMI_value);
         bmiResult = findViewById(R.id.bmiResult);
@@ -54,6 +55,8 @@ public class Report extends AppCompatActivity {
         bar_sun = findViewById(R.id.bar_sun);
         txt_PWeekDate = findViewById(R.id.txt_PWeekDate);
         btt_set_goal = findViewById(R.id.btt_set_goal);
+        btt_progress = findViewById(R.id.btt_progress);
+        bttRecommend = findViewById(R.id.bttRecommend);
         co1 = findViewById(R.id.co1);
         co2 = findViewById(R.id.co2);
         co3 = findViewById(R.id.co3);
@@ -81,8 +84,10 @@ public class Report extends AppCompatActivity {
         for(int x = 0; x< dateStringList.length; x++){
             for(int y = 0; y < RAM.get_dateInfoList_arrayList().size(); y++){
                 if(dateStringList[x].equalsIgnoreCase(RAM.get_dateInfoList_arrayList().get(y))){
-                    if(RAM.get_statusList_arrayList().get(y).equalsIgnoreCase("C")){
+                    if(RAM.get_statusList_arrayList().get(y).equalsIgnoreCase("C")) {
                         barList[x].setBackgroundColor(getColor(R.color.green));
+                    }else if(RAM.get_statusList_arrayList().get(y).equalsIgnoreCase("PC")){
+                        barList[x].setBackgroundColor(getColor(R.color.blue));
                     }else{
                         barList[x].setBackgroundColor(getColor(R.color.red));
                     }
@@ -185,10 +190,17 @@ public class Report extends AppCompatActivity {
             }
         });
 
-        btt_updateWeightHeight.setOnClickListener(new View.OnClickListener() {
+        btt_progress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                open_settingLayout();
+                Toast.makeText(Report.this, "Feature is Locked!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        bttRecommend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(Report.this, "Feature is Locked!", Toast.LENGTH_SHORT).show();
             }
         });
 

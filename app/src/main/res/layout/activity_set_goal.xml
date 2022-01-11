@@ -81,7 +81,7 @@
                 android:padding="10dp"
                 android:layout_marginBottom="10dp"
                 android:gravity="center_horizontal"
-                android:text="A goals without a plan is only a dream, our Algorithms will recommend the best fit plan for you base on your goals here!" />
+                android:text="A goals without a Plan is only a Dream\nNote down your Goals is one step toward your Dream" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -107,6 +107,7 @@
                         android:text="WEIGHT\nLOSE/GAIN"/>
 
                     <EditText
+                        android:id="@+id/edtWeight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
@@ -139,6 +140,7 @@
                         android:text="DEADLIFT\nPR"/>
 
                     <EditText
+                        android:id="@+id/edtDeadliftPr"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
@@ -171,6 +173,7 @@
                         android:text="BENCH-PRESS\nPR"/>
 
                     <EditText
+                        android:id="@+id/edtBenchPressPr"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
@@ -208,6 +211,7 @@
                         android:text="CARDIO\n1Mile RUN"/>
 
                     <EditText
+                        android:id="@+id/edtCardioRunPr"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
@@ -240,6 +244,7 @@
                         android:text="SQUAD\nPR"/>
 
                     <EditText
+                        android:id="@+id/edtSquatPr"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
@@ -255,22 +260,25 @@
                     android:layout_height="match_parent"/>
 
                 <LinearLayout
+                    android:id="@+id/btt_saveGoal"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:visibility="invisible"
+                    android:visibility="visible"
                     android:padding="5dp"
-                    android:background="@drawable/button_home_purple"
+                    android:background="@drawable/date_yellow_bg"
                     android:layout_weight="1"
+                    android:layout_gravity="center"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
+                        android:padding="5dp"
+                        android:textColor="@color/black"
                         android:textStyle="bold"
                         android:layout_gravity="center_horizontal"
                         android:gravity="center_horizontal"
-                        android:text="CREATE\nPR"/>
+                        android:text="SAVE"/>
 
 
                 </LinearLayout>

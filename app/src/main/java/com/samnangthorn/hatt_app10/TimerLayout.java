@@ -13,6 +13,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,7 +28,7 @@ public class TimerLayout extends AppCompatActivity {
     private LinearLayout tapTimer, finished_img;
     private SharedPreferences getData, getData2;
     private SharedPreferences.Editor editData;
-    private Dialog dialog;
+    private Dialog dialog, dialog2;
     private DataBaseHelper myDB;
     private ArrayList<String> dateInfoList = new ArrayList<String>();
     private ArrayList<String> dateWKNameList = new ArrayList<String>();
@@ -326,6 +330,47 @@ public class TimerLayout extends AppCompatActivity {
         // **********************************************************************************************************************************************
         // End Dialog
 
+        // Force End Dialog
+        dialog2 = new Dialog(TimerLayout.this);
+        dialog2.setContentView(R.layout.pop_up_force_end);
+        dialog2.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog2.setCancelable(false);
+
+        TextView backCancle, confirmEnd;
+        backCancle = dialog2.findViewById(R.id.backCancle);
+        confirmEnd = dialog2.findViewById(R.id.confirmEnd);
+
+        backCancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog2.dismiss();
+            }
+        });
+
+        confirmEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btt_start.setVisibility(View.INVISIBLE);
+                Helper.finished = true;
+                finished_img.setVisibility(View.VISIBLE);
+                txtFinishWKName.setText(txt_wkName.getText().toString());
+                txtTotalTime.setText(txt_totalTimer.getText().toString());
+                lockSelectWK = true;
+                //mediaPlayer3.start();
+                // setting up new view
+                for (int x = 0; x < eLists.length; x++) {
+                    eLists[x].setVisibility(View.GONE);
+                }
+                //
+                Helper.timerCurrentState = false;
+                Helper.timerTask.cancel();
+                // save data for report
+                folder = new Folder(TimerLayout.this);
+                folder.addCompleted(Helper.currentDateString, Helper.currentWkNameString, Helper.time,Helper.currentExLists);
+                finish();
+            }
+        });
+
         // OnClick Listeners
         //
         btt_home.setOnClickListener(new View.OnClickListener() {
@@ -518,6 +563,16 @@ public class TimerLayout extends AppCompatActivity {
                     btt_start.setText("START");
                     Helper.timerTask.cancel();
                 }
+            }
+        });
+
+        tapTimer.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+
+                dialog2.show();
+
+                return false;
             }
         });
 

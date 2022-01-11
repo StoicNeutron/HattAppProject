@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Hatt_App10">
-        <activity android:name=".SetGoal"></activity>
+        <activity android:name=".Progress"></activity>
+        <activity android:name=".SetGoal" />
         <activity android:name=".BMI_detail" />
         <activity android:name=".Processing" />
         <activity android:name=".Returning" />
