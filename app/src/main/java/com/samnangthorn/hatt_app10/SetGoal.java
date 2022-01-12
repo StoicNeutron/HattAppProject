@@ -11,9 +11,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.android.ads.nativetemplates.NativeTemplateStyle;
+import com.google.android.ads.nativetemplates.TemplateView;
+import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.nativead.NativeAd;
+
 public class SetGoal extends AppCompatActivity {
 
-    private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting;
+    private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_setting, logoReplaceBackBtt;
     private EditText edtWeight, edtDeadliftPr, edtBenchPressPr, edtCardioRunPr, edtSquatPr;
     private LinearLayout btt_saveGoal;
     private SharedPreferences getData;
@@ -36,9 +42,27 @@ public class SetGoal extends AppCompatActivity {
         edtBenchPressPr = findViewById(R.id.edtBenchPressPr);
         edtCardioRunPr = findViewById(R.id.edtCardioRunPr);
         edtSquatPr = findViewById(R.id.edtSquatPr);
+        logoReplaceBackBtt = findViewById(R.id.logoReplaceBackBtt);
 
         getData = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
         editData = getData.edit();
+
+        AdLoader adLoader2 = new AdLoader.Builder(SetGoal.this, "ca-app-pub-9354138576649544/5969804562")
+                .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
+                    @Override
+                    public void onNativeAdLoaded(NativeAd nativeAd2) {
+                        NativeTemplateStyle styles = new
+                                NativeTemplateStyle.Builder().withMainBackgroundColor(null).build();
+                        TemplateView template = findViewById(R.id.my_template2);
+                        template.setStyles(styles);
+                        template.setNativeAd(nativeAd2);
+
+                    }
+                })
+                .build();
+
+        adLoader2.loadAd(new AdRequest.Builder().build());
+
 
 
         // set on click listeners
@@ -94,6 +118,14 @@ public class SetGoal extends AppCompatActivity {
                 editData.putString("SquatPR", edtWeight.getText().toString());
                 editData.apply();
                 Toast.makeText(SetGoal.this, "Saved", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        logoReplaceBackBtt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SetGoal.this, Report.class);
+                startActivity(intent);
             }
         });
     }

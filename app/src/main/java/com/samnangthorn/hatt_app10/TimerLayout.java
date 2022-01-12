@@ -155,7 +155,8 @@ public class TimerLayout extends AppCompatActivity {
                             }
                         }
                     }
-                    txt_wkDes.setText(getData.getString("WD" + (x + 1), "ERROR"));
+                    String descriptionKey = "WD" + (x+1);
+                    txt_wkDes.setText(getData.getString(descriptionKey, "Failed to load Description!"));
                     IntKey = x + 1;
                     break;
                 }

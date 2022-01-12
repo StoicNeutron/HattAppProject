@@ -19,7 +19,7 @@ import com.google.android.gms.ads.nativead.NativeAd;
 
 public class BMI_detail extends AppCompatActivity {
 
-    private ImageView btt_home, btt_exercise, btt_schedule, btt_timer, btt_setting;
+    private ImageView btt_home, btt_exercise, btt_schedule, btt_timer, btt_setting, logoReplaceBackBtt;
     private Dialog dialog;
     private ImageView btt_BMI_info, orange, green, blue, red;
     private TextView txt_bmi_value, txt_weight, txt_height, txt_bmiStatus;
@@ -45,6 +45,7 @@ public class BMI_detail extends AppCompatActivity {
         blue = findViewById(R.id.blue);
         red = findViewById(R.id.red);
         txt_bmi_value = findViewById(R.id.txt_bmi_value);
+        logoReplaceBackBtt = findViewById(R.id.logoReplaceBackBtt);
 
         dialog = new Dialog(BMI_detail.this);
         dialog.setContentView(R.layout.popup_bmi_info);
@@ -144,6 +145,14 @@ public class BMI_detail extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.show();
+            }
+        });
+
+        logoReplaceBackBtt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(BMI_detail.this, Report.class);
+                startActivity(intent);
             }
         });
     }

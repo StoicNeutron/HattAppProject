@@ -35,14 +35,14 @@
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <ImageView
-        android:id="@+id/logoView"
+        android:id="@+id/logoReplaceBackBtt"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/hattapp_logo" />
+        app:srcCompat="@drawable/ic_arrow_left" />
 
 
 
@@ -112,6 +112,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:textColor="@color/white"
+                        android:inputType="number"
                         android:textStyle="bold"
                         android:hint="155lb"/>
 
@@ -145,6 +146,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:textColor="@color/white"
+                        android:inputType="number"
                         android:textStyle="bold"
                         android:hint="325lb"/>
 
@@ -178,6 +180,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:textColor="@color/white"
+                        android:inputType="number"
                         android:textStyle="bold"
                         android:hint="350lb"/>
 
@@ -216,6 +219,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:textColor="@color/white"
+                        android:inputType="number"
                         android:textStyle="bold"
                         android:hint="15mins"/>
 
@@ -249,6 +253,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:textColor="@color/white"
+                        android:inputType="number"
                         android:textStyle="bold"
                         android:hint="300lb"/>
 
