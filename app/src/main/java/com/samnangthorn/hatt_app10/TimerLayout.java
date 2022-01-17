@@ -11,32 +11,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask; 
 
 public class TimerLayout extends AppCompatActivity {
 
-    private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_setting, btt_soundSwitch, btt_switch, btt_expand;
     private TextView e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, txt_totalTimer, txt_breakTimer, btt_start, txt_wkName, finished_txt, txt_wkDesTitle, txt_totalSet, txt_totalRep, txt_wkDes, txtFinishWKName, txtTotalTime;
+    private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_setting, btt_soundSwitch, btt_switch, btt_expand;
+    private int trigger1, trigger2, trigger3, trigger4, trigger5, trigger6, trigger7;
+    private ArrayList<String> dateWKNameList = new ArrayList<String>();
+    private ArrayList<String> dateInfoList = new ArrayList<String>();
+    private ArrayList<String> wkLists = new ArrayList<String>();
     private LinearLayout tapTimer, finished_img;
     private SharedPreferences getData, getData2;
     private SharedPreferences.Editor editData;
     private Dialog dialog, endWorkout_dialog;
-    private DataBaseHelper myDB;
-    private ArrayList<String> dateInfoList = new ArrayList<String>();
-    private ArrayList<String> dateWKNameList = new ArrayList<String>();
-    private ArrayList<String> wkLists = new ArrayList<String>();
-    private Folder folder;
+    private String descriptionKey;
     private boolean lockSelectWK;
-    private int trigger1, trigger2, trigger3, trigger4, trigger5, trigger6, trigger7, IntKey;
+    private DataBaseHelper myDB;
+    private Folder folder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -200,13 +196,12 @@ public class TimerLayout extends AppCompatActivity {
                             }
                         }
                     }
-                    String descriptionKey = "WD" + (x+1);
-                    txt_wkDes.setText(getData.getString(descriptionKey, "Failed to load Description!"));
-                    IntKey = x + 1;
+                    descriptionKey = "WD" + (x+1);
                     break;
                 }
             }
         }
+        txt_wkDes.setText(getData.getString(descriptionKey, "Failed to load Description!"));
 
         // reset existing process timer
         if(Helper.timerCurrentState){
@@ -262,6 +257,7 @@ public class TimerLayout extends AppCompatActivity {
                     trigger1++;
                     if(trigger1 >= 2){
                         dialog.dismiss();
+                        descriptionKey = "WD1";
                         txt_wkName.setText(wkLists.get(0));
                         //
                         Helper.currentWkNameString = wkLists.get(0);
@@ -279,6 +275,7 @@ public class TimerLayout extends AppCompatActivity {
                     trigger2++;
                     if(trigger2 >= 2){
                         dialog.dismiss();
+                        descriptionKey = "WD2";
                         txt_wkName.setText(wkLists.get(1));
                         //
                         Helper.currentWkNameString = wkLists.get(1);
@@ -296,6 +293,7 @@ public class TimerLayout extends AppCompatActivity {
                     trigger3++;
                     if(trigger3 >= 2){
                         dialog.dismiss();
+                        descriptionKey = "WD3";
                         txt_wkName.setText(wkLists.get(2));
                         //
                         Helper.currentWkNameString = wkLists.get(2);
@@ -313,6 +311,7 @@ public class TimerLayout extends AppCompatActivity {
                     trigger4++;
                     if(trigger4 >= 2){
                         dialog.dismiss();
+                        descriptionKey = "WD4";
                         txt_wkName.setText(wkLists.get(3));
                         //
                         Helper.currentWkNameString = wkLists.get(3);
@@ -330,6 +329,7 @@ public class TimerLayout extends AppCompatActivity {
                     trigger5++;
                     if(trigger5 >= 2){
                         dialog.dismiss();
+                        descriptionKey = "WD5";
                         txt_wkName.setText(wkLists.get(4));
                         //
                         Helper.currentWkNameString = wkLists.get(4);
@@ -347,6 +347,7 @@ public class TimerLayout extends AppCompatActivity {
                     trigger6++;
                     if(trigger6 >= 2){
                         dialog.dismiss();
+                        descriptionKey = "WD6";
                         txt_wkName.setText(wkLists.get(5));
                         //
                         Helper.currentWkNameString = wkLists.get(5);
@@ -364,6 +365,7 @@ public class TimerLayout extends AppCompatActivity {
                     trigger7++;
                     if(trigger7 >= 2){
                         dialog.dismiss();
+                        descriptionKey = "WD7";
                         txt_wkName.setText(wkLists.get(6));
                         //
                         Helper.currentWkNameString = wkLists.get(6);
@@ -453,9 +455,9 @@ public class TimerLayout extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(Helper.wkDesExpand == false){
+                    txt_wkDes.setText(getData.getString(descriptionKey, "Failed to load Description!"));
                     txt_wkDes.setVisibility(View.VISIBLE);
                     txt_wkDesTitle.setVisibility(View.VISIBLE);
-                    txt_wkDes.setText(getData.getString("WD" + IntKey ,"ERROR"));
                     btt_expand.setImageResource(R.drawable.ic_collapse_black);
                     Helper.wkDesExpand = true;
                 }else {

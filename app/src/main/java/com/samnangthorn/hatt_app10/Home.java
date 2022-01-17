@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.ads.nativetemplates.NativeTemplateStyle;
 import com.google.android.ads.nativetemplates.TemplateView;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.LoadAdError;
@@ -38,7 +39,7 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
 
     private ImageView btt_setting;
     private TextView txt_day, txt_date, txt_time, txt_timeZone, txt_workoutName, txt_exerciseName, txt_BMI_point,exercise_detailBtt, greetingTxt, btt_goWK, BMI_btt, userName, txt_wk_DES;
-    private LinearLayout btt_GooglePlay, btt_cloudSave, btt_website, btt_report, btt_exercise, btt_schedule, btt_timer;
+    private LinearLayout btt_GooglePlay, btt_cloudSave, btt_website, btt_report, btt_exercise, btt_schedule, btt_timer, adsLayout;
     private SharedPreferences getData;
     private SharedPreferences.Editor editData;
     private RewardedAd mRewardedAd;
@@ -74,6 +75,7 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
         btt_website = findViewById(R.id.btt_website);
         greetingTxt = findViewById(R.id.greetingTxt);
         txt_wk_DES = findViewById(R.id.txt_wk_DES);
+        adsLayout = findViewById(R.id.adsLayout);
 
         // setting up date, time and timezone views
         txt_day.setText(Helper.getCurrentDayNameString());
@@ -95,6 +97,7 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
         for(int x = 0; x < RAM.get_dateInfoList_arrayList().size(); x++){
 
             if(RAM.get_dateInfoList_arrayList().get(x).substring(2).equalsIgnoreCase(Helper.getCurrentMonthString() + currentDayString)){
+
                 txt_workoutName.setText(RAM.get_dateWKNameList_arrayList().get(x));
                 if(RAM.get_statusList_arrayList().get(x).equalsIgnoreCase("IC")){
                     txt_wk_DES.setText("Status: Not yet Complete. Let finish this workout and get closer to your Goals.");
@@ -113,6 +116,10 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
         getData = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
         editData = getData.edit();
         userName.setText(getData.getString("user_name", "User"));
+        if(getData.getString("profileMen", "true").equalsIgnoreCase("false")){
+            btt_setting.setImageResource(R.drawable.profile_women);
+        }
+
         double BMI_number;
         // case unit is lb and inches
         if(getData.getString("unit", "ERROR").equalsIgnoreCase("US")){
@@ -128,18 +135,27 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
         //Ads Loader
         //
         MobileAds.initialize(this);
+
         AdLoader adLoader = new AdLoader.Builder(Home.this, "ca-app-pub-9354138576649544/6539393625")
                 .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
                     @Override
                     public void onNativeAdLoaded(NativeAd nativeAd) {
+                        // Show the ad.
                         NativeTemplateStyle styles = new
                                 NativeTemplateStyle.Builder().withMainBackgroundColor(null).build();
                         TemplateView template = findViewById(R.id.my_template);
                         template.setStyles(styles);
                         template.setNativeAd(nativeAd);
-
                     }
                 })
+                .withAdListener(new AdListener() {
+                    @Override
+                    public void onAdFailedToLoad(LoadAdError adError) {
+                        // Handle the failure by logging, altering the UI, and so on.
+                        adsLayout.setVisibility(View.GONE);
+                    }
+                })
+
                 .build();
 
         adLoader.loadAd(new AdRequest.Builder().build());
