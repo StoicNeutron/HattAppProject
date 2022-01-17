@@ -18,8 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.ads.nativetemplates.NativeTemplateStyle;
 import com.google.android.ads.nativetemplates.TemplateView;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.nativead.NativeAd;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -27,21 +29,22 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class Setting extends AppCompatActivity {
 
     private ImageView btt_home, btt_report, btt_exercise, btt_schedule, btt_timer, btt_facebook, btt_youtube, profilePic;
-    private EditText txt_userName;
-    private Button save_btt;
-    private LinearLayout weight, height, edt_restTime, btt_signOut, unit, edt_weight, edt_height;
-    private TextView email, txt_restTime, txt_unit, txt_the_weight, txt_the_height;
-    private SharedPreferences getData, getData2;
-    private SharedPreferences.Editor editData, editData2;
     private Dialog logOut_dialog, weight_dialog, height_dialog, restTime_dialog, profile_dialog;
-    private DataBaseHelper myDB;
+    private LinearLayout edt_restTime, btt_signOut, unit, edt_weight, edt_height, adsLayout;
+    private TextView email, txt_restTime, txt_unit, txt_the_weight, txt_the_height;
     private String newUserName, newHeight, newWeight, newTime, Unit, profileMen;
+    private SharedPreferences.Editor editData, editData2;
+    private SharedPreferences getData, getData2;
+    private EditText txt_userName;
+    private DataBaseHelper myDB;
+    private Button save_btt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
+        // Find View By ID
         btt_home = findViewById(R.id.btt_home);
         btt_report = findViewById(R.id.btt_report);
         btt_exercise = findViewById(R.id.btt_exercise);
@@ -51,8 +54,6 @@ public class Setting extends AppCompatActivity {
         btt_youtube = findViewById(R.id.btt_youtube);
         btt_signOut = findViewById(R.id.btt_signOut);
         email = findViewById(R.id.txt_userEmail);
-        weight = findViewById(R.id.edt_weight);
-        height = findViewById(R.id.edt_height);
         edt_restTime = findViewById(R.id.edt_restTime);
         txt_restTime = findViewById(R.id.txt_restTime);
         unit = findViewById(R.id.unit);
@@ -64,6 +65,8 @@ public class Setting extends AppCompatActivity {
         txt_the_weight = findViewById(R.id.txt_the_weight);
         txt_the_height = findViewById(R.id.txt_the_height);
         save_btt = findViewById(R.id.save_btt);
+        adsLayout = findViewById(R.id.adsLayout);
+        // END //
 
         getData = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
         editData = getData.edit();
@@ -93,17 +96,12 @@ public class Setting extends AppCompatActivity {
                 FirebaseAuth mAuth = null;
                 FirebaseFirestore firebase_database;
                 mAuth.getInstance().signOut();
-                getData2 = getApplicationContext().getSharedPreferences("workout_data", MODE_PRIVATE);
-                editData2 = getData2.edit();
-                editData2.putInt("WT", 0);
-                editData2.apply();
-                myDB = new DataBaseHelper(Setting.this);
-                myDB.clearAllExercise();
-                myDB.clearAllWorkout();
+                end_Func();
                 open_setUpLayout();
                 finish();
             }
         });
+        // END //
 
         // Weight Dialog
         weight_dialog = new Dialog(Setting.this);
@@ -315,6 +313,7 @@ public class Setting extends AppCompatActivity {
                     profilePic.setImageResource(R.drawable.profile_women);
                 }
                 editData.apply();
+                profile_dialog.dismiss();
                 Toast.makeText(Setting.this, "Saved", Toast.LENGTH_SHORT).show();
 
             }
@@ -350,7 +349,7 @@ public class Setting extends AppCompatActivity {
             newWeight = getData.getString("weight_US", "0");
         }else{
             newHeight = getData.getString("height_NonUS", "0");
-            displayHeight = Double.valueOf(newHeight)*3.281;
+            displayHeight = Double.valueOf(newHeight);
             newWeight = getData.getString("weight_NonUS", "0");
         }
         txt_the_height.setText(String.format("%.2f", displayHeight));
@@ -373,19 +372,26 @@ public class Setting extends AppCompatActivity {
         }else if(Unit.equalsIgnoreCase("US")){
             txt_unit.setText("LB-FT");
         }
-
         AdLoader adLoader = new AdLoader.Builder(Setting.this, "ca-app-pub-9354138576649544/5121073006")
                 .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
                     @Override
                     public void onNativeAdLoaded(NativeAd nativeAd) {
+                        // Show the ad.
                         NativeTemplateStyle styles = new
                                 NativeTemplateStyle.Builder().withMainBackgroundColor(null).build();
                         TemplateView template = findViewById(R.id.my_template);
                         template.setStyles(styles);
                         template.setNativeAd(nativeAd);
-
                     }
                 })
+                .withAdListener(new AdListener() {
+                    @Override
+                    public void onAdFailedToLoad(LoadAdError adError) {
+                        // Handle the failure by logging, altering the UI, and so on.
+                        adsLayout.setVisibility(View.GONE);
+                    }
+                })
+
                 .build();
 
         adLoader.loadAd(new AdRequest.Builder().build());
@@ -452,7 +458,11 @@ public class Setting extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Unit = getData.getString("unit", "ERROR");
+                if(Unit.equalsIgnoreCase("NonUS")){
+                    lbOrKg.setText("Kg");
+                }else{
+                    lbOrKg.setText("lb");
+                }
                 weight_dialog.show();
             }
         });
@@ -461,7 +471,17 @@ public class Setting extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Unit = getData.getString("unit", "ERROR");
+                if(Unit.equalsIgnoreCase("NonUS")) {
+                    ftOrM.setText("M");
+                    Height_picker1.setMaxValue(2);
+                    Height_picker1.setMinValue(0);
+                    Height_picker1.setValue(1);
+                }else if(Unit.equalsIgnoreCase("US")){
+                    ftOrM.setText("ft");
+                    Height_picker1.setMaxValue(8);
+                    Height_picker1.setMinValue(1);
+                    Height_picker1.setValue(5);
+                }
                 height_dialog.show();
             }
         });
@@ -475,22 +495,21 @@ public class Setting extends AppCompatActivity {
                     Toast.makeText(Setting.this, "US Unit Switched", Toast.LENGTH_SHORT).show();
                     Unit = "US";
                     txt_unit.setText("LB-FT");
-                    //
                     txt_the_weight.setText(getData.getString("weight_US", "0"));
-                    newHeight = getData.getString("height_US", "0");
-                    Double displayHeight = Double.valueOf(newHeight)/12;
+                    newHeight = getData.getString("height_NonUS", "0");
+                    Double displayHeight = Double.valueOf(newHeight)*3.281;
                     txt_the_height.setText(String.format("%.2f", displayHeight));
+                    Unit = "US";
                 }else if(Unit.equalsIgnoreCase("US")){
                     editData.putString("unit", "NonUS");
                     editData.apply();
                     Toast.makeText(Setting.this, "NonUS Unit Switched", Toast.LENGTH_SHORT).show();
                     Unit = "NonUS";
                     txt_unit.setText("KG-M");
-                    //
                     txt_the_weight.setText(getData.getString("weight_NonUS", "0"));
                     newHeight = getData.getString("height_NonUS", "0");
-                    Double displayHeight = Double.valueOf(newHeight)*3.281;
-                    txt_the_height.setText(String.format("%.2f", displayHeight));
+                    txt_the_height.setText(String.format("%.2f", Double.valueOf(newHeight)));
+                    Unit = "NonUS";
                 }
             }
         });
@@ -578,5 +597,18 @@ public class Setting extends AppCompatActivity {
     private void open_setUpLayout() {
         Intent intent = new Intent(this, Setup.class);
         startActivity(intent);
+    }
+
+    private void end_Func(){
+        RAM.clearRAM();
+        getData2 = getApplicationContext().getSharedPreferences("workout_data", MODE_PRIVATE);
+        editData2 = getData2.edit();
+        editData2.clear();
+        editData2.commit();
+        editData.clear();
+        editData.commit();
+        myDB = new DataBaseHelper(Setting.this);
+        myDB.clearAllExercise();
+        myDB.clearAllWorkout();
     }
 }

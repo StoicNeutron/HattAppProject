@@ -113,7 +113,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public void clearAllWorkout(){
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "DELETE FROM " + TABLE2_NAME + " WHERE " + COLUMN2_1 + " = '" + 22 + "'";
+        String query = "DELETE FROM " + TABLE2_NAME + " WHERE " + COLUMN2_ID + " = '" + 22 + "'";
         db.execSQL(query);
     }
 

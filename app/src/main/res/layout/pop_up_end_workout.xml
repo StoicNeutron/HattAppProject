@@ -18,14 +18,14 @@
         android:background="@drawable/button_bg_blue"
         android:gravity="center"
         android:padding="10dp"
-        android:text="Cancel"
+        android:text="CANCEL"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recommendTxt" />
+        app:layout_constraintTop_toBottomOf="@+id/pop_txt_logout" />
 
     <TextView
-        android:id="@+id/pop_btt_logout"
+        android:id="@+id/pop_btt_end"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -34,11 +34,11 @@
         android:background="@drawable/button_bg_blue"
         android:gravity="center"
         android:padding="10dp"
-        android:text="Log Out"
+        android:text="END"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recommendTxt" />
+        app:layout_constraintTop_toBottomOf="@+id/pop_txt_logout" />
 
     <TextView
         android:id="@+id/pop_txt_logout"
@@ -46,35 +46,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="5dp"
-        android:text="CONFIRM"
-        android:textColor="@color/black"
+        android:text="END WORKOUT NOW?"
+        android:textStyle="bold"
+        android:textColor="@color/orange"
         android:textSize="18dp"
         app:layout_constraintHorizontal_bias="0.45"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/recommendTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="5dp"
-        android:text="We recommend save your current data to the cloud first before Log Out. This feature can be find at the bottom right of the Home Page"
-        android:textSize="18dp"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pop_txt_logout" />
-
-    <ImageView
-        android:id="@+id/icon_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="10dp"
-        android:src="@drawable/ic_logout"
-        app:layout_constraintStart_toEndOf="@+id/pop_txt_logout"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

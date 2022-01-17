@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.Timer;
-import java.util.TimerTask;
+import java.util.TimerTask; 
 
 public class TimerLayout extends AppCompatActivity {
 
@@ -28,7 +29,7 @@ public class TimerLayout extends AppCompatActivity {
     private LinearLayout tapTimer, finished_img;
     private SharedPreferences getData, getData2;
     private SharedPreferences.Editor editData;
-    private Dialog dialog, dialog2;
+    private Dialog dialog, endWorkout_dialog;
     private DataBaseHelper myDB;
     private ArrayList<String> dateInfoList = new ArrayList<String>();
     private ArrayList<String> dateWKNameList = new ArrayList<String>();
@@ -90,14 +91,58 @@ public class TimerLayout extends AppCompatActivity {
             Helper.time = 0;
         }
 
+        // Helper Lists
+        TextView[] eLists = new TextView[]{e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12};
+
+        // Weight Dialog
+        endWorkout_dialog = new Dialog(TimerLayout.this);
+        endWorkout_dialog.setContentView(R.layout.pop_up_end_workout);
+        endWorkout_dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        endWorkout_dialog.setCancelable(false);
+
+        TextView pop_btt_cancel, pop_btt_end;
+        pop_btt_cancel = endWorkout_dialog.findViewById(R.id.pop_btt_cancel);
+        pop_btt_end = endWorkout_dialog.findViewById(R.id.pop_btt_end);
+
+        pop_btt_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                endWorkout_dialog.dismiss();
+            }
+        });
+
+        pop_btt_end.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Helper.timerCurrentState = false;
+                Helper.timerTask.cancel();
+                Helper.timerTask2.cancel();
+                Helper.time = 0.0;
+                Helper.time2 = 60.0;
+                txt_totalTimer.setText("00:00");
+                // !
+                txt_breakTimer.setText("1:00");
+                // !
+                txt_totalSet.setText("SET: 0");
+                txt_totalRep.setText("REP: 0");
+                Helper.currentSetIndexRunning = 0;
+                Helper.currentExeIndexRunning = 0;
+                btt_start.setVisibility(View.GONE);
+                // setting up new view
+                for (int x = 0; x < eLists.length; x++) {
+                    eLists[x].setVisibility(View.GONE);
+                }
+                finishedPartialWorkout();
+                endWorkout_dialog.dismiss();
+            }
+        });
+
         MediaPlayer soundSwitchAudio = MediaPlayer.create(this, R.raw.sound_on);
         MediaPlayer congratsAudio = MediaPlayer.create(this, R.raw.congrate3);
         getData = getApplicationContext().getSharedPreferences("workout_data", MODE_PRIVATE);
         editData = getData.edit();
         getData2 = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
-
-        // Helper Lists
-        TextView[] eLists = new TextView[]{e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12};
 
         // read workout name from the sp workout
         trigger1 = trigger2 = trigger3 = trigger4 = trigger5 = trigger6 = trigger7 = 0;
@@ -331,47 +376,6 @@ public class TimerLayout extends AppCompatActivity {
         // **********************************************************************************************************************************************
         // End Dialog
 
-        // Force End Dialog
-        dialog2 = new Dialog(TimerLayout.this);
-        dialog2.setContentView(R.layout.pop_up_force_end);
-        dialog2.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog2.setCancelable(false);
-
-        TextView backCancle, confirmEnd;
-        backCancle = dialog2.findViewById(R.id.backCancle);
-        confirmEnd = dialog2.findViewById(R.id.confirmEnd);
-
-        backCancle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog2.dismiss();
-            }
-        });
-
-        confirmEnd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                btt_start.setVisibility(View.INVISIBLE);
-                Helper.finished = true;
-                finished_img.setVisibility(View.VISIBLE);
-                txtFinishWKName.setText(txt_wkName.getText().toString());
-                txtTotalTime.setText(txt_totalTimer.getText().toString());
-                lockSelectWK = true;
-                //mediaPlayer3.start();
-                // setting up new view
-                for (int x = 0; x < eLists.length; x++) {
-                    eLists[x].setVisibility(View.GONE);
-                }
-                //
-                Helper.timerCurrentState = false;
-                Helper.timerTask.cancel();
-                // save data for report
-                folder = new Folder(TimerLayout.this);
-                folder.addCompleted(Helper.currentDateString, Helper.currentWkNameString, Helper.time,Helper.currentExLists);
-                finish();
-            }
-        });
-
         // OnClick Listeners
         //
         btt_home.setOnClickListener(new View.OnClickListener() {
@@ -555,24 +559,12 @@ public class TimerLayout extends AppCompatActivity {
             }
         });
 
-        tapTimer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // pause when timer is running
-                if(Helper.timerCurrentState){
-                    Helper.timerCurrentState = false;
-                    btt_start.setText("START");
-                    Helper.timerTask.cancel();
-                }
-            }
-        });
-
         tapTimer.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-
-                dialog2.show();
-
+                if(Helper.timerCurrentState){
+                    endWorkout_dialog.show();
+                }
                 return false;
             }
         });
@@ -782,6 +774,11 @@ public class TimerLayout extends AppCompatActivity {
     }
 
     private void finishedWorkout(){
+        myDB.deleteThisWorkout(Helper.currentDateString);
+        myDB.addDate(Helper.currentDateString, txt_wkName.getText().toString(), "C", "Added Note");
+    }
+
+    private void finishedPartialWorkout(){
         myDB.deleteThisWorkout(Helper.currentDateString);
         myDB.addDate(Helper.currentDateString, txt_wkName.getText().toString(), "C", "Added Note");
     }

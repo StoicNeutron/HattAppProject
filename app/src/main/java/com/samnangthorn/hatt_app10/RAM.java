@@ -102,4 +102,14 @@ public class RAM {
     public static int getList_length(){
         return exerciseName_List.size();
     }
+    public static void clearRAM(){
+        exerciseName_List.clear();
+        mainMuscle_List.clear();
+        subMuscle_List.clear();
+        exerciseDescription_List.clear();
+        dateInfoList.clear();
+        dateWKNameList.clear();
+        statusList.clear();
+        noteList.clear();
+    }
 }

@@ -110,7 +110,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="TIMER"
+                        android:text="Total Time"
                         android:textSize="18dp"
                         android:textStyle="bold"/>
 
@@ -125,6 +125,13 @@
                         android:textColor="@color/white"
                         android:textSize="24dp"
                         android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Break Time"
+                        android:textSize="16dp"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:id="@+id/txt_break_timer"
@@ -542,7 +549,7 @@
         android:textSize="18dp"
         android:textStyle="bold"
         android:gravity="center"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/scrollView3"
         app:layout_constraintEnd_toEndOf="@+id/scrollView3"
         app:layout_constraintStart_toStartOf="@+id/scrollView3" />

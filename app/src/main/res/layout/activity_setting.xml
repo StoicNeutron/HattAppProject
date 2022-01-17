@@ -407,6 +407,7 @@
                 android:layout_gravity="start"/>
 
             <LinearLayout
+                android:id="@+id/adsLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"

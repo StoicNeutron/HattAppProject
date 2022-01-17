@@ -39,7 +39,7 @@ public class Helper {
     public static  boolean timerCurrentState = false;
     public static  boolean timer2CurrentState = false;
     public static ArrayList<String> exerciseNameArray = new ArrayList<String>();
-    public static String timerWorkoutName = "None";
+    //public static String timerWorkoutName = "None";
     public static int currentDayInteger = 0; // Ex: 29
     public static ArrayList<Integer> currentSetLists = new ArrayList<Integer>();
     public static ArrayList<Integer> currentRepLists = new ArrayList<Integer>();
@@ -50,13 +50,13 @@ public class Helper {
     public static boolean switcher = false;
     public static boolean finished = false;
     public static String tempBMI_value = null;
-    public static String tempBMI_status = null;
+   // public static String tempBMI_status = null;
     public static int thisMonthTotalDay;
     public static boolean wkDesExpand = false;
     public static boolean soundOn = true;
     public static String currentDateString, currentWkNameString; // Ex: Year Month Day 21/12/29
     private static String instanceSet, instanceRep;
-    public static int indexIndex;
+    //public static int indexIndex;
 
     // methods
 
