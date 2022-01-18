@@ -131,6 +131,7 @@ public class SignUp extends AppCompatActivity {
                                     User_data.put("weight", "60");
                                     User_data.put("height", "1.80");
                                     User_data.put("unit", "NonUS");
+                                    User_data.put("profileMen", "true");
                                     documentReference.set(User_data);
                                     // local data
                                     getData = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
@@ -142,6 +143,7 @@ public class SignUp extends AppCompatActivity {
                                     editData.putString("height", "1.80");
                                     editData.putString("MG", "false");
                                     editData.putString("AZ", "false");
+                                    editData.putString("profileMen", "true");
                                     editData.putInt("MG_Index", 0);
                                     editData.putString("UID", UID);
                                     editData.putBoolean("profileMen", true);

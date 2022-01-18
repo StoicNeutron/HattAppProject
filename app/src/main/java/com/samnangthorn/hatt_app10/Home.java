@@ -116,7 +116,7 @@ public class Home extends AppCompatActivity implements RVAdapter.onExeClickListe
         getData = getApplicationContext().getSharedPreferences("local_data", MODE_PRIVATE);
         editData = getData.edit();
         userName.setText(getData.getString("user_name", "User"));
-        if(getData.getString("profileMen", "true").equalsIgnoreCase("false")){
+        if(!getData.getBoolean("profileMen", true)){
             btt_setting.setImageResource(R.drawable.profile_women);
         }
 
